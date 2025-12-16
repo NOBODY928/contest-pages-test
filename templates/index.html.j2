@@ -16,20 +16,22 @@
 </head>
 <body>
   <h1>竞赛资讯聚合</h1>
-  <div class="meta">生成时间：2025-12-16 22:16:59；数据源为公开页面抓取整理。</div>
+  <div class="meta">生成时间：{{ generated_at }}；数据源为公开页面抓取整理。</div>
 
-  
-    
+  {% if items and items|length > 0 %}
+    {% for it in items %}
       <div class="item">
-        <span class="src">示例源</span>
-        <a href="https://example.com/" target="_blank" rel="noopener">占位：后续这里显示抓取到的竞赛通知</a>
-        
+        <span class="src">{{ it.source_name }}</span>
+        <a href="{{ it.link }}" target="_blank" rel="noopener">{{ it.title }}</a>
+        {% if it.date %}<span class="date">{{ it.date }}</span>{% endif %}
       </div>
-    
-  
+    {% endfor %}
+  {% else %}
+    <p>暂无数据。</p>
+  {% endif %}
 
   <hr />
   <div class="meta">© zihguo.me</div>
-  <!-- generated_at: 2025-12-16 22:16:59 -->
+  <!-- generated_at: {{ generated_at }} -->
 </body>
 </html>

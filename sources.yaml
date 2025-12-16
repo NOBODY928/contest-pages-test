@@ -1,0 +1,6 @@
+sources:
+  - id: demo
+    name: 示例源
+    url: https://example.com/
+    parser: demo_parser
+    limit: 10

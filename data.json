@@ -1,0 +1,14 @@
+{
+  "generated_at": "2025-12-16 22:16:59",
+  "count": 1,
+  "errors": [],
+  "items": [
+    {
+      "source_id": "demo",
+      "source_name": "示例源",
+      "title": "占位：后续这里显示抓取到的竞赛通知",
+      "link": "https://example.com/",
+      "date": ""
+    }
+  ]
+}
