@@ -1,12 +1,576 @@
 {
-  "generated_at": "2025-12-17 20:46:55",
+  "generated_at": "2025-12-17 20:54:03",
   "items": [
+    {
+      "id": "cpipc_smart_city",
+      "title": "中国研究生智慧城市技术与创意设计大赛",
+      "tags": [
+        "研究生",
+        "智慧城市"
+      ],
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/1",
+      "link_detail": "/details/cpipc_smart_city.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "cpipc_aircraft",
+      "title": "中国研究生未来飞行器创新大赛",
+      "tags": [
+        "研究生",
+        "航空航天"
+      ],
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/3",
+      "link_detail": "/details/cpipc_aircraft.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "cpipc_math_modeling",
+      "title": "中国研究生数学建模竞赛",
+      "tags": [
+        "研究生",
+        "数学建模"
+      ],
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/4",
+      "link_detail": "/details/cpipc_math_modeling.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "cpipc_electronics",
+      "title": "中国研究生电子设计竞赛",
+      "tags": [
+        "研究生",
+        "电子设计"
+      ],
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/6",
+      "link_detail": "/details/cpipc_electronics.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "cpipc_chips",
+      "title": "中国研究生创“芯”大赛",
+      "tags": [
+        "研究生",
+        "集成电路"
+      ],
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/10",
+      "link_detail": "/details/cpipc_chips.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "cpipc_ai",
+      "title": "中国研究生人工智能创新大赛",
+      "tags": [
+        "研究生",
+        "AI"
+      ],
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90800c609345420160934b7f940003",
+      "link_detail": "/details/cpipc_ai.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "cpipc_robot",
+      "title": "中国研究生机器人创新设计大赛",
+      "tags": [
+        "研究生",
+        "机器人"
+      ],
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c9180826478954201647a74659b027d",
+      "link_detail": "/details/cpipc_robot.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "cpipc_energy",
+      "title": "中国研究生能源装备创新设计大赛",
+      "tags": [
+        "研究生",
+        "能源装备"
+      ],
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c9180826569145601656c071661033a",
+      "link_detail": "/details/cpipc_energy.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "cpipc_public_admin",
+      "title": "中国研究生公共管理案例大赛",
+      "tags": [
+        "研究生",
+        "公共管理"
+      ],
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c91808259837a7b01598380e2f50011",
+      "link_detail": "/details/cpipc_public_admin.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "cpipc_rural_revitalization",
+      "title": "中国研究生乡村振兴科技强农+创新大赛",
+      "tags": [
+        "研究生",
+        "乡村振兴"
+      ],
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c918082725f778a0172605f63960105",
+      "link_detail": "/details/cpipc_rural_revitalization.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "cpipc_cyber_security",
+      "title": "中国研究生网络安全创新大赛",
+      "tags": [
+        "研究生",
+        "网络安全"
+      ],
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90801780512f48018051a84f500049",
+      "link_detail": "/details/cpipc_cyber_security.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "cpipc_carbon_neutral",
+      "title": "中国研究生“双碳”创新与创意大赛",
+      "tags": [
+        "研究生",
+        "双碳"
+      ],
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90801782293e6201822c6742a70019",
+      "link_detail": "/details/cpipc_carbon_neutral.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "cpipc_fintech",
+      "title": "中国研究生金融科技创新大赛",
+      "tags": [
+        "研究生",
+        "金融科技"
+      ],
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90801782293e6201822c6f130b001f",
+      "link_detail": "/details/cpipc_fintech.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "cpipc_beautiful_china",
+      "title": "中国研究生“美丽中国”创新设计大赛",
+      "tags": [
+        "研究生",
+        "艺术设计"
+      ],
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90801586e379050186e872c0c702a0",
+      "link_detail": "/details/cpipc_beautiful_china.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "cpipc_enterprise_case",
+      "title": "中国研究生工商管理案例大赛",
+      "tags": [
+        "研究生",
+        "MBA"
+      ],
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/15",
+      "link_detail": "/details/cpipc_enterprise_case.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "cpipc_corporate_governance",
+      "title": "中国研究生企业管理创新大赛",
+      "tags": [
+        "研究生",
+        "企业管理"
+      ],
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90801586e379050186e879a95702b8",
+      "link_detail": "/details/cpipc_corporate_governance.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "cpipc_os_open_source",
+      "title": "中国研究生操作系统开源创新大赛",
+      "tags": [
+        "研究生",
+        "开源/OS"
+      ],
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c9080158e2ad864018e50e2b8d508d9",
+      "link_detail": "/details/cpipc_os_open_source.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "challenge_cup_startup",
+      "title": "“挑战杯”中国大学生创业计划竞赛",
+      "tags": [
+        "综合",
+        "创业"
+      ],
+      "link_homepage": "http://www.tiaozhanbei.net/",
+      "link_detail": "/details/challenge_cup_startup.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "lanqiao_cup",
+      "title": "蓝桥杯全国软件和信息技术专业人才大赛",
+      "tags": [
+        "编程",
+        "软件"
+      ],
+      "link_homepage": "https://dasai.lanqiao.cn/",
+      "link_detail": "/details/lanqiao_cup.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "robomaster",
+      "title": "全国大学生机器人大赛 (RoboMaster)",
+      "tags": [
+        "机器人",
+        "竞技"
+      ],
+      "link_homepage": "https://www.robomaster.com/",
+      "link_detail": "/details/robomaster.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "xilinx_fpga",
+      "title": "“西门子杯”中国智能制造挑战赛",
+      "tags": [
+        "智能制造",
+        "自动化"
+      ],
+      "link_homepage": "http://www.ineat.cn/",
+      "link_detail": "/details/xilinx_fpga.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "datatong_ict",
+      "title": "“大唐杯”全国大学生新一代信息通信技术大赛",
+      "tags": [
+        "通信",
+        "5G"
+      ],
+      "link_homepage": "http://dtcup.dtcenter.cn/",
+      "link_detail": "/details/datatong_ict.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "huawei_ict",
+      "title": "华为 ICT 大赛",
+      "tags": [
+        "IT/IP",
+        "华为"
+      ],
+      "link_homepage": "https://e.huawei.com/cn/talent/ict-academy/#/ict-contest/home",
+      "link_detail": "/details/huawei_ict.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "embedded_chip",
+      "title": "全国大学生嵌入式芯片与系统设计竞赛",
+      "tags": [
+        "嵌入式",
+        "芯片"
+      ],
+      "link_homepage": "http://www.socchina.net/",
+      "link_detail": "/details/embedded_chip.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "information_tech_app",
+      "title": "全国大学生信息技术应用大赛",
+      "tags": [
+        "信息技术"
+      ],
+      "link_homepage": "http://www.it-at.org.cn/",
+      "link_detail": "/details/information_tech_app.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "mathorcup",
+      "title": "MathorCup 高校数学建模挑战赛",
+      "tags": [
+        "数学建模"
+      ],
+      "link_homepage": "http://www.mathorcup.org/",
+      "link_detail": "/details/mathorcup.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "baimu_cup",
+      "title": "“毕昇杯”全国大学生数学建模挑战赛",
+      "tags": [
+        "数学建模"
+      ],
+      "link_homepage": "http://www.bishengcup.com/",
+      "link_detail": "/details/baimu_cup.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
     {
       "id": "icpc",
       "title": "ACM-ICPC 国际大学生程序设计竞赛",
       "tags": [
         "算法",
-        "顶级赛事"
+        "顶级"
       ],
       "link_homepage": "https://icpc.global/",
       "link_detail": "/details/icpc.html",
@@ -28,17 +592,449 @@
           "value": "中国 (China)"
         }
       ],
-      "last_updated": "20:46"
+      "last_updated": "20:54"
     },
     {
-      "id": "math_modeling",
+      "id": "cumcm",
       "title": "全国大学生数学建模竞赛",
       "tags": [
-        "数学",
+        "数学建模",
         "国赛"
       ],
       "link_homepage": "http://www.mcm.edu.cn/",
-      "link_detail": "/details/math_modeling.html",
+      "link_detail": "/details/cumcm.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "nuedc",
+      "title": "全国大学生电子设计竞赛",
+      "tags": [
+        "电子设计",
+        "国赛"
+      ],
+      "link_homepage": "http://nuedc.xjtu.edu.cn/",
+      "link_detail": "/details/nuedc.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "intelligent_car",
+      "title": "全国大学生智能汽车竞赛",
+      "tags": [
+        "智能车",
+        "自动化"
+      ],
+      "link_homepage": "https://smartcar.cdhu.edu.cn/",
+      "link_detail": "/details/intelligent_car.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "engineering_practice",
+      "title": "中国大学生工程实践与创新能力大赛",
+      "tags": [
+        "工程实践"
+      ],
+      "link_homepage": "http://www.gcxl.edu.cn/",
+      "link_detail": "/details/engineering_practice.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "computer_design",
+      "title": "中国大学生计算机设计大赛",
+      "tags": [
+        "计算机",
+        "软件"
+      ],
+      "link_homepage": "http://jsjds.blcu.edu.cn/",
+      "link_detail": "/details/computer_design.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "software_cup",
+      "title": "中国高校计算机大赛",
+      "tags": [
+        "软件",
+        "算法"
+      ],
+      "link_homepage": "http://www.chinasoftwarecup.org/",
+      "link_detail": "/details/software_cup.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "photo_design",
+      "title": "全国大学生光电设计竞赛",
+      "tags": [
+        "光电"
+      ],
+      "link_homepage": "http://gd.moocollege.com/",
+      "link_detail": "/details/photo_design.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "integrated_circuit",
+      "title": "全国大学生集成电路创新创业大赛",
+      "tags": [
+        "芯片",
+        "集成电路"
+      ],
+      "link_homepage": "http://univ.ciciec.com/",
+      "link_detail": "/details/integrated_circuit.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "info_security",
+      "title": "全国大学生信息安全竞赛",
+      "tags": [
+        "网络安全"
+      ],
+      "link_homepage": "http://www.ciscn.cn/",
+      "link_detail": "/details/info_security.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "software_design",
+      "title": "“中国软件杯”大学生软件设计大赛",
+      "tags": [
+        "软件设计"
+      ],
+      "link_homepage": "http://www.cnsoftbei.com/",
+      "link_detail": "/details/software_design.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "sino_us_maker",
+      "title": "中美青年创客大赛",
+      "tags": [
+        "创客",
+        "综合"
+      ],
+      "link_homepage": "https://china-us-maker.org.cn/",
+      "link_detail": "/details/sino_us_maker.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "raicom",
+      "title": "睿抗机器人开发者大赛 (RAICOM)",
+      "tags": [
+        "机器人"
+      ],
+      "link_homepage": "http://www.raicom.com.cn/",
+      "link_detail": "/details/raicom.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "xuechuang_cup",
+      "title": "“学创杯”全国大学生创业综合模拟大赛",
+      "tags": [
+        "管理",
+        "创业"
+      ],
+      "link_homepage": "http://www.xcbcompetition.com/",
+      "link_detail": "/details/xuechuang_cup.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "intelligent_robot",
+      "title": "中国高校智能机器人创意大赛",
+      "tags": [
+        "机器人"
+      ],
+      "link_homepage": "http://www.robotcontest.cn/",
+      "link_detail": "/details/intelligent_robot.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "robot_ai",
+      "title": "中国机器人及人工智能大赛",
+      "tags": [
+        "AI",
+        "机器人"
+      ],
+      "link_homepage": "http://www.caairobot.com/",
+      "link_detail": "/details/robot_ai.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "energy_saving",
+      "title": "全国大学生节能减排社会实践与科技竞赛",
+      "tags": [
+        "节能减排",
+        "环境"
+      ],
+      "link_homepage": "http://www.jienengjianpai.org/",
+      "link_detail": "/details/energy_saving.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "computer_system",
+      "title": "全国大学生计算机系统能力大赛",
+      "tags": [
+        "计算机底层"
+      ],
+      "link_homepage": "https://compiler.educg.net/",
+      "link_detail": "/details/computer_system.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "iot_design",
+      "title": "全国大学生物联网设计竞赛",
+      "tags": [
+        "物联网"
+      ],
+      "link_homepage": "http://iot.sjtu.edu.cn/",
+      "link_detail": "/details/iot_design.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "info_security_ctf",
+      "title": "全国大学生信息安全与对抗技术竞赛",
+      "tags": [
+        "安全",
+        "CTF"
+      ],
+      "link_homepage": "https://iscc.bit.edu.cn/",
+      "link_detail": "/details/info_security_ctf.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "statistics_modeling",
+      "title": "全国大学生统计建模大赛",
+      "tags": [
+        "统计",
+        "数据"
+      ],
+      "link_homepage": "http://tjjm.cos.edu.cn/",
+      "link_detail": "/details/statistics_modeling.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "campus_ai",
+      "title": "全球校园人工智能算法精英大赛",
+      "tags": [
+        "AI",
+        "算法"
+      ],
+      "link_homepage": "https://www.saikr.com/vse/campusai",
+      "link_detail": "/details/campus_ai.html",
+      "status": {
+        "text": "待更新",
+        "color": "gray"
+      },
+      "info_grid": [
+        {
+          "label": "数据源",
+          "value": "等待同步"
+        }
+      ],
+      "last_updated": ""
+    },
+    {
+      "id": "smart_agriculture",
+      "title": "国际大学生智能农业装备创新大赛",
+      "tags": [
+        "智慧农业"
+      ],
+      "link_homepage": "http://www.smartagrimach.com/",
+      "link_detail": "/details/smart_agriculture.html",
       "status": {
         "text": "待更新",
         "color": "gray"

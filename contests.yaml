@@ -1,11 +1,301 @@
+# 中国研究生创新实践系列大赛 (1-17项统一官网)
+- id: cpipc_smart_city
+  name: 中国研究生智慧城市技术与创意设计大赛
+  homepage: https://cpipc.acge.org.cn/cw/hp/1
+  tags: [研究生, 智慧城市]
+  parser: null
+
+- id: cpipc_aircraft
+  name: 中国研究生未来飞行器创新大赛
+  homepage: https://cpipc.acge.org.cn/cw/hp/3
+  tags: [研究生, 航空航天]
+  parser: null
+
+- id: cpipc_math_modeling
+  name: 中国研究生数学建模竞赛
+  homepage: https://cpipc.acge.org.cn/cw/hp/4
+  tags: [研究生, 数学建模]
+  parser: null
+
+- id: cpipc_electronics
+  name: 中国研究生电子设计竞赛
+  homepage: https://cpipc.acge.org.cn/cw/hp/6
+  tags: [研究生, 电子设计]
+  parser: null
+
+- id: cpipc_chips
+  name: 中国研究生创“芯”大赛
+  homepage: https://cpipc.acge.org.cn/cw/hp/10
+  tags: [研究生, 集成电路]
+  parser: null
+
+- id: cpipc_ai
+  name: 中国研究生人工智能创新大赛
+  homepage: https://cpipc.acge.org.cn/cw/hp/2c90800c609345420160934b7f940003
+  tags: [研究生, AI]
+  parser: null
+
+- id: cpipc_robot
+  name: 中国研究生机器人创新设计大赛
+  homepage: https://cpipc.acge.org.cn/cw/hp/2c9180826478954201647a74659b027d
+  tags: [研究生, 机器人]
+  parser: null
+
+- id: cpipc_energy
+  name: 中国研究生能源装备创新设计大赛
+  homepage: https://cpipc.acge.org.cn/cw/hp/2c9180826569145601656c071661033a
+  tags: [研究生, 能源装备]
+  parser: null
+
+- id: cpipc_public_admin
+  name: 中国研究生公共管理案例大赛
+  homepage: https://cpipc.acge.org.cn/cw/hp/2c91808259837a7b01598380e2f50011
+  tags: [研究生, 公共管理]
+  parser: null
+
+- id: cpipc_rural_revitalization
+  name: 中国研究生乡村振兴科技强农+创新大赛
+  homepage: https://cpipc.acge.org.cn/cw/hp/2c918082725f778a0172605f63960105
+  tags: [研究生, 乡村振兴]
+  parser: null
+
+- id: cpipc_cyber_security
+  name: 中国研究生网络安全创新大赛
+  homepage: https://cpipc.acge.org.cn/cw/hp/2c90801780512f48018051a84f500049
+  tags: [研究生, 网络安全]
+  parser: null
+
+- id: cpipc_carbon_neutral
+  name: 中国研究生“双碳”创新与创意大赛
+  homepage: https://cpipc.acge.org.cn/cw/hp/2c90801782293e6201822c6742a70019
+  tags: [研究生, 双碳]
+  parser: null
+
+- id: cpipc_fintech
+  name: 中国研究生金融科技创新大赛
+  homepage: https://cpipc.acge.org.cn/cw/hp/2c90801782293e6201822c6f130b001f
+  tags: [研究生, 金融科技]
+  parser: null
+
+- id: cpipc_beautiful_china
+  name: 中国研究生“美丽中国”创新设计大赛
+  homepage: https://cpipc.acge.org.cn/cw/hp/2c90801586e379050186e872c0c702a0
+  tags: [研究生, 艺术设计]
+  parser: null
+
+- id: cpipc_enterprise_case
+  name: 中国研究生工商管理案例大赛
+  homepage: https://cpipc.acge.org.cn/cw/hp/15
+  tags: [研究生, MBA]
+  parser: null
+
+- id: cpipc_corporate_governance
+  name: 中国研究生企业管理创新大赛
+  homepage: https://cpipc.acge.org.cn/cw/hp/2c90801586e379050186e879a95702b8
+  tags: [研究生, 企业管理]
+  parser: null
+
+- id: cpipc_os_open_source
+  name: 中国研究生操作系统开源创新大赛
+  homepage: https://cpipc.acge.org.cn/cw/hp/2c9080158e2ad864018e50e2b8d508d9
+  tags: [研究生, 开源/OS]
+  parser: null
+
+# 综合性及其他重大竞赛 (18-50项)
+- id: challenge_cup_startup
+  name: “挑战杯”中国大学生创业计划竞赛
+  homepage: http://www.tiaozhanbei.net/
+  tags: [综合, 创业]
+  parser: null
+
+- id: lanqiao_cup
+  name: 蓝桥杯全国软件和信息技术专业人才大赛
+  homepage: https://dasai.lanqiao.cn/
+  tags: [编程, 软件]
+  parser: null
+
+- id: robomaster
+  name: 全国大学生机器人大赛 (RoboMaster)
+  homepage: https://www.robomaster.com/
+  tags: [机器人, 竞技]
+  parser: null
+
+- id: xilinx_fpga
+  name: “西门子杯”中国智能制造挑战赛
+  homepage: http://www.ineat.cn/
+  tags: [智能制造, 自动化]
+  parser: null
+
+- id: datatong_ict
+  name: “大唐杯”全国大学生新一代信息通信技术大赛
+  homepage: http://dtcup.dtcenter.cn/
+  tags: [通信, 5G]
+  parser: null
+
+- id: huawei_ict
+  name: 华为 ICT 大赛
+  homepage: https://e.huawei.com/cn/talent/ict-academy/#/ict-contest/home
+  tags: [IT/IP, 华为]
+  parser: null
+
+- id: embedded_chip
+  name: 全国大学生嵌入式芯片与系统设计竞赛
+  homepage: http://www.socchina.net/
+  tags: [嵌入式, 芯片]
+  parser: null
+
+- id: information_tech_app
+  name: 全国大学生信息技术应用大赛
+  homepage: http://www.it-at.org.cn/
+  tags: [信息技术]
+  parser: null
+
+- id: mathorcup
+  name: MathorCup 高校数学建模挑战赛
+  homepage: http://www.mathorcup.org/
+  tags: [数学建模]
+  parser: null
+
+- id: baimu_cup
+  name: “毕昇杯”全国大学生数学建模挑战赛
+  homepage: http://www.bishengcup.com/
+  tags: [数学建模]
+  parser: null
+
 - id: icpc
   name: ACM-ICPC 国际大学生程序设计竞赛
-  parser: parsers.icpc
   homepage: https://icpc.global/
-  tags: [算法, 顶级赛事]
+  tags: [算法, 顶级]
+  parser: parsers.icpc
 
-- id: math_modeling
+- id: cumcm
   name: 全国大学生数学建模竞赛
-  parser: null
   homepage: http://www.mcm.edu.cn/
-  tags: [数学, 国赛]
+  tags: [数学建模, 国赛]
+  parser: null
+
+- id: nuedc
+  name: 全国大学生电子设计竞赛
+  homepage: http://nuedc.xjtu.edu.cn/
+  tags: [电子设计, 国赛]
+  parser: null
+
+- id: intelligent_car
+  name: 全国大学生智能汽车竞赛
+  homepage: https://smartcar.cdhu.edu.cn/
+  tags: [智能车, 自动化]
+  parser: null
+
+- id: engineering_practice
+  name: 中国大学生工程实践与创新能力大赛
+  homepage: http://www.gcxl.edu.cn/
+  tags: [工程实践]
+  parser: null
+
+- id: computer_design
+  name: 中国大学生计算机设计大赛
+  homepage: http://jsjds.blcu.edu.cn/
+  tags: [计算机, 软件]
+  parser: null
+
+- id: software_cup
+  name: 中国高校计算机大赛
+  homepage: http://www.chinasoftwarecup.org/
+  tags: [软件, 算法]
+  parser: null
+
+- id: photo_design
+  name: 全国大学生光电设计竞赛
+  homepage: http://gd.moocollege.com/
+  tags: [光电]
+  parser: null
+
+- id: integrated_circuit
+  name: 全国大学生集成电路创新创业大赛
+  homepage: http://univ.ciciec.com/
+  tags: [芯片, 集成电路]
+  parser: null
+
+- id: info_security
+  name: 全国大学生信息安全竞赛
+  homepage: http://www.ciscn.cn/
+  tags: [网络安全]
+  parser: null
+
+- id: software_design
+  name: “中国软件杯”大学生软件设计大赛
+  homepage: http://www.cnsoftbei.com/
+  tags: [软件设计]
+  parser: null
+
+- id: sino_us_maker
+  name: 中美青年创客大赛
+  homepage: https://china-us-maker.org.cn/
+  tags: [创客, 综合]
+  parser: null
+
+- id: raicom
+  name: 睿抗机器人开发者大赛 (RAICOM)
+  homepage: http://www.raicom.com.cn/
+  tags: [机器人]
+  parser: null
+
+- id: xuechuang_cup
+  name: “学创杯”全国大学生创业综合模拟大赛
+  homepage: http://www.xcbcompetition.com/
+  tags: [管理, 创业]
+  parser: null
+
+- id: intelligent_robot
+  name: 中国高校智能机器人创意大赛
+  homepage: http://www.robotcontest.cn/
+  tags: [机器人]
+  parser: null
+
+- id: robot_ai
+  name: 中国机器人及人工智能大赛
+  homepage: http://www.caairobot.com/
+  tags: [AI, 机器人]
+  parser: null
+
+- id: energy_saving
+  name: 全国大学生节能减排社会实践与科技竞赛
+  homepage: http://www.jienengjianpai.org/
+  tags: [节能减排, 环境]
+  parser: null
+
+- id: computer_system
+  name: 全国大学生计算机系统能力大赛
+  homepage: https://compiler.educg.net/
+  tags: [计算机底层]
+  parser: null
+
+- id: iot_design
+  name: 全国大学生物联网设计竞赛
+  homepage: http://iot.sjtu.edu.cn/
+  tags: [物联网]
+  parser: null
+
+- id: info_security_ctf
+  name: 全国大学生信息安全与对抗技术竞赛
+  homepage: https://iscc.bit.edu.cn/
+  tags: [安全, CTF]
+  parser: null
+
+- id: statistics_modeling
+  name: 全国大学生统计建模大赛
+  homepage: http://tjjm.cos.edu.cn/
+  tags: [统计, 数据]
+  parser: null
+
+- id: campus_ai
+  name: 全球校园人工智能算法精英大赛
+  homepage: https://www.saikr.com/vse/campusai
+  tags: [AI, 算法]
+  parser: null
+
+- id: smart_agriculture
+  name: 国际大学生智能农业装备创新大赛
+  homepage: http://www.smartagrimach.com/
+  tags: [智慧农业]
+  parser: null
