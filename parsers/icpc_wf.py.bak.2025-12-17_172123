@@ -9,12 +9,6 @@ DATE_REGEXES = [
     re.compile(rf"\b{MONTHS}\s+\d{{1,2}}(?:,)?\s*(?:[-–]\s*{MONTHS}\s+\d{{1,2}})?(?:,)?\s+20\d{{2}}\b", re.IGNORECASE),
 ]
 
-BAD_PHRASES = [
-    "last updated",
-    "updated -",
-    "updated:",
-]
-
 def _extract_dates(text: str):
     hits = []
     for rx in DATE_REGEXES:
@@ -28,26 +22,16 @@ def _extract_dates(text: str):
             out.append(h)
     return out
 
-def _is_bad(text: str) -> bool:
-    t = text.lower()
-    return any(p in t for p in BAD_PHRASES)
-
 def parse(html: str, base_url: str, selectors=None, limit: int = 80):
-    """
-    目标：尽量提取“Schedule of Events”中的条目，而不是页面元信息（如 Last updated）。
-    """
     soup = BeautifulSoup(html, "lxml")
     main = soup.find("main") or soup.body or soup
 
     results = []
 
-    # 1) 优先抓 table rows（最像 schedule）
     for tr in main.find_all("tr"):
         text = tr.get_text(" ", strip=True)
         if not text or len(text) < 10:
             continue
-        if _is_bad(text):
-            continue
         dates = _extract_dates(text)
         if not dates:
             continue
@@ -59,30 +43,9 @@ def parse(html: str, base_url: str, selectors=None, limit: int = 80):
         if len(results) >= limit:
             return results
 
-    # 2) 抓列表项（li）通常承载“某日-事件”
-    for el in main.find_all(["li"]):
+    for el in main.find_all(["li", "p", "h2", "h3", "h4"]):
         text = el.get_text(" ", strip=True)
         if not text or len(text) < 8:
-            continue
-        if _is_bad(text):
-            continue
-        dates = _extract_dates(text)
-        if not dates:
-            continue
-        results.append({
-            "title": re.sub(r"\s+", " ", text)[:160],
-            "link": base_url,
-            "date": "; ".join(dates),
-        })
-        if len(results) >= limit:
-            return results
-
-    # 3) 最后才考虑段落/标题（容易抓到“Last updated”）
-    for el in main.find_all(["p", "h2", "h3", "h4"]):
-        text = el.get_text(" ", strip=True)
-        if not text or len(text) < 8:
-            continue
-        if _is_bad(text):
             continue
         dates = _extract_dates(text)
         if not dates:

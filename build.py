@@ -1,90 +1,75 @@
-import json
-import time
 import yaml
-import requests
-from datetime import datetime
-from jinja2 import Environment, FileSystemLoader, select_autoescape
+import json
+import importlib
+import datetime
+import os
+import sys
 
-from parsers import demo_parser, icpc_wf, icpc_wf
-
-PARSERS = {
-    "demo_parser": demo_parser,
-    "icpc_wf": icpc_wf,
-}
-
-HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
-    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
-    "Connection": "keep-alive",
-    "Upgrade-Insecure-Requests": "1",
-}
-def fetch(url: str, timeout: int = 15) -> str:
-    r = requests.get(url, headers=HEADERS, timeout=timeout)
-    r.raise_for_status()
-    return r.text
-
-def load_sources(path="sources.yaml"):
-    with open(path, "r", encoding="utf-8") as f:
-        cfg = yaml.safe_load(f)
-    return cfg.get("sources", [])
-
-def render_index(items, generated_at: str):
-    env = Environment(
-        loader=FileSystemLoader("templates"),
-        autoescape=select_autoescape(["html", "xml"])
-    )
-    tpl = env.get_template("index.html.j2")
-    return tpl.render(items=items, generated_at=generated_at)
+# 这一步是为了让 python 能找到 parsers 文件夹里的代码
+sys.path.append(os.getcwd())
 
 def main():
-    sources = load_sources()
-    all_items = []
-    errors = []
+    print(">>> 开始构建 data.json ...")
+    
+    final_data = {
+        "generated_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "items": []
+    }
 
-    for s in sources:
-        sid = s["id"]
-        name = s["name"]
-        url = s["url"]
-        parser_name = s.get("parser", "demo_parser")
-        limit = int(s.get("limit", 20))
-        selectors = s.get("selectors", {}) or {}
+    # 1. 读取 contests.yaml
+    try:
+        with open("contests.yaml", "r", encoding="utf-8") as f:
+            contest_list = yaml.safe_load(f)
+    except FileNotFoundError:
+        print("错误: 找不到 contests.yaml 文件")
+        return
 
-        parser = PARSERS.get(parser_name)
-        if not parser:
-            errors.append(f"{sid}: parser not found: {parser_name}")
-            continue
+    # 2. 循环处理每一个竞赛
+    for contest in contest_list:
+        print(f"正在处理: {contest['name']} ({contest['id']})...")
+        
+        # 基础静态数据
+        item = {
+            "id": contest["id"],
+            "title": contest["name"],
+            "tags": contest.get("tags", []),
+            "link_homepage": contest.get("homepage", ""),
+            "link_detail": f"/details/{contest['id']}.html",
+            # 默认兜底数据
+            "status": {"text": "待更新", "color": "gray"},
+            "info_grid": [{"label": "数据源", "value": "等待同步"}],
+            "last_updated": ""
+        }
 
-        try:
-            html = fetch(url)
-            parsed = parser.parse(html, base_url=url, selectors=selectors, limit=limit)
+        # 3. 如果配置了 parser，尝试运行它
+        if contest.get("parser"):
+            try:
+                # 动态加载 parser 模块 (例如 parsers.icpc)
+                module = importlib.import_module(contest["parser"])
+                
+                # 重新加载模块，防止缓存（调试时很有用）
+                importlib.reload(module)
+                
+                # 执行 parse() 函数
+                dynamic_data = module.parse() 
+                
+                # 合并数据
+                item.update(dynamic_data)
+                item["last_updated"] = datetime.datetime.now().strftime("%H:%M")
+                print(f"  -> 抓取成功: {dynamic_data['status']['text']}")
+                
+            except Exception as e:
+                print(f"  -> [错误] 抓取失败: {e}")
+                item["status"] = {"text": "抓取异常", "color": "red"}
+                item["info_grid"] = [{"label": "错误信息", "value": str(e)}]
 
-            for it in parsed[:limit]:
-                all_items.append({
-                    "source_id": sid,
-                    "source_name": name,
-                    "title": (it.get("title") or "").strip(),
-                    "link": (it.get("link") or "").strip(),
-                    "date": (it.get("date") or "").strip(),
-                })
+        final_data["items"].append(item)
 
-            time.sleep(0.5)
-
-        except Exception as e:
-            errors.append(f"{sid}: {type(e).__name__}: {e}")
-
-    generated_at = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-
-    # 输出 data.json 便于排错
+    # 4. 保存结果
     with open("data.json", "w", encoding="utf-8") as f:
-        json.dump(
-            {"generated_at": generated_at, "count": len(all_items), "errors": errors, "items": all_items},
-            f, ensure_ascii=False, indent=2
-        )
+        json.dump(final_data, f, ensure_ascii=False, indent=2)
 
-    html_out = render_index(all_items, generated_at)
-    with open("index.html", "w", encoding="utf-8") as f:
-        f.write(html_out)
+    print("\n>>> 构建完成！已写入 data.json")
 
 if __name__ == "__main__":
     main()
