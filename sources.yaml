@@ -4,3 +4,9 @@ sources:
     url: https://example.com/
     parser: demo_parser
     limit: 10
+
+  - id: icpc_wf_schedule
+    name: ICPC WF Schedule
+    url: https://docs.icpc.global/wf-schedule/
+    parser: icpc_wf
+    limit: 80

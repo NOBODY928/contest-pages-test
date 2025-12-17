@@ -5,16 +5,20 @@ import requests
 from datetime import datetime
 from jinja2 import Environment, FileSystemLoader, select_autoescape
 
-from parsers import demo_parser
+from parsers import demo_parser, icpc_wf, icpc_wf
 
 PARSERS = {
     "demo_parser": demo_parser,
+    "icpc_wf": icpc_wf,
 }
 
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (compatible; contest-bot/1.0; +https://zihguo.me)"
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+    "Connection": "keep-alive",
+    "Upgrade-Insecure-Requests": "1",
 }
-
 def fetch(url: str, timeout: int = 15) -> str:
     r = requests.get(url, headers=HEADERS, timeout=timeout)
     r.raise_for_status()
