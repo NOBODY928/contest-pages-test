@@ -1,118 +1,51 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
-  <meta charset="UTF-8">
-  <title>竞赛资讯聚合</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    body { font-family: Arial,"PingFang SC","Microsoft YaHei",sans-serif; margin: 24px; }
-    .meta { color:#666; margin-bottom:16px; }
-    .item { padding:10px 0; border-bottom:1px solid #eee; }
-    .src { display:inline-block; font-size:12px; padding:2px 6px; border:1px solid #ddd; border-radius:999px; margin-right:8px; color:#444;}
-    .date { color:#888; font-size:12px; margin-left:8px; }
-<!DOCTYPE html>
-<html lang="zh-CN">
-<head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>研究生竞赛导航</title>
+    <title>竞赛资讯聚合面板</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 min-h-screen p-4 md:p-8">
-    <div class="max-w-6xl mx-auto">
-        <header class="text-center mb-12">
-            <h1 class="text-3xl font-bold text-gray-800">研究生科技竞赛聚合看板</h1>
-            <p id="update-time" class="text-gray-500 mt-2">正在同步云端数据...</p>
-        </header>
-
-        <div id="contest-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            <div class="animate-pulse bg-white p-6 rounded-xl shadow-sm">加载中...</div>
+<body class="bg-slate-50 p-6">
+    <div class="max-w-7xl mx-auto">
+        <div class="border-b pb-4 mb-8">
+            <h1 class="text-2xl font-bold text-slate-800">竞赛资讯聚合</h1>
+            <p id="time" class="text-sm text-slate-400 mt-1">加载中...</p>
         </div>
+
+        <div id="container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
     </div>
 
     <script>
-        async function loadContests() {
-            try {
-                // 读取同层级的 data.json
-                const response = await fetch('./data.json?t=' + Date.now());
-                const data = await response.json();
-                
-                document.getElementById('update-time').innerText = `最后更新: ${data.generated_at}`;
-                const grid = document.getElementById('contest-grid');
-                grid.innerHTML = ''; // 清空加载提示
-
-                data.items.forEach(item => {
-                    // 生成标签 HTML
-                    const tagsHtml = item.tags.map(tag => 
-                        `<span class="bg-blue-50 text-blue-600 text-xs px-2 py-1 rounded">${tag}</span>`
-                    ).join(' ');
-
-                    // 生成信息网格 HTML
-                    const infoHtml = item.info_grid.map(info => `
-                        <div class="flex justify-between text-sm py-1 border-b border-gray-50 last:border-0">
-                            <span class="text-gray-400">${info.label}</span>
-                            <span class="text-gray-700 font-medium text-right ml-2">${info.value}</span>
-                        </div>
-                    `).join('');
-
-                    // 颜色映射
-                    const colorMap = {
-                        'green': 'bg-green-500',
-                        'blue': 'bg-blue-500',
-                        'red': 'bg-red-500',
-                        'gray': 'bg-gray-400'
-                    };
-
-                    const card = `
-                        <div class="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300">
-                            <div class="p-6">
-                                <div class="flex justify-between items-start mb-4">
-                                    <h3 class="text-lg font-bold text-gray-800 leading-tight">${item.title}</h3>
-                                    <span class="${colorMap[item.status.color]} text-white text-[10px] px-2 py-1 rounded-full whitespace-nowrap ml-2">
-                                        ${item.status.text}
-                                    </span>
-                                </div>
-                                <div class="flex gap-2 mb-4">${tagsHtml}</div>
-                                <div class="space-y-1 mb-6">${infoHtml}</div>
-                                <div class="flex justify-between items-center">
-                                    <span class="text-[10px] text-gray-300">更新: ${item.last_updated}</span>
-                                    <a href="${item.link_homepage}" target="_blank" class="text-blue-600 text-sm font-semibold hover:underline">
-                                        进入官网 →
-                                    </a>
-                                </div>
+        async function render() {
+            const res = await fetch('./data.json?v=' + Date.now());
+            const data = await res.json();
+            document.getElementById('time').innerText = "生成时间：" + data.generated_at;
+            
+            const container = document.getElementById('container');
+            container.innerHTML = data.items.map(item => `
+                <div class="bg-white rounded-xl shadow-sm border border-slate-100 p-5 hover:shadow-md transition-shadow">
+                    <div class="flex justify-between items-start mb-3">
+                        <h2 class="text-lg font-bold text-slate-800">${item.title}</h2>
+                        <span class="px-2 py-1 rounded-full text-[10px] text-white bg-${item.status.color}-500">
+                            ${item.status.text}
+                        </span>
+                    </div>
+                    <div class="space-y-2">
+                        ${item.info_grid.map(info => `
+                            <div class="flex justify-between text-sm">
+                                <span class="text-slate-400">${info.label}</span>
+                                <span class="text-slate-700 font-medium">${info.value}</span>
                             </div>
-                        </div>
-                    `;
-                    grid.innerHTML += card;
-                });
-            } catch (e) {
-                console.error(e);
-                document.getElementById('contest-grid').innerHTML = "数据加载失败，请检查脚本运行状态。";
-            }
+                        `).join('')}
+                    </div>
+                    <div class="mt-4 pt-4 border-t border-slate-50 flex justify-between items-center text-[11px]">
+                        <span class="text-slate-300">更新于 ${item.last_updated || '刚刚'}</span>
+                        <a href="${item.link_homepage || '#'}" class="text-blue-500 font-bold tracking-tight">查看官网 &rarr;</a>
+                    </div>
+                </div>
+            `).join('');
         }
-        loadContests();
+        render();
     </script>
-</body>
-</html>    a { color:#111; text-decoration:none; }
-    a:hover { text-decoration:underline; }
-  </style>
-</head>
-<body>
-  <h1>竞赛资讯聚合</h1>
-  <div class="meta">生成时间：2025-12-17 17:22:00；数据源为公开页面抓取整理。</div>
-
-  
-    
-      <div class="item">
-        <span class="src">示例源</span>
-        <a href="https://example.com/" target="_blank" rel="noopener">占位：后续这里显示抓取到的竞赛通知</a>
-        
-      </div>
-    
-  
-
-  <hr />
-  <div class="meta">© zihguo.me</div>
-  <!-- generated_at: 2025-12-17 17:22:00 -->
 </body>
 </html>
