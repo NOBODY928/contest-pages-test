@@ -1,0 +1,32 @@
+contests:
+  - id: icpc
+    name: ICPC 编程竞赛
+    intro: >
+      国际大学生程序设计竞赛（ICPC），以团队形式进行，
+      重点考察算法设计、程序实现与团队协作能力。
+    mode: team
+    eligibility: 在校大学生，具体以当年官方规则为准
+    official_home: https://icpc.global/
+    related_sources:
+      - icpc_wf_schedule
+
+  - id: dtcup
+    name: 大唐杯
+    intro: >
+      大唐杯是面向高校学生的专业竞赛，
+      赛程与规则以官方公告为准。
+    mode: mixed
+    eligibility: 以官方章程为准
+    official_home: https://dtcup.dtxiaotangren.com/
+    related_sources:
+      - dtcup_journalism
+
+  - id: huawei_ict
+    name: 华为 ICT 大赛
+    intro: >
+      华为 ICT 大赛是面向高校的 ICT 技术竞赛，
+      包含多赛道与阶段。
+    mode: mixed
+    eligibility: 以官方页面说明为准
+    official_home: https://e.huawei.com/cn/talent/ict-academy/
+    related_sources: []
