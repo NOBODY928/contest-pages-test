@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-17 21:01:07",
+  "generated_at": "2025-12-17 22:09:45",
   "items": [
     {
       "id": "cpipc_smart_city",
@@ -575,24 +575,25 @@
       "link_homepage": "https://icpc.global/",
       "link_detail": "/details/icpc.html",
       "status": {
-        "text": "已结束",
-        "color": "gray"
+        "text": "待更新",
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "当前阶段",
-          "value": "The 2025 ICPC World Finals"
+          "label": "最新赛事",
+          "value": "ICPC World Finals"
         },
         {
-          "label": "比赛时间",
-          "value": "2025-09-20 至 2025-09-25"
+          "label": "时间范围",
+          "value": "2025-09-20 - 2025-09-25"
         },
         {
           "label": "地点",
-          "value": "中国 (China)"
+          "value": "待公示"
         }
       ],
-      "last_updated": "21:01"
+      "last_updated": "22:09",
+      "detailed_schedule": []
     },
     {
       "id": "cumcm",

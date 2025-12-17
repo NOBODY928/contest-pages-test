@@ -55,6 +55,28 @@ def main():
                 
                 # 合并数据
                 item.update(dynamic_data)
+        # 如果有详细日程，生成二级页面
+                if "detailed_schedule" in dynamic_data:
+                      os.makedirs("details", exist_ok=True)
+                      with open(f"details/{item['id']}.html", "w", encoding="utf-8") as f:
+                        # 这里构造一个简单的详情页 HTML
+                        html_content = f"""
+                        <html>
+                        <head><meta charset="utf-8"><script src="https://cdn.tailwindcss.com"></script></head>
+                        <body class="bg-gray-50 p-6">
+                           <div class="max-w-3xl mx-auto">
+                               <a href="/" class="text-blue-600 mb-4 inline-block">← 返回首页</a>
+                               <h1 class="text-2xl font-bold mb-6">{item['title']} 详细赛程</h1>
+                               {"".join([f"<div class='mb-6'><h2 class='bg-blue-600 text-white px-3 py-1 rounded'>{day['day']}</h2>" + 
+                                          "".join([f"<div class='border-b p-2 flex'><span class='w-24 font-mono'>{e['time']}</span><span class='flex-1'>{e['desc']}</span><span class='text-gray-400'>{e['loc']}</span></div>" for e in day['events']]) + 
+                                          "</div>" for day in dynamic_data['detailed_schedule']])}
+                           </div>
+                        </body>
+                        </html>
+                        """
+                        f.write(html_content)               
+
+
                 item["last_updated"] = datetime.datetime.now().strftime("%H:%M")
                 print(f"  -> 抓取成功: {dynamic_data['status']['text']}")
                 
