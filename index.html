@@ -2,102 +2,120 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <title>研究生竞赛资讯聚合看板</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>研究生竞赛资讯聚合 | zihguo.me</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; }
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
+        body { font-family: 'Noto Sans SC', sans-serif; }
+        .card-hover:hover { transform: translateY(-4px); transition: all 0.3s ease; }
     </style>
 </head>
-<body class="bg-gray-50 min-h-screen p-4 md:p-8">
-    <div class="max-w-7xl mx-auto">
-        <header class="mb-10 border-b border-gray-200 pb-6">
-            <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">竞赛资讯聚合</h1>
-            <div class="flex items-center mt-3 text-sm text-gray-500">
-                <span class="inline-block w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
-                <p id="update-time">正在同步实时数据...</p>
+<body class="bg-slate-50 min-h-screen">
+    <div class="max-w-7xl mx-auto px-4 py-10">
+        <header class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 pb-8">
+            <div>
+                <h1 class="text-3xl font-bold text-slate-900 tracking-tight">竞赛资讯聚合看板</h1>
+                <p id="update-time" class="text-slate-500 mt-2 flex items-center">
+                    <span class="inline-block w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
+                    数据正在同步中...
+                </p>
+            </div>
+            <div class="text-sm text-slate-400">
+                托管于 <span class="font-mono text-blue-500">Cloudflare Pages</span>
             </div>
         </header>
 
         <div id="contest-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            <div class="col-span-full text-center py-20 text-gray-400">正在努力加载竞赛数据...</div>
+            <div class="animate-pulse bg-white p-6 rounded-2xl shadow-sm border border-slate-100 h-64"></div>
+            <div class="animate-pulse bg-white p-6 rounded-2xl shadow-sm border border-slate-100 h-64"></div>
+            <div class="animate-pulse bg-white p-6 rounded-2xl shadow-sm border border-slate-100 h-64"></div>
         </div>
 
-        <footer class="mt-16 text-center text-gray-400 text-xs">
-            © 2025 竞赛看板项目 · 数据抓取自各官方公开渠道
+        <footer class="mt-20 py-8 border-t border-slate-200 text-center">
+            <p class="text-slate-400 text-sm">© 2025 <a href="https://zihguo.me" class="hover:text-blue-500">zihguo.me</a> · 自动抓取各赛事官网资讯</p>
         </footer>
     </div>
 
     <script>
-        async function fetchAndRender() {
+        async function loadData() {
             try {
-                const response = await fetch('./data.json?v=' + Date.now());
+                // 获取最新的数据，加时间戳防止浏览器缓存
+                const response = await fetch('./data.json?t=' + Date.now());
                 const data = await response.json();
                 
-                document.getElementById('update-time').innerText = `最后同步时间：${data.generated_at}`;
+                document.getElementById('update-time').innerText = `最后更新: ${data.generated_at}`;
                 const grid = document.getElementById('contest-grid');
-                grid.innerHTML = ''; 
+                grid.innerHTML = ''; // 清空加载占位
 
                 data.items.forEach(item => {
-                    // 动态颜色逻辑映射
-                    const colorConfig = {
-                        'red': 'bg-red-500',
-                        'yellow': 'bg-yellow-500',
-                        'green': 'bg-green-500',
-                        'blue': 'bg-blue-500',
-                        'gray': 'bg-gray-400'
-                    };
+                    // 状态颜色逻辑定制
+                    let bgColor = 'bg-slate-400'; // 默认灰色
+                    const statusText = item.status.text;
 
-                    // 状态纠偏：如果后端返回的是“已结束”，强制设为红色；“待更新”设为黄色
-                    let statusColorClass = colorConfig[item.status.color] || 'bg-gray-400';
-                    if (item.status.text.includes('已结束')) statusColorClass = 'bg-red-500';
-                    if (item.status.text.includes('待更新')) statusColorClass = 'bg-yellow-500';
-                    if (item.status.text.includes('进行') || item.status.text.includes('报名')) statusColorClass = 'bg-green-500';
+                    if (statusText.includes('待更新')) {
+                        bgColor = 'bg-yellow-500';
+                    } else if (statusText.includes('已结束')) {
+                        bgColor = 'bg-red-500';
+                    } else if (statusText.includes('进行中') || statusText.includes('报名中') || statusText.includes('已公布')) {
+                        bgColor = 'bg-green-500';
+                    } else if (statusText.includes('筹备')) {
+                        bgColor = 'bg-blue-500';
+                    }
 
+                    // 构建卡片 HTML
+                    // 使用 onclick 跳转到详情页，如果没有详情页则不跳转
                     const card = `
-                        <div class="bg-white rounded-2xl shadow-sm border border-gray-100 flex flex-col hover:shadow-xl hover:-translate-y-1 transition-all duration-300">
+                        <div onclick="if('${item.link_detail}') window.location.href='${item.link_detail}'" 
+                             class="card-hover cursor-pointer bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all">
+                            
                             <div class="p-6 flex-1">
-                                <div class="flex justify-between items-start gap-3 mb-4">
-                                    <h2 class="text-base font-bold text-gray-800 leading-snug line-clamp-2">${item.title}</h2>
-                                    <span class="${statusColorClass} text-white text-[11px] font-bold px-2.5 py-1 rounded-lg shadow-sm whitespace-nowrap shrink-0">
-                                        ${item.status.text}
+                                <div class="flex justify-between items-start gap-4 mb-4">
+                                    <h3 class="text-base font-bold text-slate-800 leading-snug line-clamp-2">${item.title}</h3>
+                                    <span class="${bgColor} text-white text-[11px] font-bold px-2 py-1 rounded-md whitespace-nowrap shadow-sm">
+                                        ${statusText}
                                     </span>
                                 </div>
 
-                                <div class="flex flex-wrap gap-1.5 mb-5">
+                                <div class="flex flex-wrap gap-1.5 mb-6">
                                     ${item.tags.map(tag => `
-                                        <span class="bg-blue-50 text-blue-600 text-[10px] px-2 py-0.5 rounded-md font-medium">#${tag}</span>
+                                        <span class="bg-blue-50 text-blue-600 text-[10px] px-2 py-0.5 rounded font-medium tracking-wide italic">#${tag}</span>
                                     `).join('')}
                                 </div>
 
-                                <div class="space-y-2.5">
+                                <div class="space-y-3">
                                     ${item.info_grid.map(info => `
                                         <div class="flex flex-col">
-                                            <span class="text-[10px] text-gray-400 uppercase tracking-wider">${info.label}</span>
-                                            <span class="text-sm text-gray-700 font-semibold truncate">${info.value || '--'}</span>
+                                            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">${info.label}</span>
+                                            <span class="text-sm text-slate-600 font-medium truncate">${info.value || '暂无数据'}</span>
                                         </div>
                                     `).join('')}
                                 </div>
                             </div>
 
-                            <div class="px-6 py-4 bg-gray-50 border-t border-gray-100 rounded-b-2xl flex justify-between items-center">
-                                <span class="text-[10px] text-gray-400">更新: ${item.last_updated || '近期'}</span>
-                                <a href="${item.link_homepage}" target="_blank" class="text-blue-600 text-xs font-bold hover:text-blue-800 flex items-center transition-colors">
-                                    查看官网
-                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
-                                </a>
+                            <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex justify-between items-center group">
+                                <span class="text-[10px] text-slate-300 font-mono italic">REF: ${item.id.toUpperCase()}</span>
+                                <span class="text-blue-600 text-xs font-bold group-hover:translate-x-1 transition-transform flex items-center">
+                                    查看赛程详情
+                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                                </span>
                             </div>
                         </div>
                     `;
                     grid.innerHTML += card;
                 });
-            } catch (error) {
-                console.error("加载失败:", error);
-                document.getElementById('contest-grid').innerHTML = '<div class="col-span-full text-red-500 text-center">数据同步失败，请刷新页面或联系管理员。</div>';
+            } catch (err) {
+                console.error('Data Load Error:', err);
+                document.getElementById('contest-grid').innerHTML = `
+                    <div class="col-span-full text-center py-20">
+                        <p class="text-red-400 font-bold text-lg">数据加载异常</p>
+                        <p class="text-slate-400 text-sm mt-2 font-mono">Check data.json for structure errors.</p>
+                    </div>
+                `;
             }
         }
 
-        fetchAndRender();
+        loadData();
     </script>
 </body>
 </html>

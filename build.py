@@ -5,93 +5,136 @@ import datetime
 import os
 import sys
 
-# 这一步是为了让 python 能找到 parsers 文件夹里的代码
+# 确保脚本能找到 parsers 目录
 sys.path.append(os.getcwd())
 
-def main():
-    print(">>> 开始构建 data.json ...")
+def generate_detail_page(item, schedule):
+    """ 生成二级详情页 """
+    days_html = ""
+    for day in schedule:
+        events_rows = ""
+        for e in day.get('events', []):
+            events_rows += f"""
+            <tr>
+                <td class="py-3 font-mono font-bold text-slate-700">{e.get('time', '--')}</td>
+                <td class="py-3 text-slate-800">{e.get('desc', '--')}</td>
+                <td class="py-3 text-slate-500 italic">{e.get('loc', '--')}</td>
+            </tr>
+            """
+        
+        days_html += f"""
+        <div class="mb-10">
+            <h3 class="text-lg font-bold text-blue-600 mb-4 pb-2 border-b-2 border-blue-50">📅 {day.get('day', '未知日期')}</h3>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left text-sm">
+                    <thead class="text-slate-400 font-normal border-b border-slate-100">
+                        <tr>
+                            <th class="py-2 w-32">时间</th>
+                            <th class="py-2">事项</th>
+                            <th class="py-2">地点</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-50">
+                        {events_rows}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        """
+
+    # 组合成完整的 HTML
+    html_template = f"""
+    <!DOCTYPE html>
+    <html lang="zh-CN">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>{item['title']} - 详细赛程</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+    </head>
+    <body class="bg-slate-50 min-h-screen p-4 md:p-10">
+        <div class="max-w-4xl mx-auto">
+            <a href="/" class="inline-flex items-center text-blue-600 font-bold mb-8 hover:underline">
+                ← 返回首页聚合
+            </a>
+            <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100">
+                <div class="bg-gradient-to-r from-blue-600 to-indigo-700 p-8 text-white">
+                    <h1 class="text-2xl md:text-3xl font-bold">{item['title']}</h1>
+                    <p class="mt-2 opacity-80 underline"><a href="{item['link_homepage']}" target="_blank">访问官方网站 →</a></p>
+                </div>
+                <div class="p-6 md:p-10">
+                    <h2 class="text-xl font-bold text-slate-800 mb-8 flex items-center">
+                        <span class="w-2 h-6 bg-blue-600 rounded-full mr-3"></span>
+                        详细日程安排
+                    </h2>
+                    <div class="space-y-4">
+                        {days_html if days_html else '<p class="text-slate-400 italic">暂无详细日程数据同步</p>'}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+    </html>
+    """
     
+    with open(f"details/{item['id']}.html", "w", encoding="utf-8") as f:
+        f.write(html_template)
+
+def main():
+    print(">>> 开始构建竞赛数据与详情页...")
+    
+    # 修正点：不要在这里使用 f-string，直接定义字典
     final_data = {
         "generated_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
         "items": []
     }
 
-    # 1. 读取 contests.yaml
+    if not os.path.exists("details"):
+        os.makedirs("details")
+
     try:
         with open("contests.yaml", "r", encoding="utf-8") as f:
             contest_list = yaml.safe_load(f)
-    except FileNotFoundError:
-        print("错误: 找不到 contests.yaml 文件")
+    except Exception as e:
+        print(f"读取配置文件失败: {e}")
         return
 
-    # 2. 循环处理每一个竞赛
     for contest in contest_list:
-        print(f"正在处理: {contest['name']} ({contest['id']})...")
+        print(f"正在处理: {contest['name']}...")
         
-        # 基础静态数据
+        # 修正点：直接定义 item 字典
         item = {
             "id": contest["id"],
             "title": contest["name"],
             "tags": contest.get("tags", []),
             "link_homepage": contest.get("homepage", ""),
-            "link_detail": f"/details/{contest['id']}.html",
-            # 默认兜底数据
-            "status": {"text": "待更新", "color": "gray"},
-            "info_grid": [{"label": "数据源", "value": "等待同步"}],
-            "last_updated": ""
+            "link_detail": f"details/{contest['id']}.html",
+            "status": {"text": "待更新", "color": "yellow"},
+            "info_grid": [{"label": "官方链接", "value": "点击进入官网"}],
+            "last_updated": datetime.datetime.now().strftime("%H:%M")
         }
 
-        # 3. 如果配置了 parser，尝试运行它
         if contest.get("parser"):
             try:
-                # 动态加载 parser 模块 (例如 parsers.icpc)
                 module = importlib.import_module(contest["parser"])
-                
-                # 重新加载模块，防止缓存（调试时很有用）
                 importlib.reload(module)
-                
-                # 执行 parse() 函数
                 dynamic_data = module.parse() 
                 
-                # 合并数据
+                # 合并爬虫数据
                 item.update(dynamic_data)
-        # 如果有详细日程，生成二级页面
+
                 if "detailed_schedule" in dynamic_data:
-                      os.makedirs("details", exist_ok=True)
-                      with open(f"details/{item['id']}.html", "w", encoding="utf-8") as f:
-                        # 这里构造一个简单的详情页 HTML
-                        html_content = f"""
-                        <html>
-                        <head><meta charset="utf-8"><script src="https://cdn.tailwindcss.com"></script></head>
-                        <body class="bg-gray-50 p-6">
-                           <div class="max-w-3xl mx-auto">
-                               <a href="/" class="text-blue-600 mb-4 inline-block">← 返回首页</a>
-                               <h1 class="text-2xl font-bold mb-6">{item['title']} 详细赛程</h1>
-                               {"".join([f"<div class='mb-6'><h2 class='bg-blue-600 text-white px-3 py-1 rounded'>{day['day']}</h2>" + 
-                                          "".join([f"<div class='border-b p-2 flex'><span class='w-24 font-mono'>{e['time']}</span><span class='flex-1'>{e['desc']}</span><span class='text-gray-400'>{e['loc']}</span></div>" for e in day['events']]) + 
-                                          "</div>" for day in dynamic_data['detailed_schedule']])}
-                           </div>
-                        </body>
-                        </html>
-                        """
-                        f.write(html_content)               
+                    generate_detail_page(item, dynamic_data["detailed_schedule"])
+                    print(f"  -> 已成功生成详情页")
 
-
-                item["last_updated"] = datetime.datetime.now().strftime("%H:%M")
-                print(f"  -> 抓取成功: {dynamic_data['status']['text']}")
-                
             except Exception as e:
-                print(f"  -> [错误] 抓取失败: {e}")
-                item["status"] = {"text": "抓取异常", "color": "red"}
-                item["info_grid"] = [{"label": "错误信息", "value": str(e)}]
+                print(f"  -> 抓取或解析失败: {e}")
 
         final_data["items"].append(item)
 
-    # 4. 保存结果
     with open("data.json", "w", encoding="utf-8") as f:
         json.dump(final_data, f, ensure_ascii=False, indent=2)
-
-    print("\n>>> 构建完成！已写入 data.json")
+    print(">>> 所有任务构建完成！")
 
 if __name__ == "__main__":
     main()

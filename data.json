@@ -1,5 +1,5 @@
 {
-  "generated_at": "2025-12-17 22:09:45",
+  "generated_at": "2025-12-17 22:27:53",
   "items": [
     {
       "id": "cpipc_smart_city",
@@ -9,18 +9,18 @@
         "智慧城市"
       ],
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/1",
-      "link_detail": "/details/cpipc_smart_city.html",
+      "link_detail": "details/cpipc_smart_city.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "cpipc_aircraft",
@@ -30,18 +30,18 @@
         "航空航天"
       ],
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/3",
-      "link_detail": "/details/cpipc_aircraft.html",
+      "link_detail": "details/cpipc_aircraft.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "cpipc_math_modeling",
@@ -51,18 +51,18 @@
         "数学建模"
       ],
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/4",
-      "link_detail": "/details/cpipc_math_modeling.html",
+      "link_detail": "details/cpipc_math_modeling.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "cpipc_electronics",
@@ -72,18 +72,18 @@
         "电子设计"
       ],
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/6",
-      "link_detail": "/details/cpipc_electronics.html",
+      "link_detail": "details/cpipc_electronics.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "cpipc_chips",
@@ -93,18 +93,18 @@
         "集成电路"
       ],
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/10",
-      "link_detail": "/details/cpipc_chips.html",
+      "link_detail": "details/cpipc_chips.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "cpipc_ai",
@@ -114,18 +114,18 @@
         "AI"
       ],
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90800c609345420160934b7f940003",
-      "link_detail": "/details/cpipc_ai.html",
+      "link_detail": "details/cpipc_ai.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "cpipc_robot",
@@ -135,18 +135,18 @@
         "机器人"
       ],
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c9180826478954201647a74659b027d",
-      "link_detail": "/details/cpipc_robot.html",
+      "link_detail": "details/cpipc_robot.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "cpipc_energy",
@@ -156,18 +156,18 @@
         "能源装备"
       ],
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c9180826569145601656c071661033a",
-      "link_detail": "/details/cpipc_energy.html",
+      "link_detail": "details/cpipc_energy.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "cpipc_public_admin",
@@ -177,18 +177,18 @@
         "公共管理"
       ],
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c91808259837a7b01598380e2f50011",
-      "link_detail": "/details/cpipc_public_admin.html",
+      "link_detail": "details/cpipc_public_admin.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "cpipc_rural_revitalization",
@@ -198,18 +198,18 @@
         "乡村振兴"
       ],
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c918082725f778a0172605f63960105",
-      "link_detail": "/details/cpipc_rural_revitalization.html",
+      "link_detail": "details/cpipc_rural_revitalization.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "cpipc_cyber_security",
@@ -219,18 +219,18 @@
         "网络安全"
       ],
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90801780512f48018051a84f500049",
-      "link_detail": "/details/cpipc_cyber_security.html",
+      "link_detail": "details/cpipc_cyber_security.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "cpipc_carbon_neutral",
@@ -240,18 +240,18 @@
         "双碳"
       ],
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90801782293e6201822c6742a70019",
-      "link_detail": "/details/cpipc_carbon_neutral.html",
+      "link_detail": "details/cpipc_carbon_neutral.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "cpipc_fintech",
@@ -261,18 +261,18 @@
         "金融科技"
       ],
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90801782293e6201822c6f130b001f",
-      "link_detail": "/details/cpipc_fintech.html",
+      "link_detail": "details/cpipc_fintech.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "cpipc_beautiful_china",
@@ -282,18 +282,18 @@
         "艺术设计"
       ],
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90801586e379050186e872c0c702a0",
-      "link_detail": "/details/cpipc_beautiful_china.html",
+      "link_detail": "details/cpipc_beautiful_china.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "cpipc_enterprise_case",
@@ -303,18 +303,18 @@
         "MBA"
       ],
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/15",
-      "link_detail": "/details/cpipc_enterprise_case.html",
+      "link_detail": "details/cpipc_enterprise_case.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "cpipc_corporate_governance",
@@ -324,18 +324,18 @@
         "企业管理"
       ],
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90801586e379050186e879a95702b8",
-      "link_detail": "/details/cpipc_corporate_governance.html",
+      "link_detail": "details/cpipc_corporate_governance.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "cpipc_os_open_source",
@@ -345,18 +345,18 @@
         "开源/OS"
       ],
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c9080158e2ad864018e50e2b8d508d9",
-      "link_detail": "/details/cpipc_os_open_source.html",
+      "link_detail": "details/cpipc_os_open_source.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "challenge_cup_startup",
@@ -366,18 +366,18 @@
         "创业"
       ],
       "link_homepage": "http://www.tiaozhanbei.net/",
-      "link_detail": "/details/challenge_cup_startup.html",
+      "link_detail": "details/challenge_cup_startup.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "lanqiao_cup",
@@ -387,18 +387,18 @@
         "软件"
       ],
       "link_homepage": "https://dasai.lanqiao.cn/",
-      "link_detail": "/details/lanqiao_cup.html",
+      "link_detail": "details/lanqiao_cup.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "robomaster",
@@ -408,18 +408,18 @@
         "竞技"
       ],
       "link_homepage": "https://www.robomaster.com/",
-      "link_detail": "/details/robomaster.html",
+      "link_detail": "details/robomaster.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "xilinx_fpga",
@@ -429,18 +429,18 @@
         "自动化"
       ],
       "link_homepage": "http://www.ineat.cn/",
-      "link_detail": "/details/xilinx_fpga.html",
+      "link_detail": "details/xilinx_fpga.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "datatong_ict",
@@ -450,18 +450,18 @@
         "5G"
       ],
       "link_homepage": "http://dtcup.dtcenter.cn/",
-      "link_detail": "/details/datatong_ict.html",
+      "link_detail": "details/datatong_ict.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "huawei_ict",
@@ -471,18 +471,18 @@
         "华为"
       ],
       "link_homepage": "https://e.huawei.com/cn/talent/ict-academy/#/ict-contest/home",
-      "link_detail": "/details/huawei_ict.html",
+      "link_detail": "details/huawei_ict.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "embedded_chip",
@@ -492,18 +492,18 @@
         "芯片"
       ],
       "link_homepage": "http://www.socchina.net/",
-      "link_detail": "/details/embedded_chip.html",
+      "link_detail": "details/embedded_chip.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "information_tech_app",
@@ -512,18 +512,18 @@
         "信息技术"
       ],
       "link_homepage": "http://www.it-at.org.cn/",
-      "link_detail": "/details/information_tech_app.html",
+      "link_detail": "details/information_tech_app.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "mathorcup",
@@ -532,18 +532,18 @@
         "数学建模"
       ],
       "link_homepage": "http://www.mathorcup.org/",
-      "link_detail": "/details/mathorcup.html",
+      "link_detail": "details/mathorcup.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "baimu_cup",
@@ -552,18 +552,18 @@
         "数学建模"
       ],
       "link_homepage": "http://www.bishengcup.com/",
-      "link_detail": "/details/baimu_cup.html",
+      "link_detail": "details/baimu_cup.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:27"
     },
     {
       "id": "icpc",
@@ -573,7 +573,7 @@
         "顶级"
       ],
       "link_homepage": "https://icpc.global/",
-      "link_detail": "/details/icpc.html",
+      "link_detail": "details/icpc.html",
       "status": {
         "text": "待更新",
         "color": "yellow"
@@ -592,7 +592,7 @@
           "value": "待公示"
         }
       ],
-      "last_updated": "22:09",
+      "last_updated": "22:27",
       "detailed_schedule": []
     },
     {
@@ -603,18 +603,18 @@
         "国赛"
       ],
       "link_homepage": "http://www.mcm.edu.cn/",
-      "link_detail": "/details/cumcm.html",
+      "link_detail": "details/cumcm.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:28"
     },
     {
       "id": "nuedc",
@@ -624,18 +624,18 @@
         "国赛"
       ],
       "link_homepage": "http://nuedc.xjtu.edu.cn/",
-      "link_detail": "/details/nuedc.html",
+      "link_detail": "details/nuedc.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:28"
     },
     {
       "id": "intelligent_car",
@@ -645,18 +645,18 @@
         "自动化"
       ],
       "link_homepage": "https://smartcar.cdhu.edu.cn/",
-      "link_detail": "/details/intelligent_car.html",
+      "link_detail": "details/intelligent_car.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:28"
     },
     {
       "id": "engineering_practice",
@@ -665,18 +665,18 @@
         "工程实践"
       ],
       "link_homepage": "http://www.gcxl.edu.cn/",
-      "link_detail": "/details/engineering_practice.html",
+      "link_detail": "details/engineering_practice.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:28"
     },
     {
       "id": "computer_design",
@@ -686,18 +686,18 @@
         "软件"
       ],
       "link_homepage": "http://jsjds.blcu.edu.cn/",
-      "link_detail": "/details/computer_design.html",
+      "link_detail": "details/computer_design.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:28"
     },
     {
       "id": "software_cup",
@@ -707,18 +707,18 @@
         "算法"
       ],
       "link_homepage": "http://www.chinasoftwarecup.org/",
-      "link_detail": "/details/software_cup.html",
+      "link_detail": "details/software_cup.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:28"
     },
     {
       "id": "photo_design",
@@ -727,18 +727,18 @@
         "光电"
       ],
       "link_homepage": "http://gd.moocollege.com/",
-      "link_detail": "/details/photo_design.html",
+      "link_detail": "details/photo_design.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:28"
     },
     {
       "id": "integrated_circuit",
@@ -748,18 +748,18 @@
         "集成电路"
       ],
       "link_homepage": "http://univ.ciciec.com/",
-      "link_detail": "/details/integrated_circuit.html",
+      "link_detail": "details/integrated_circuit.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:28"
     },
     {
       "id": "info_security",
@@ -768,18 +768,18 @@
         "网络安全"
       ],
       "link_homepage": "http://www.ciscn.cn/",
-      "link_detail": "/details/info_security.html",
+      "link_detail": "details/info_security.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:28"
     },
     {
       "id": "software_design",
@@ -788,18 +788,18 @@
         "软件设计"
       ],
       "link_homepage": "http://www.cnsoftbei.com/",
-      "link_detail": "/details/software_design.html",
+      "link_detail": "details/software_design.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:28"
     },
     {
       "id": "sino_us_maker",
@@ -809,18 +809,18 @@
         "综合"
       ],
       "link_homepage": "https://china-us-maker.org.cn/",
-      "link_detail": "/details/sino_us_maker.html",
+      "link_detail": "details/sino_us_maker.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:28"
     },
     {
       "id": "raicom",
@@ -829,18 +829,18 @@
         "机器人"
       ],
       "link_homepage": "http://www.raicom.com.cn/",
-      "link_detail": "/details/raicom.html",
+      "link_detail": "details/raicom.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:28"
     },
     {
       "id": "xuechuang_cup",
@@ -850,18 +850,18 @@
         "创业"
       ],
       "link_homepage": "http://www.xcbcompetition.com/",
-      "link_detail": "/details/xuechuang_cup.html",
+      "link_detail": "details/xuechuang_cup.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:28"
     },
     {
       "id": "intelligent_robot",
@@ -870,18 +870,18 @@
         "机器人"
       ],
       "link_homepage": "http://www.robotcontest.cn/",
-      "link_detail": "/details/intelligent_robot.html",
+      "link_detail": "details/intelligent_robot.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:28"
     },
     {
       "id": "robot_ai",
@@ -891,18 +891,18 @@
         "机器人"
       ],
       "link_homepage": "http://www.caairobot.com/",
-      "link_detail": "/details/robot_ai.html",
+      "link_detail": "details/robot_ai.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:28"
     },
     {
       "id": "energy_saving",
@@ -912,18 +912,18 @@
         "环境"
       ],
       "link_homepage": "http://www.jienengjianpai.org/",
-      "link_detail": "/details/energy_saving.html",
+      "link_detail": "details/energy_saving.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:28"
     },
     {
       "id": "computer_system",
@@ -932,18 +932,18 @@
         "计算机底层"
       ],
       "link_homepage": "https://compiler.educg.net/",
-      "link_detail": "/details/computer_system.html",
+      "link_detail": "details/computer_system.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:28"
     },
     {
       "id": "iot_design",
@@ -952,18 +952,18 @@
         "物联网"
       ],
       "link_homepage": "http://iot.sjtu.edu.cn/",
-      "link_detail": "/details/iot_design.html",
+      "link_detail": "details/iot_design.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:28"
     },
     {
       "id": "info_security_ctf",
@@ -973,18 +973,18 @@
         "CTF"
       ],
       "link_homepage": "https://iscc.bit.edu.cn/",
-      "link_detail": "/details/info_security_ctf.html",
+      "link_detail": "details/info_security_ctf.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:28"
     },
     {
       "id": "statistics_modeling",
@@ -994,18 +994,18 @@
         "数据"
       ],
       "link_homepage": "http://tjjm.cos.edu.cn/",
-      "link_detail": "/details/statistics_modeling.html",
+      "link_detail": "details/statistics_modeling.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:28"
     },
     {
       "id": "campus_ai",
@@ -1015,18 +1015,18 @@
         "算法"
       ],
       "link_homepage": "https://www.saikr.com/vse/campusai",
-      "link_detail": "/details/campus_ai.html",
+      "link_detail": "details/campus_ai.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:28"
     },
     {
       "id": "smart_agriculture",
@@ -1035,18 +1035,18 @@
         "智慧农业"
       ],
       "link_homepage": "http://www.smartagrimach.com/",
-      "link_detail": "/details/smart_agriculture.html",
+      "link_detail": "details/smart_agriculture.html",
       "status": {
         "text": "待更新",
-        "color": "gray"
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据源",
-          "value": "等待同步"
+          "label": "官方链接",
+          "value": "点击进入官网"
         }
       ],
-      "last_updated": ""
+      "last_updated": "22:28"
     }
   ]
 }
