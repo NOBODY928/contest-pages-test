@@ -27,37 +27,37 @@
   name: 中国研究生创“芯”大赛
   homepage: https://cpipc.acge.org.cn/cw/hp/10
   tags: [研究生, 集成电路]
-  parser: null
+  parser: parsers.chip_innovation
 
 - id: cpipc_ai
   name: 中国研究生人工智能创新大赛
-  homepage: https://cpipc.acge.org.cn/cw/hp/2c90800c609345420160934b7f940003
+  homepage: https://cpipc.acge.org.cn/cw/hp/2c9088a5696cbf370169a3f8101510bd
   tags: [研究生, AI]
-  parser: null
+  parser: parsers.ai_competition
 
 - id: cpipc_robot
   name: 中国研究生机器人创新设计大赛
-  homepage: https://cpipc.acge.org.cn/cw/hp/2c9180826478954201647a74659b027d
+  homepage: https://cpipc.acge.org.cn/cw/hp/2c9088a5696cbf370169a3f8934810be
   tags: [研究生, 机器人]
-  parser: null
+  parser: parsers.robot_innovation
 
 - id: cpipc_energy
   name: 中国研究生能源装备创新设计大赛
-  homepage: https://cpipc.acge.org.cn/cw/hp/2c9180826569145601656c071661033a
+  homepage: https://cpipc.acge.org.cn/cw/hp/7
   tags: [研究生, 能源装备]
-  parser: null
+  parser: parsers.energy_equipment
 
 - id: cpipc_public_admin
   name: 中国研究生公共管理案例大赛
-  homepage: https://cpipc.acge.org.cn/cw/hp/2c91808259837a7b01598380e2f50011
+  homepage: https://cpipc.acge.org.cn/cw/hp/8
   tags: [研究生, 公共管理]
-  parser: null
+  parser: parsers.mpa_case
 
 - id: cpipc_rural_revitalization
   name: 中国研究生乡村振兴科技强农+创新大赛
-  homepage: https://cpipc.acge.org.cn/cw/hp/2c918082725f778a0172605f63960105
+  homepage: https://cpipc.acge.org.cn/cw/hp/2c90800c7a132603017a1395f2c105f9
   tags: [研究生, 乡村振兴]
-  parser: null
+  parser: parsers.rural_revitalization
 
 - id: cpipc_cyber_security
   name: 中国研究生网络安全创新大赛

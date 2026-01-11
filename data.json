@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-11 21:23:32",
+  "generated_at": "2026-01-11 21:42:59",
   "items": [
     {
       "id": "cpipc_smart_city",
@@ -24,7 +24,7 @@
           "value": "暂无公告..."
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:42"
     },
     {
       "id": "cpipc_aircraft",
@@ -49,7 +49,7 @@
           "value": "暂无公告..."
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:42"
     },
     {
       "id": "cpipc_math_modeling",
@@ -61,20 +61,20 @@
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/4",
       "link_detail": "details/cpipc_math_modeling.html",
       "status": {
-        "text": "同步中",
-        "color": "yellow"
+        "text": "查看官网",
+        "color": "blue"
       },
       "info_grid": [
         {
-          "label": "赛事名称",
+          "label": "赛事全称",
           "value": "中国研究生数学建模竞赛"
         },
         {
-          "label": "动态",
-          "value": "点击官网查看"
+          "label": "最新动态",
+          "value": "暂无公告..."
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:42"
     },
     {
       "id": "cpipc_electronics",
@@ -99,7 +99,7 @@
           "value": "暂无公告..."
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "cpipc_chips",
@@ -111,16 +111,20 @@
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/10",
       "link_detail": "details/cpipc_chips.html",
       "status": {
-        "text": "待更新",
-        "color": "gray"
+        "text": "查看官网",
+        "color": "blue"
       },
       "info_grid": [
         {
-          "label": "数据状态",
-          "value": "正在同步最新信息"
+          "label": "赛事全称",
+          "value": "中国研究生创“芯”大赛"
+        },
+        {
+          "label": "最新动态",
+          "value": "暂无公告..."
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "cpipc_ai",
@@ -129,19 +133,23 @@
         "研究生",
         "AI"
       ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90800c609345420160934b7f940003",
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c9088a5696cbf370169a3f8101510bd",
       "link_detail": "details/cpipc_ai.html",
       "status": {
-        "text": "待更新",
-        "color": "gray"
+        "text": "查看官网",
+        "color": "blue"
       },
       "info_grid": [
         {
-          "label": "数据状态",
-          "value": "正在同步最新信息"
+          "label": "赛事全称",
+          "value": "中国研究生人工智能创新大赛"
+        },
+        {
+          "label": "最新动态",
+          "value": "暂无公告..."
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "cpipc_robot",
@@ -150,19 +158,23 @@
         "研究生",
         "机器人"
       ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c9180826478954201647a74659b027d",
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c9088a5696cbf370169a3f8934810be",
       "link_detail": "details/cpipc_robot.html",
       "status": {
-        "text": "待更新",
-        "color": "gray"
+        "text": "查看官网",
+        "color": "blue"
       },
       "info_grid": [
         {
-          "label": "数据状态",
-          "value": "正在同步最新信息"
+          "label": "赛事全称",
+          "value": "中国研究生机器人创新设计大赛"
+        },
+        {
+          "label": "最新动态",
+          "value": "暂无公告..."
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "cpipc_energy",
@@ -171,19 +183,23 @@
         "研究生",
         "能源装备"
       ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c9180826569145601656c071661033a",
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/7",
       "link_detail": "details/cpipc_energy.html",
       "status": {
-        "text": "待更新",
-        "color": "gray"
+        "text": "查看官网",
+        "color": "blue"
       },
       "info_grid": [
         {
-          "label": "数据状态",
-          "value": "正在同步最新信息"
+          "label": "赛事全称",
+          "value": "中国研究生能源装备创新设计大赛"
+        },
+        {
+          "label": "最新动态",
+          "value": "暂无公告..."
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "cpipc_public_admin",
@@ -192,19 +208,23 @@
         "研究生",
         "公共管理"
       ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c91808259837a7b01598380e2f50011",
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/8",
       "link_detail": "details/cpipc_public_admin.html",
       "status": {
-        "text": "待更新",
-        "color": "gray"
+        "text": "查看官网",
+        "color": "blue"
       },
       "info_grid": [
         {
-          "label": "数据状态",
-          "value": "正在同步最新信息"
+          "label": "赛事全称",
+          "value": "中国研究生公共管理案例大赛"
+        },
+        {
+          "label": "最新动态",
+          "value": "暂无公告..."
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "cpipc_rural_revitalization",
@@ -213,19 +233,23 @@
         "研究生",
         "乡村振兴"
       ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c918082725f778a0172605f63960105",
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90800c7a132603017a1395f2c105f9",
       "link_detail": "details/cpipc_rural_revitalization.html",
       "status": {
-        "text": "待更新",
-        "color": "gray"
+        "text": "同步中",
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据状态",
-          "value": "正在同步最新信息"
+          "label": "赛事名称",
+          "value": "中国研究生乡村振兴科技强农+创新大赛"
+        },
+        {
+          "label": "动态",
+          "value": "点击官网查看"
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "cpipc_cyber_security",
@@ -246,7 +270,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "cpipc_carbon_neutral",
@@ -267,7 +291,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "cpipc_fintech",
@@ -288,7 +312,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "cpipc_beautiful_china",
@@ -309,7 +333,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "cpipc_enterprise_case",
@@ -330,7 +354,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "cpipc_corporate_governance",
@@ -351,7 +375,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "cpipc_os_open_source",
@@ -372,7 +396,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "challenge_cup_startup",
@@ -393,7 +417,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "lanqiao_cup",
@@ -414,7 +438,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "robomaster",
@@ -435,7 +459,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "xilinx_fpga",
@@ -456,7 +480,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "datang_ict",
@@ -485,7 +509,7 @@
           "value": "请点击详情查看公告"
         }
       ],
-      "last_updated": "21:23",
+      "last_updated": "21:43",
       "detailed_schedule": [
         {
           "day": "2026 赛季关键节点",
@@ -528,7 +552,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "embedded_chip",
@@ -549,7 +573,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "information_tech_app",
@@ -569,7 +593,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "mathorcup",
@@ -589,7 +613,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "baimu_cup",
@@ -609,7 +633,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:23"
+      "last_updated": "21:43"
     },
     {
       "id": "icpc",
@@ -638,7 +662,7 @@
           "value": "待公示"
         }
       ],
-      "last_updated": "21:23",
+      "last_updated": "21:43",
       "detailed_schedule": []
     },
     {
@@ -660,7 +684,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:24"
+      "last_updated": "21:43"
     },
     {
       "id": "nuedc",
@@ -681,7 +705,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:24"
+      "last_updated": "21:43"
     },
     {
       "id": "intelligent_car",
@@ -702,7 +726,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:24"
+      "last_updated": "21:43"
     },
     {
       "id": "engineering_practice",
@@ -722,7 +746,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:24"
+      "last_updated": "21:43"
     },
     {
       "id": "computer_design",
@@ -743,7 +767,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:24"
+      "last_updated": "21:43"
     },
     {
       "id": "software_cup",
@@ -764,7 +788,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:24"
+      "last_updated": "21:43"
     },
     {
       "id": "photo_design",
@@ -784,7 +808,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:24"
+      "last_updated": "21:43"
     },
     {
       "id": "integrated_circuit",
@@ -805,7 +829,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:24"
+      "last_updated": "21:43"
     },
     {
       "id": "info_security",
@@ -825,7 +849,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:24"
+      "last_updated": "21:43"
     },
     {
       "id": "software_design",
@@ -845,7 +869,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:24"
+      "last_updated": "21:43"
     },
     {
       "id": "sino_us_maker",
@@ -866,7 +890,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:24"
+      "last_updated": "21:43"
     },
     {
       "id": "raicom",
@@ -886,7 +910,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:24"
+      "last_updated": "21:43"
     },
     {
       "id": "xuechuang_cup",
@@ -907,7 +931,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:24"
+      "last_updated": "21:43"
     },
     {
       "id": "intelligent_robot",
@@ -927,7 +951,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:24"
+      "last_updated": "21:43"
     },
     {
       "id": "robot_ai",
@@ -948,7 +972,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:24"
+      "last_updated": "21:43"
     },
     {
       "id": "energy_saving",
@@ -969,7 +993,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:24"
+      "last_updated": "21:43"
     },
     {
       "id": "computer_system",
@@ -989,7 +1013,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:24"
+      "last_updated": "21:43"
     },
     {
       "id": "iot_design",
@@ -1009,7 +1033,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:24"
+      "last_updated": "21:43"
     },
     {
       "id": "info_security_ctf",
@@ -1030,7 +1054,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:24"
+      "last_updated": "21:43"
     },
     {
       "id": "statistics_modeling",
@@ -1051,7 +1075,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:24"
+      "last_updated": "21:43"
     },
     {
       "id": "campus_ai",
@@ -1072,7 +1096,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:24"
+      "last_updated": "21:43"
     },
     {
       "id": "smart_agriculture",
@@ -1092,7 +1116,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "21:24"
+      "last_updated": "21:43"
     }
   ]
 }
