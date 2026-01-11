@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-11 18:27:01",
+  "generated_at": "2026-01-11 19:46:44",
   "items": [
     {
       "id": "cpipc_smart_city",
@@ -20,7 +20,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "cpipc_aircraft",
@@ -41,7 +41,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "cpipc_math_modeling",
@@ -62,7 +62,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "cpipc_electronics",
@@ -83,7 +83,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "cpipc_chips",
@@ -104,7 +104,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "cpipc_ai",
@@ -125,7 +125,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "cpipc_robot",
@@ -146,7 +146,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "cpipc_energy",
@@ -167,7 +167,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "cpipc_public_admin",
@@ -188,7 +188,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "cpipc_rural_revitalization",
@@ -209,7 +209,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "cpipc_cyber_security",
@@ -230,7 +230,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "cpipc_carbon_neutral",
@@ -251,7 +251,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "cpipc_fintech",
@@ -272,7 +272,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "cpipc_beautiful_china",
@@ -293,7 +293,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "cpipc_enterprise_case",
@@ -314,7 +314,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "cpipc_corporate_governance",
@@ -335,7 +335,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "cpipc_os_open_source",
@@ -356,7 +356,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "challenge_cup_startup",
@@ -377,7 +377,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "lanqiao_cup",
@@ -398,7 +398,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "robomaster",
@@ -419,7 +419,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "xilinx_fpga",
@@ -440,7 +440,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "datatong_ict",
@@ -452,16 +452,25 @@
       "link_homepage": "http://dtcup.dtcenter.cn/",
       "link_detail": "details/datatong_ict.html",
       "status": {
-        "text": "待更新",
+        "text": "查看官网",
         "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "官方链接",
-          "value": "点击进入官网"
+          "label": "赛事名称",
+          "value": "第十三届大唐杯"
+        },
+        {
+          "label": "主办单位",
+          "value": "工信部人才交流中心"
+        },
+        {
+          "label": "当前信息",
+          "value": "请访问官网查看最新公告"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46",
+      "detailed_schedule": []
     },
     {
       "id": "huawei_ict",
@@ -482,7 +491,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "embedded_chip",
@@ -503,7 +512,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "information_tech_app",
@@ -523,7 +532,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "mathorcup",
@@ -543,7 +552,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "baimu_cup",
@@ -563,7 +572,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "icpc",
@@ -592,7 +601,7 @@
           "value": "待公示"
         }
       ],
-      "last_updated": "18:27",
+      "last_updated": "19:46",
       "detailed_schedule": []
     },
     {
@@ -614,7 +623,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "nuedc",
@@ -635,7 +644,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "intelligent_car",
@@ -656,7 +665,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "engineering_practice",
@@ -676,7 +685,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "computer_design",
@@ -697,7 +706,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "software_cup",
@@ -718,7 +727,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "photo_design",
@@ -738,7 +747,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "integrated_circuit",
@@ -759,7 +768,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "info_security",
@@ -779,7 +788,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "software_design",
@@ -799,7 +808,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "sino_us_maker",
@@ -820,7 +829,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "raicom",
@@ -840,7 +849,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "xuechuang_cup",
@@ -861,7 +870,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "intelligent_robot",
@@ -881,7 +890,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "robot_ai",
@@ -902,7 +911,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "energy_saving",
@@ -923,7 +932,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "computer_system",
@@ -943,7 +952,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "iot_design",
@@ -963,7 +972,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "info_security_ctf",
@@ -984,7 +993,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "statistics_modeling",
@@ -1005,7 +1014,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "campus_ai",
@@ -1026,7 +1035,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     },
     {
       "id": "smart_agriculture",
@@ -1046,7 +1055,7 @@
           "value": "点击进入官网"
         }
       ],
-      "last_updated": "18:27"
+      "last_updated": "19:46"
     }
   ]
 }

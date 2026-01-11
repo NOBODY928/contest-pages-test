@@ -130,7 +130,7 @@
   name: “大唐杯”全国大学生新一代信息通信技术大赛
   homepage: http://dtcup.dtcenter.cn/
   tags: [通信, 5G]
-  parser: null
+  parser: parsers.datang_ict
 
 - id: huawei_ict
   name: 华为 ICT 大赛
