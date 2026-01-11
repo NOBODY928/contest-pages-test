@@ -3,25 +3,25 @@
   name: 中国研究生智慧城市技术与创意设计大赛
   homepage: https://cpipc.acge.org.cn/cw/hp/1
   tags: [研究生, 智慧城市]
-  parser: null
+  parser: parsers.smart_city
 
 - id: cpipc_aircraft
   name: 中国研究生未来飞行器创新大赛
   homepage: https://cpipc.acge.org.cn/cw/hp/3
   tags: [研究生, 航空航天]
-  parser: null
+  parser: parsers.future_flight
 
 - id: cpipc_math_modeling
   name: 中国研究生数学建模竞赛
   homepage: https://cpipc.acge.org.cn/cw/hp/4
   tags: [研究生, 数学建模]
-  parser: null
+  parser: parsers.math_modeling
 
 - id: cpipc_electronics
   name: 中国研究生电子设计竞赛
   homepage: https://cpipc.acge.org.cn/cw/hp/6
   tags: [研究生, 电子设计]
-  parser: null
+  parser: parsers.electronic_design
 
 - id: cpipc_chips
   name: 中国研究生创“芯”大赛
@@ -126,7 +126,7 @@
   tags: [智能制造, 自动化]
   parser: null
 
-- id: datatong_ict
+- id: datang_ict
   name: “大唐杯”全国大学生新一代信息通信技术大赛
   homepage: https://dtcup.dtxiaotangren.com/
   tags: [通信, 5G]
