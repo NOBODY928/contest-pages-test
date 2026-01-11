@@ -128,7 +128,7 @@
 
 - id: datatong_ict
   name: “大唐杯”全国大学生新一代信息通信技术大赛
-  homepage: http://dtcup.dtcenter.cn/
+  homepage: https://dtcup.dtxiaotangren.com/
   tags: [通信, 5G]
   parser: parsers.datang_ict
 
