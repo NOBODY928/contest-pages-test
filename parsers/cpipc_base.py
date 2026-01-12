@@ -13,7 +13,7 @@ def get_data(comp_id, comp_name):
     url = f"https://cpipc.acge.org.cn/cw/hp/{comp_id}"
 
     try:
-        r = requests.get(url, headers=HEADERS, timeout=15)
+        r = requests.get(url, headers=HEADERS,timeout=60, verify=False)
         r.raise_for_status()
         r.encoding = "utf-8"
         soup = BeautifulSoup(r.text, "html.parser")
