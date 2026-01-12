@@ -118,13 +118,13 @@
   name: 全国大学生机器人大赛 (RoboMaster)
   homepage: https://www.robomaster.com/
   tags: [机器人, 竞技]
-  parser: null
+  parser: parsers.robomaster
 
 - id: xilinx_fpga
   name: “西门子杯”中国智能制造挑战赛
   homepage: http://www.ineat.cn/
   tags: [智能制造, 自动化]
-  parser: null
+  parser: parsers.siemens
 
 - id: datang_ict
   name: “大唐杯”全国大学生新一代信息通信技术大赛
@@ -136,19 +136,19 @@
   name: 华为 ICT 大赛
   homepage: https://e.huawei.com/cn/talent/ict-academy/#/ict-contest/home
   tags: [IT/IP, 华为]
-  parser: null
+  parser: parsers.huawei_ict
 
 - id: embedded_chip
   name: 全国大学生嵌入式芯片与系统设计竞赛
   homepage: http://www.socchina.net/
   tags: [嵌入式, 芯片]
-  parser: null
+  parser: parsers.embedded_chip
 
 - id: information_tech_app
   name: 全国大学生信息技术应用大赛
   homepage: http://www.it-at.org.cn/
   tags: [信息技术]
-  parser: null
+  parser: parsers.information_tech
 
 - id: mathorcup
   name: MathorCup 高校数学建模挑战赛
