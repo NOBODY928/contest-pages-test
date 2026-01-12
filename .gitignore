@@ -1,1 +1,6 @@
 venv/
+__pycache__/
+*.pyc
+cron.run.log
+*.log
+venv/
