@@ -35,7 +35,10 @@ def get_data(comp_id, comp_name):
             ],
         }
 
-    except Exception:
+    except Exception as e:
+        # 【新增】打印出具体是哪个比赛出错了，以及错误信息是什么
+        print(f"Error fetching {comp_name} (ID: {comp_id}): {e}")
+        
         return {
             "status": {"text": "待更新", "color": "yellow"},
             "info_grid": [
@@ -43,4 +46,3 @@ def get_data(comp_id, comp_name):
                 {"label": "状态", "value": "数据同步中"},
             ],
         }
-
