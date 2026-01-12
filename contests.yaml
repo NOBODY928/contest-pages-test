@@ -111,8 +111,8 @@
 - id: lanqiao_cup
   name: 蓝桥杯全国软件和信息技术专业人才大赛
   homepage: https://dasai.lanqiao.cn/
-  tags: [编程, 软件]
-  parser: null
+  tags: [编程, 算法, 电子设计]
+  parser: parsers.lanqiao
 
 - id: robomaster
   name: 全国大学生机器人大赛 (RoboMaster)
