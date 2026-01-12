@@ -1,19 +1,45 @@
 import requests
-from bs4 import BeautifulSoup
+from bs4 import BeautifulSoup  # <--- 就是缺了这一行！
+import urllib3
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
+import json
+import os
+import time
 
+# 1. 禁用 SSL 警告（防止控制台输出一大堆红色警告）
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+# 2. 【核心修复】这里就是你缺失的 HEADERS 定义
 HEADERS = {
     "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
-    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
-    "Accept-Language": "zh-CN,zh;q=0.9,en;q=0.8",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7",
+    "Accept-Language": "zh-CN,zh;q=0.9",
     "Connection": "keep-alive",
+    "Upgrade-Insecure-Requests": "1"
 }
+# 创建一个带有重试功能的 session
+def get_session():
+    session = requests.Session()
+    retry = Retry(
+        total=3,  # 最多重试3次
+        backoff_factor=1,  # 每次重试间隔 1秒, 2秒, 4秒...
+        status_forcelist=[500, 502, 503, 504],  # 遇到这些服务器错误码就重试
+    )
+    adapter = HTTPAdapter(max_retries=retry)
+    session.mount("https://", adapter)
+    session.mount("http://", adapter)
+    return session
 
 def get_data(comp_id, comp_name):
     comp_id = str(comp_id).strip()
     url = f"https://cpipc.acge.org.cn/cw/hp/{comp_id}"
-
+    
     try:
-        r = requests.get(url, headers=HEADERS,timeout=60, verify=False)
+        session = get_session() # 获取带重试功能的 session
+        
+        # 使用 session.get 而不是 requests.get
+        r = session.get(url, headers=HEADERS, timeout=60, verify=False)
         r.raise_for_status()
         r.encoding = "utf-8"
         soup = BeautifulSoup(r.text, "html.parser")
