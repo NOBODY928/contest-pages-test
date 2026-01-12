@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-12 21:03:49",
+  "generated_at": "2026-01-12 21:17:30",
   "items": [
     {
       "id": "cpipc_smart_city",
@@ -24,7 +24,7 @@
           "value": "点击官网查看详情..."
         }
       ],
-      "last_updated": "21:03"
+      "last_updated": "21:17"
     },
     {
       "id": "cpipc_aircraft",
@@ -49,7 +49,7 @@
           "value": "点击官网查看详情..."
         }
       ],
-      "last_updated": "21:03"
+      "last_updated": "21:17"
     },
     {
       "id": "cpipc_math_modeling",
@@ -74,7 +74,7 @@
           "value": "点击官网查看详情..."
         }
       ],
-      "last_updated": "21:03"
+      "last_updated": "21:17"
     },
     {
       "id": "cpipc_electronics",
@@ -99,7 +99,7 @@
           "value": "点击官网查看详情..."
         }
       ],
-      "last_updated": "21:03"
+      "last_updated": "21:18"
     },
     {
       "id": "cpipc_chips",
@@ -124,7 +124,7 @@
           "value": "点击官网查看详情..."
         }
       ],
-      "last_updated": "21:04"
+      "last_updated": "21:18"
     },
     {
       "id": "cpipc_ai",
@@ -149,7 +149,7 @@
           "value": "点击官网查看详情..."
         }
       ],
-      "last_updated": "21:04"
+      "last_updated": "21:18"
     },
     {
       "id": "cpipc_robot",
@@ -174,7 +174,7 @@
           "value": "点击官网查看详情..."
         }
       ],
-      "last_updated": "21:04"
+      "last_updated": "21:18"
     },
     {
       "id": "cpipc_energy",
@@ -199,7 +199,7 @@
           "value": "点击官网查看详情..."
         }
       ],
-      "last_updated": "21:04"
+      "last_updated": "21:19"
     },
     {
       "id": "cpipc_public_admin",
@@ -224,7 +224,7 @@
           "value": "点击官网查看详情..."
         }
       ],
-      "last_updated": "21:04"
+      "last_updated": "21:19"
     },
     {
       "id": "cpipc_rural_revitalization",
@@ -249,7 +249,7 @@
           "value": "点击官网查看详情..."
         }
       ],
-      "last_updated": "21:04"
+      "last_updated": "21:20"
     },
     {
       "id": "cpipc_cyber_security",
@@ -274,7 +274,7 @@
           "value": "点击官网查看详情..."
         }
       ],
-      "last_updated": "21:05"
+      "last_updated": "21:20"
     },
     {
       "id": "cpipc_carbon_neutral",
@@ -299,7 +299,7 @@
           "value": "点击官网查看详情..."
         }
       ],
-      "last_updated": "21:05"
+      "last_updated": "21:20"
     },
     {
       "id": "cpipc_fintech",
@@ -324,7 +324,7 @@
           "value": "点击官网查看详情..."
         }
       ],
-      "last_updated": "21:05"
+      "last_updated": "21:21"
     },
     {
       "id": "cpipc_beautiful_china",
@@ -349,7 +349,7 @@
           "value": "点击官网查看详情..."
         }
       ],
-      "last_updated": "21:05"
+      "last_updated": "21:21"
     },
     {
       "id": "cpipc_enterprise_case",
@@ -374,7 +374,7 @@
           "value": "点击官网查看详情..."
         }
       ],
-      "last_updated": "21:05"
+      "last_updated": "21:21"
     },
     {
       "id": "cpipc_corporate_governance",
@@ -399,7 +399,7 @@
           "value": "点击官网查看详情..."
         }
       ],
-      "last_updated": "21:05"
+      "last_updated": "21:21"
     },
     {
       "id": "cpipc_os_open_source",
@@ -424,7 +424,7 @@
           "value": "点击官网查看详情..."
         }
       ],
-      "last_updated": "21:05"
+      "last_updated": "21:21"
     },
     {
       "id": "challenge_cup_startup",
@@ -445,7 +445,7 @@
           "value": "点击进入官网查看最新动态"
         }
       ],
-      "last_updated": "21:05"
+      "last_updated": "21:21"
     },
     {
       "id": "lanqiao_cup",
@@ -471,7 +471,7 @@
           "value": "点击查看官网公告..."
         }
       ],
-      "last_updated": "21:05"
+      "last_updated": "21:21"
     },
     {
       "id": "robomaster",
@@ -496,7 +496,7 @@
           "value": "点击查看 2026 赛季手册"
         }
       ],
-      "last_updated": "21:05",
+      "last_updated": "21:21",
       "detailed_schedule": [
         {
           "day": "2026 赛季预估表",
@@ -543,7 +543,7 @@
           "value": "关注 2026 赛季报名通知"
         }
       ],
-      "last_updated": "21:05"
+      "last_updated": "21:21"
     },
     {
       "id": "datang_ict",
@@ -572,7 +572,7 @@
           "value": "请点击详情查看公告"
         }
       ],
-      "last_updated": "21:05",
+      "last_updated": "21:21",
       "detailed_schedule": [
         {
           "day": "2026 赛季关键节点",
@@ -619,7 +619,7 @@
           "value": "区域赛/国家赛阶段"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "embedded_chip",
@@ -644,7 +644,7 @@
           "value": "等待 2026 届启动通知"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "information_tech_app",
@@ -668,7 +668,7 @@
           "value": "同步官网公告中"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "mathorcup",
@@ -688,7 +688,7 @@
           "value": "点击进入官网查看最新动态"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "baimu_cup",
@@ -708,7 +708,7 @@
           "value": "点击进入官网查看最新动态"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "icpc",
@@ -720,13 +720,13 @@
       "link_homepage": "https://icpc.global/",
       "link_detail": "details/icpc.html",
       "status": {
-        "text": "待更新",
-        "color": "yellow"
+        "text": "比赛已结束",
+        "color": "gray"
       },
       "info_grid": [
         {
           "label": "最新赛事",
-          "value": "ICPC World Finals"
+          "value": "ICPC World Finals 2025"
         },
         {
           "label": "时间范围",
@@ -737,8 +737,29 @@
           "value": "待公示"
         }
       ],
-      "last_updated": "21:06",
-      "detailed_schedule": []
+      "last_updated": "21:21",
+      "detailed_schedule": [
+        {
+          "day": "2025-09-20",
+          "events": [
+            {
+              "time": "全天",
+              "desc": "开幕式 & 签到",
+              "loc": "待定"
+            }
+          ]
+        },
+        {
+          "day": "2025-09-25",
+          "events": [
+            {
+              "time": "全天",
+              "desc": "闭幕式 & 颁奖",
+              "loc": "待定"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "cumcm",
@@ -763,7 +784,7 @@
           "value": "每年 9 月中旬"
         }
       ],
-      "last_updated": "21:06",
+      "last_updated": "21:21",
       "detailed_schedule": [
         {
           "day": "2026 赛季参考",
@@ -805,7 +826,7 @@
           "value": "关注 2026 各赛区通告"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "intelligent_car",
@@ -830,7 +851,7 @@
           "value": "2026 赛季筹备中"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "engineering_practice",
@@ -854,7 +875,7 @@
           "value": "智能制造/工训综合"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "computer_design",
@@ -875,7 +896,7 @@
           "value": "点击进入官网查看最新动态"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "software_cup",
@@ -896,7 +917,7 @@
           "value": "点击进入官网查看最新动态"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "photo_design",
@@ -916,7 +937,7 @@
           "value": "点击进入官网查看最新动态"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "integrated_circuit",
@@ -937,7 +958,7 @@
           "value": "点击进入官网查看最新动态"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "info_security",
@@ -957,7 +978,7 @@
           "value": "点击进入官网查看最新动态"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "software_design",
@@ -977,7 +998,7 @@
           "value": "点击进入官网查看最新动态"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "sino_us_maker",
@@ -998,7 +1019,7 @@
           "value": "点击进入官网查看最新动态"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "raicom",
@@ -1018,7 +1039,7 @@
           "value": "点击进入官网查看最新动态"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "xuechuang_cup",
@@ -1039,7 +1060,7 @@
           "value": "点击进入官网查看最新动态"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "intelligent_robot",
@@ -1059,7 +1080,7 @@
           "value": "点击进入官网查看最新动态"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "robot_ai",
@@ -1080,7 +1101,7 @@
           "value": "点击进入官网查看最新动态"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "energy_saving",
@@ -1101,7 +1122,7 @@
           "value": "点击进入官网查看最新动态"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "computer_system",
@@ -1121,7 +1142,7 @@
           "value": "点击进入官网查看最新动态"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "iot_design",
@@ -1141,7 +1162,7 @@
           "value": "点击进入官网查看最新动态"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "info_security_ctf",
@@ -1162,7 +1183,7 @@
           "value": "点击进入官网查看最新动态"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "statistics_modeling",
@@ -1183,7 +1204,7 @@
           "value": "点击进入官网查看最新动态"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "campus_ai",
@@ -1204,7 +1225,7 @@
           "value": "点击进入官网查看最新动态"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     },
     {
       "id": "smart_agriculture",
@@ -1224,7 +1245,7 @@
           "value": "点击进入官网查看最新动态"
         }
       ],
-      "last_updated": "21:06"
+      "last_updated": "21:21"
     }
   ]
 }
