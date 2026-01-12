@@ -40,7 +40,7 @@ def parse():
         month = now.month
         
         if 1 <= month <= 3:
-            status_text = "火热报名中"
+            status_text = "报名进行中"
             status_color = "green"
         elif 4 <= month <= 5:
             status_text = "省赛进行中"
