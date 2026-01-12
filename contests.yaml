@@ -172,25 +172,25 @@
   name: 全国大学生数学建模竞赛
   homepage: http://www.mcm.edu.cn/
   tags: [数学建模, 国赛]
-  parser: null
+  parser: parsers.cumcm_parser
 
 - id: nuedc
   name: 全国大学生电子设计竞赛
   homepage: http://nuedc.xjtu.edu.cn/
   tags: [电子设计, 国赛]
-  parser: null
+  parser: parsers.nuedc_parser
 
 - id: intelligent_car
   name: 全国大学生智能汽车竞赛
   homepage: https://smartcar.cdhu.edu.cn/
   tags: [智能车, 自动化]
-  parser: null
+  parser: parsers.smart_car_parser
 
 - id: engineering_practice
   name: 中国大学生工程实践与创新能力大赛
   homepage: http://www.gcxl.edu.cn/
   tags: [工程实践]
-  parser: null
+  parser: parsers.eng_practice_parser
 
 - id: computer_design
   name: 中国大学生计算机设计大赛
