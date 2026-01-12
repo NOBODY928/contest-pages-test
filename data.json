@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-01-12 06:00:01",
+  "generated_at": "2026-01-12 09:44:01",
   "items": [
     {
       "id": "cpipc_smart_city",
@@ -11,20 +11,20 @@
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/1",
       "link_detail": "details/cpipc_smart_city.html",
       "status": {
-        "text": "同步中",
-        "color": "yellow"
+        "text": "查看官网",
+        "color": "blue"
       },
       "info_grid": [
         {
-          "label": "赛事名称",
+          "label": "赛事全称",
           "value": "中国研究生智慧城市设计大赛"
         },
         {
-          "label": "动态",
-          "value": "点击官网查看"
+          "label": "最新动态",
+          "value": "暂无公告..."
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:44"
     },
     {
       "id": "cpipc_aircraft",
@@ -49,7 +49,7 @@
           "value": "暂无公告..."
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:44"
     },
     {
       "id": "cpipc_math_modeling",
@@ -61,20 +61,20 @@
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/4",
       "link_detail": "details/cpipc_math_modeling.html",
       "status": {
-        "text": "同步中",
-        "color": "yellow"
+        "text": "查看官网",
+        "color": "blue"
       },
       "info_grid": [
         {
-          "label": "赛事名称",
+          "label": "赛事全称",
           "value": "中国研究生数学建模竞赛"
         },
         {
-          "label": "动态",
-          "value": "点击官网查看"
+          "label": "最新动态",
+          "value": "暂无公告..."
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:44"
     },
     {
       "id": "cpipc_electronics",
@@ -99,7 +99,7 @@
           "value": "暂无公告..."
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:44"
     },
     {
       "id": "cpipc_chips",
@@ -111,20 +111,20 @@
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/10",
       "link_detail": "details/cpipc_chips.html",
       "status": {
-        "text": "查看官网",
-        "color": "blue"
+        "text": "同步中",
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "赛事全称",
+          "label": "赛事名称",
           "value": "中国研究生创“芯”大赛"
         },
         {
-          "label": "最新动态",
-          "value": "暂无公告..."
+          "label": "动态",
+          "value": "点击官网查看"
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:44"
     },
     {
       "id": "cpipc_ai",
@@ -136,20 +136,20 @@
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c9088a5696cbf370169a3f8101510bd",
       "link_detail": "details/cpipc_ai.html",
       "status": {
-        "text": "查看官网",
-        "color": "blue"
+        "text": "同步中",
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "赛事全称",
+          "label": "赛事名称",
           "value": "中国研究生人工智能创新大赛"
         },
         {
-          "label": "最新动态",
-          "value": "暂无公告..."
+          "label": "动态",
+          "value": "点击官网查看"
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:44"
     },
     {
       "id": "cpipc_robot",
@@ -161,20 +161,20 @@
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c9088a5696cbf370169a3f8934810be",
       "link_detail": "details/cpipc_robot.html",
       "status": {
-        "text": "同步中",
-        "color": "yellow"
+        "text": "查看官网",
+        "color": "blue"
       },
       "info_grid": [
         {
-          "label": "赛事名称",
+          "label": "赛事全称",
           "value": "中国研究生机器人创新设计大赛"
         },
         {
-          "label": "动态",
-          "value": "点击官网查看"
+          "label": "最新动态",
+          "value": "暂无公告..."
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:44"
     },
     {
       "id": "cpipc_energy",
@@ -199,7 +199,7 @@
           "value": "暂无公告..."
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:44"
     },
     {
       "id": "cpipc_public_admin",
@@ -224,7 +224,7 @@
           "value": "暂无公告..."
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:44"
     },
     {
       "id": "cpipc_rural_revitalization",
@@ -236,20 +236,20 @@
       "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90800c7a132603017a1395f2c105f9",
       "link_detail": "details/cpipc_rural_revitalization.html",
       "status": {
-        "text": "查看官网",
-        "color": "blue"
+        "text": "同步中",
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "赛事全称",
+          "label": "赛事名称",
           "value": "中国研究生乡村振兴科技强农+创新大赛"
         },
         {
-          "label": "最新动态",
-          "value": "暂无公告..."
+          "label": "动态",
+          "value": "点击官网查看"
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:44"
     },
     {
       "id": "cpipc_cyber_security",
@@ -258,19 +258,23 @@
         "研究生",
         "网络安全"
       ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90801780512f48018051a84f500049",
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90800c8093eef401809d33b36f0652",
       "link_detail": "details/cpipc_cyber_security.html",
       "status": {
-        "text": "待更新",
-        "color": "gray"
+        "text": "查看官网",
+        "color": "blue"
       },
       "info_grid": [
         {
-          "label": "数据状态",
-          "value": "正在同步最新信息"
+          "label": "赛事全称",
+          "value": "中国研究生网络安全创新大赛"
+        },
+        {
+          "label": "最新动态",
+          "value": "暂无公告..."
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:44"
     },
     {
       "id": "cpipc_carbon_neutral",
@@ -279,19 +283,23 @@
         "研究生",
         "双碳"
       ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90801782293e6201822c6742a70019",
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90800c8093eef401809d348f8b0653",
       "link_detail": "details/cpipc_carbon_neutral.html",
       "status": {
-        "text": "待更新",
-        "color": "gray"
+        "text": "同步中",
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据状态",
-          "value": "正在同步最新信息"
+          "label": "赛事名称",
+          "value": "中国研究生“双碳”创新与创意大赛"
+        },
+        {
+          "label": "动态",
+          "value": "点击官网查看"
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:44"
     },
     {
       "id": "cpipc_fintech",
@@ -300,19 +308,23 @@
         "研究生",
         "金融科技"
       ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90801782293e6201822c6f130b001f",
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90800c8093eef401809d3501080654",
       "link_detail": "details/cpipc_fintech.html",
       "status": {
-        "text": "待更新",
-        "color": "gray"
+        "text": "查看官网",
+        "color": "blue"
       },
       "info_grid": [
         {
-          "label": "数据状态",
-          "value": "正在同步最新信息"
+          "label": "赛事全称",
+          "value": "中国研究生金融科技创新大赛"
+        },
+        {
+          "label": "最新动态",
+          "value": "暂无公告..."
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:45"
     },
     {
       "id": "cpipc_beautiful_china",
@@ -321,40 +333,48 @@
         "研究生",
         "艺术设计"
       ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90801586e379050186e872c0c702a0",
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c908018876ef068018774a9501a03fe",
       "link_detail": "details/cpipc_beautiful_china.html",
       "status": {
-        "text": "待更新",
-        "color": "gray"
+        "text": "同步中",
+        "color": "yellow"
       },
       "info_grid": [
         {
-          "label": "数据状态",
-          "value": "正在同步最新信息"
+          "label": "赛事名称",
+          "value": "中国研究生“美丽中国”创新设计大赛"
+        },
+        {
+          "label": "动态",
+          "value": "点击官网查看"
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:45"
     },
     {
       "id": "cpipc_enterprise_case",
-      "title": "中国研究生工商管理案例大赛",
+      "title": "中国研究生工程管理案例大赛",
       "tags": [
         "研究生",
         "MBA"
       ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/15",
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c908018876ef068018774a7a5bc03fd",
       "link_detail": "details/cpipc_enterprise_case.html",
       "status": {
-        "text": "待更新",
-        "color": "gray"
+        "text": "查看官网",
+        "color": "blue"
       },
       "info_grid": [
         {
-          "label": "数据状态",
-          "value": "正在同步最新信息"
+          "label": "赛事全称",
+          "value": "中国研究生工程管理案例大赛"
+        },
+        {
+          "label": "最新动态",
+          "value": "暂无公告..."
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:45"
     },
     {
       "id": "cpipc_corporate_governance",
@@ -363,19 +383,23 @@
         "研究生",
         "企业管理"
       ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90801586e379050186e879a95702b8",
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90801786cfa2b60186de4143390279",
       "link_detail": "details/cpipc_corporate_governance.html",
       "status": {
-        "text": "待更新",
-        "color": "gray"
+        "text": "查看官网",
+        "color": "blue"
       },
       "info_grid": [
         {
-          "label": "数据状态",
-          "value": "正在同步最新信息"
+          "label": "赛事全称",
+          "value": "中国研究生企业管理创新大赛"
+        },
+        {
+          "label": "最新动态",
+          "value": "暂无公告..."
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:45"
     },
     {
       "id": "cpipc_os_open_source",
@@ -384,19 +408,23 @@
         "研究生",
         "开源/OS"
       ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c9080158e2ad864018e50e2b8d508d9",
+      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c9080178c7c917b018d1b1a0af61cd6",
       "link_detail": "details/cpipc_os_open_source.html",
       "status": {
-        "text": "待更新",
-        "color": "gray"
+        "text": "查看官网",
+        "color": "blue"
       },
       "info_grid": [
         {
-          "label": "数据状态",
-          "value": "正在同步最新信息"
+          "label": "赛事全称",
+          "value": "中国研究生操作系统开源创新大赛"
+        },
+        {
+          "label": "最新动态",
+          "value": "暂无公告..."
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:45"
     },
     {
       "id": "challenge_cup_startup",
@@ -417,7 +445,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:45"
     },
     {
       "id": "lanqiao_cup",
@@ -438,7 +466,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:45"
     },
     {
       "id": "robomaster",
@@ -459,7 +487,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:45"
     },
     {
       "id": "xilinx_fpga",
@@ -480,7 +508,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:45"
     },
     {
       "id": "datang_ict",
@@ -509,7 +537,7 @@
           "value": "请点击详情查看公告"
         }
       ],
-      "last_updated": "06:00",
+      "last_updated": "09:45",
       "detailed_schedule": [
         {
           "day": "2026 赛季关键节点",
@@ -552,7 +580,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:45"
     },
     {
       "id": "embedded_chip",
@@ -573,7 +601,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:45"
     },
     {
       "id": "information_tech_app",
@@ -593,7 +621,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:45"
     },
     {
       "id": "mathorcup",
@@ -613,7 +641,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:45"
     },
     {
       "id": "baimu_cup",
@@ -633,7 +661,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:00"
+      "last_updated": "09:45"
     },
     {
       "id": "icpc",
@@ -662,7 +690,7 @@
           "value": "待公示"
         }
       ],
-      "last_updated": "06:00",
+      "last_updated": "09:45",
       "detailed_schedule": []
     },
     {
@@ -684,7 +712,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:01"
+      "last_updated": "09:45"
     },
     {
       "id": "nuedc",
@@ -705,7 +733,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:01"
+      "last_updated": "09:45"
     },
     {
       "id": "intelligent_car",
@@ -726,7 +754,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:01"
+      "last_updated": "09:45"
     },
     {
       "id": "engineering_practice",
@@ -746,7 +774,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:01"
+      "last_updated": "09:45"
     },
     {
       "id": "computer_design",
@@ -767,7 +795,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:01"
+      "last_updated": "09:45"
     },
     {
       "id": "software_cup",
@@ -788,7 +816,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:01"
+      "last_updated": "09:45"
     },
     {
       "id": "photo_design",
@@ -808,7 +836,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:01"
+      "last_updated": "09:45"
     },
     {
       "id": "integrated_circuit",
@@ -829,7 +857,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:01"
+      "last_updated": "09:45"
     },
     {
       "id": "info_security",
@@ -849,7 +877,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:01"
+      "last_updated": "09:45"
     },
     {
       "id": "software_design",
@@ -869,7 +897,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:01"
+      "last_updated": "09:45"
     },
     {
       "id": "sino_us_maker",
@@ -890,7 +918,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:01"
+      "last_updated": "09:45"
     },
     {
       "id": "raicom",
@@ -910,7 +938,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:01"
+      "last_updated": "09:45"
     },
     {
       "id": "xuechuang_cup",
@@ -931,7 +959,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:01"
+      "last_updated": "09:45"
     },
     {
       "id": "intelligent_robot",
@@ -951,7 +979,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:01"
+      "last_updated": "09:45"
     },
     {
       "id": "robot_ai",
@@ -972,7 +1000,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:01"
+      "last_updated": "09:45"
     },
     {
       "id": "energy_saving",
@@ -993,7 +1021,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:01"
+      "last_updated": "09:45"
     },
     {
       "id": "computer_system",
@@ -1013,7 +1041,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:01"
+      "last_updated": "09:45"
     },
     {
       "id": "iot_design",
@@ -1033,7 +1061,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:01"
+      "last_updated": "09:45"
     },
     {
       "id": "info_security_ctf",
@@ -1054,7 +1082,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:01"
+      "last_updated": "09:45"
     },
     {
       "id": "statistics_modeling",
@@ -1075,7 +1103,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:01"
+      "last_updated": "09:45"
     },
     {
       "id": "campus_ai",
@@ -1096,7 +1124,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:01"
+      "last_updated": "09:45"
     },
     {
       "id": "smart_agriculture",
@@ -1116,7 +1144,7 @@
           "value": "正在同步最新信息"
         }
       ],
-      "last_updated": "06:01"
+      "last_updated": "09:45"
     }
   ]
 }

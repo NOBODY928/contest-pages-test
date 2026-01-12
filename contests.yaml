@@ -61,45 +61,45 @@
 
 - id: cpipc_cyber_security
   name: 中国研究生网络安全创新大赛
-  homepage: https://cpipc.acge.org.cn/cw/hp/2c90801780512f48018051a84f500049
+  homepage: https://cpipc.acge.org.cn/cw/hp/2c90800c8093eef401809d33b36f0652
   tags: [研究生, 网络安全]
-  parser: null
+  parser: parsers.cyber_security
 
 - id: cpipc_carbon_neutral
   name: 中国研究生“双碳”创新与创意大赛
-  homepage: https://cpipc.acge.org.cn/cw/hp/2c90801782293e6201822c6742a70019
+  homepage: https://cpipc.acge.org.cn/cw/hp/2c90800c8093eef401809d348f8b0653
   tags: [研究生, 双碳]
-  parser: null
+  parser: parsers.carbon_neutral
 
 - id: cpipc_fintech
   name: 中国研究生金融科技创新大赛
-  homepage: https://cpipc.acge.org.cn/cw/hp/2c90801782293e6201822c6f130b001f
+  homepage: https://cpipc.acge.org.cn/cw/hp/2c90800c8093eef401809d3501080654
   tags: [研究生, 金融科技]
-  parser: null
+  parser: parsers.fintech
 
 - id: cpipc_beautiful_china
   name: 中国研究生“美丽中国”创新设计大赛
-  homepage: https://cpipc.acge.org.cn/cw/hp/2c90801586e379050186e872c0c702a0
+  homepage: https://cpipc.acge.org.cn/cw/hp/2c908018876ef068018774a9501a03fe
   tags: [研究生, 艺术设计]
-  parser: null
+  parser: parsers.beautiful_china
 
 - id: cpipc_enterprise_case
-  name: 中国研究生工商管理案例大赛
-  homepage: https://cpipc.acge.org.cn/cw/hp/15
+  name: 中国研究生工程管理案例大赛
+  homepage: https://cpipc.acge.org.cn/cw/hp/2c908018876ef068018774a7a5bc03fd
   tags: [研究生, MBA]
-  parser: null
+  parser: parsers.mem_case
 
 - id: cpipc_corporate_governance
   name: 中国研究生企业管理创新大赛
-  homepage: https://cpipc.acge.org.cn/cw/hp/2c90801586e379050186e879a95702b8
+  homepage: https://cpipc.acge.org.cn/cw/hp/2c90801786cfa2b60186de4143390279
   tags: [研究生, 企业管理]
-  parser: null
+  parser: parsers.enterprise_innovation
 
 - id: cpipc_os_open_source
   name: 中国研究生操作系统开源创新大赛
-  homepage: https://cpipc.acge.org.cn/cw/hp/2c9080158e2ad864018e50e2b8d508d9
+  homepage: https://cpipc.acge.org.cn/cw/hp/2c9080178c7c917b018d1b1a0af61cd6
   tags: [研究生, 开源/OS]
-  parser: null
+  parser: parsers.os_innovation
 
 # 综合性及其他重大竞赛 (18-50项)
 - id: challenge_cup_startup
