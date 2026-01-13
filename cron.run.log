@@ -1245,3 +1245,8 @@ Cannot pull with rebase: You have unstaged changes.
 Please commit or stash them.
 [ERROR] git pull --rebase failed. Please resolve conflicts manually.
 ===== 2026-01-13 10:49:20 END (FAILED) =====
+===== 2026-01-13 10:51:26 START =====
+Cannot pull with rebase: You have unstaged changes.
+Please commit or stash them.
+[ERROR] git pull --rebase failed. Please resolve conflicts manually.
+===== 2026-01-13 10:51:30 END (FAILED) =====
