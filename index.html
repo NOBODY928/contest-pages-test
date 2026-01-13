@@ -2,1473 +2,3204 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>竞赛资讯聚合</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>竞赛资讯聚合</title>
 
   <style>
-    :root {
+    :root{
       --bg: #f5f5f7;
-      --text-main: #1d1d1f;
-      --text-sub: #86868b;
-      --blue: #0a84ff;
+      --text: #1d1d1f;
+      --sub: #6e6e73;
+      --card-radius: 28px;
+      --shadow: 0 18px 50px rgba(0,0,0,.10);
+      --shadow-hover: 0 26px 70px rgba(0,0,0,.16);
+      --blue: #0071e3;
     }
 
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
+    *{ box-sizing: border-box; }
+    body{
+      margin:0;
       background: var(--bg);
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
-                   "Helvetica Neue", Helvetica, Arial, sans-serif;
-      color: var(--text-main);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      padding: 26px 18px 60px;
     }
 
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 48px 24px;
+    /* 顶部区域：尽量 Apple 风 */
+    .topbar{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:16px;
+      max-width: 1600px;
+      margin: 0 auto 18px;
+      padding: 0 6px;
     }
-
-    header {
-      text-align: center;
-      margin-bottom: 56px;
+    .title{
+      line-height:1.05;
     }
-
-    h1 {
-      font-size: 48px;
-      margin-bottom: 10px;
-      letter-spacing: -0.02em;
+    .title h1{
+      margin:0;
+      font-size: 44px;
+      letter-spacing:-0.03em;
+      font-weight:800;
     }
-
-    .update-time {
-      font-size: 14px;
-      color: var(--text-sub);
-      background: rgba(255,255,255,0.7);
-      display: inline-block;
-      padding: 6px 16px;
+    .title .hint{
+      margin-top:10px;
+      color:var(--sub);
+      font-size:13px;
+    }
+    .meta{
+      text-align:right;
+      color:var(--sub);
+      font-size:13px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      align-items:flex-end;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 14px;
       border-radius: 999px;
+      background: rgba(255,255,255,.65);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,0,0,.06);
+    }
+    .pill b{ color:var(--text); font-weight:700; }
+
+    /* 拼贴式网格：12列，自动“挤密”排布 */
+    .wrap{
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+    .masonry{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 22px;
+      grid-auto-flow: dense; /* 关键：像 Apple 那样尽量铺满 */
+      padding: 10px 6px 0;
     }
 
-    /* ===== 网格 ===== */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-      gap: 32px;
+    /* 响应式：小屏退化为 1列或2列 */
+    @media (max-width: 980px){
+      .title h1{ font-size:36px; }
+      .masonry{ grid-template-columns: repeat(6, 1fr); }
+    }
+    @media (max-width: 640px){
+      .topbar{ align-items:flex-start; flex-direction:column; }
+      .meta{ align-items:flex-start; text-align:left; }
+      .masonry{ grid-template-columns: repeat(1, 1fr); gap:16px; }
     }
 
-    /* ===== Apple 风格卡片 ===== */
-    .card {
-      position: relative;
-      height: 340px;
-      border-radius: 28px;
-      overflow: hidden;
+    /* 卡片：整张背景图铺满（cover） */
+    .tile{
+      position:relative;
+      border-radius: var(--card-radius);
+      overflow:hidden;
+      min-height: 360px;
+      box-shadow: var(--shadow);
+      transform: translateY(18px);
+      opacity: 0;
+      animation: enter .72s cubic-bezier(.2,.8,.2,1) forwards;
+      animation-delay: var(--delay, 0ms);
+      background: #e9e9ec;
+    }
 
+    @keyframes enter{
+      to{ transform: translateY(0); opacity:1; }
+    }
+
+    .tile:hover{
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      transition: transform .28s ease, box-shadow .28s ease;
+    }
+
+    /* 背景层：图片 + 叠加渐变（确保文字可读） */
+    .tile-bg{
+      position:absolute;
+      inset:0;
       background-size: cover;
       background-position: center;
-
-      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-      transition: transform .5s ease, box-shadow .5s ease;
+      background-repeat:no-repeat;
+      filter: saturate(1.05);
+      transform: scale(1.02);
+    }
+    .tile::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      /* Apple常用：上浅下深，文本区域可读 */
+      background:
+        linear-gradient(180deg,
+          rgba(0,0,0,.10) 0%,
+          rgba(0,0,0,.18) 35%,
+          rgba(0,0,0,.50) 78%,
+          rgba(0,0,0,.62) 100%);
+      pointer-events:none;
     }
 
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 40px 80px rgba(0,0,0,0.22);
+    /* 内容层 */
+    .tile-content{
+      position:absolute;
+      inset:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      padding: 22px 22px 18px;
+      z-index:2;
+      color:#fff;
     }
 
-    .card-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to top,
-        rgba(0,0,0,0.7),
-        rgba(0,0,0,0.2)
-      );
+    .tile-top{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
     }
 
-    .card-content {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 28px;
-      color: #fff;
-      z-index: 2;
-    }
-
-    .card-title {
-      font-size: 22px;
-      font-weight: 700;
-      margin: 0 0 12px;
-    }
-
-    .tags {
-      margin-bottom: 10px;
-    }
-
-    .tag {
-      display: inline-block;
-      font-size: 12px;
-      padding: 4px 10px;
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding: 10px 14px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.2);
-      margin-right: 6px;
+      font-weight: 700;
+      font-size: 13px;
+      text-decoration:none;
+      color:#0b1b2b;
+      background: rgba(255,255,255,.78);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,.35);
+    }
+    .btn:hover{
+      background: rgba(255,255,255,.92);
     }
 
-    .card-desc {
+    .tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top: 10px;
+    }
+    .tag{
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.22);
+      backdrop-filter: blur(10px);
+    }
+
+    .tile-title{
+      margin: 10px 0 8px;
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      text-shadow: 0 6px 18px rgba(0,0,0,.25);
+    }
+    .tile-sub{
+      margin:0;
+      opacity:.92;
       font-size: 14px;
-      opacity: .9;
-      line-height: 1.4;
-      margin-bottom: 14px;
+      line-height: 1.45;
+      max-width: 92%;
     }
 
-    .card-link {
-      color: var(--blue);
-      font-weight: 600;
-      text-decoration: none;
-      align-self: flex-start;
+    .tile-bottom{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:12px;
+      margin-top: 18px;
+    }
+    .more{
+      text-decoration:none;
+      color:#fff;
+      font-weight: 900;
+      letter-spacing:-.01em;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 10px 2px;
+    }
+    .more span{
+      opacity:.95;
+    }
+    .more:hover span{
+      text-decoration: underline;
+    }
+
+    .ref{
+      font-size: 12px;
+      opacity: .65;
+      font-weight: 700;
+      letter-spacing: .06em;
+    }
+
+    /* —— 拼贴尺寸：三张一排(4列)，两张一排(6列)，一张一排(12列) —— */
+    .span-4{ grid-column: span 4; }
+    .span-6{ grid-column: span 6; }
+    .span-12{ grid-column: span 12; }
+
+    /* 视觉上更像 Apple：有的更高一点 */
+    .h-sm{ min-height: 330px; }
+    .h-md{ min-height: 380px; }
+    .h-lg{ min-height: 460px; }
+
+    @media (max-width: 980px){
+      .span-4{ grid-column: span 6; }   /* 平板：两张一排 */
+      .span-6{ grid-column: span 6; }
+      .span-12{ grid-column: span 6; }
+      .h-lg{ min-height: 360px; }
+    }
+    @media (max-width: 640px){
+      .span-4,.span-6,.span-12{ grid-column: span 1; } /* 手机：一列 */
+      .tile-title{ font-size:22px; }
+      .tile{ min-height: 320px; }
+    }
+
+    /* 没有图时的默认底图（也像 Apple 的灰色占位） */
+    .fallback-bg{
+      background:
+        radial-gradient(1200px 500px at 30% 20%, rgba(255,255,255,.55), rgba(255,255,255,0)),
+        linear-gradient(135deg, #cfcfd6, #9f9faa);
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <header>
+  <div class="topbar">
+    <div class="title">
       <h1>竞赛资讯聚合</h1>
-      <div class="update-time">
-        最后更新：
-      </div>
-    </header>
+      <div class="hint">数据源为公开页面抓取整理；若展示异常，优先以官网为准。</div>
+    </div>
 
-    <div class="grid">
+    <div class="meta">
+      <div class="pill">
+        <span>最后更新：</span>
+        <b>2026-01-14 00:05:15</b>
+      </div>
+      <div>
+        托管于 <a href="https://pages.cloudflare.com/" target="_blank" rel="noopener" style="color:var(--blue); text-decoration:none; font-weight:800;">Cloudflare Pages</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="masonry">
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
-
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#研究生</span>
-            
-            <span class="tag">#智慧城市</span>
-            
-          </div>
-
-          <div class="card-title">中国研究生智慧城市技术与创意设计大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#研究生</span>
-            
-            <span class="tag">#航空航天</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-12 h-lg" style="--delay: 0ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中国研究生智慧城市技术与创意设计大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#研究生</span>
+                  
+                    <span class="tag">#智慧城市</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">中国研究生未来飞行器创新大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#研究生</span>
-            
-            <span class="tag">#数学建模</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 60ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中国研究生未来飞行器创新大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#研究生</span>
+                  
+                    <span class="tag">#航空航天</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">中国研究生数学建模竞赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#研究生</span>
-            
-            <span class="tag">#电子设计</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 120ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中国研究生数学建模竞赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#研究生</span>
+                  
+                    <span class="tag">#数学建模</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">中国研究生电子设计竞赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#研究生</span>
-            
-            <span class="tag">#集成电路</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 180ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中国研究生电子设计竞赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#研究生</span>
+                  
+                    <span class="tag">#电子设计</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">中国研究生创“芯”大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#研究生</span>
-            
-            <span class="tag">#AI</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 240ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中国研究生创“芯”大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#研究生</span>
+                  
+                    <span class="tag">#集成电路</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">中国研究生人工智能创新大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#研究生</span>
-            
-            <span class="tag">#机器人</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 300ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中国研究生人工智能创新大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#研究生</span>
+                  
+                    <span class="tag">#AI</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">中国研究生机器人创新设计大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#研究生</span>
-            
-            <span class="tag">#能源装备</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-6 h-md" style="--delay: 360ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中国研究生机器人创新设计大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#研究生</span>
+                  
+                    <span class="tag">#机器人</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">中国研究生能源装备创新设计大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#研究生</span>
-            
-            <span class="tag">#公共管理</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 420ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中国研究生能源装备创新设计大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#研究生</span>
+                  
+                    <span class="tag">#能源装备</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">中国研究生公共管理案例大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#研究生</span>
-            
-            <span class="tag">#乡村振兴</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 480ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中国研究生公共管理案例大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#研究生</span>
+                  
+                    <span class="tag">#公共管理</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">中国研究生乡村振兴科技强农+创新大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#研究生</span>
-            
-            <span class="tag">#网络安全</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-12 h-lg" style="--delay: 540ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中国研究生乡村振兴科技强农+创新大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#研究生</span>
+                  
+                    <span class="tag">#乡村振兴</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">中国研究生网络安全创新大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#研究生</span>
-            
-            <span class="tag">#双碳</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 600ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中国研究生网络安全创新大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#研究生</span>
+                  
+                    <span class="tag">#网络安全</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">中国研究生“双碳”创新与创意大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#研究生</span>
-            
-            <span class="tag">#金融科技</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 660ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中国研究生“双碳”创新与创意大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#研究生</span>
+                  
+                    <span class="tag">#双碳</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">中国研究生金融科技创新大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#研究生</span>
-            
-            <span class="tag">#艺术设计</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-6 h-md" style="--delay: 720ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中国研究生金融科技创新大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#研究生</span>
+                  
+                    <span class="tag">#金融科技</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">中国研究生“美丽中国”创新设计大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#研究生</span>
-            
-            <span class="tag">#MBA</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 780ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中国研究生“美丽中国”创新设计大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#研究生</span>
+                  
+                    <span class="tag">#艺术设计</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">中国研究生工程管理案例大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#研究生</span>
-            
-            <span class="tag">#企业管理</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 840ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中国研究生工程管理案例大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#研究生</span>
+                  
+                    <span class="tag">#MBA</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">中国研究生企业管理创新大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#研究生</span>
-            
-            <span class="tag">#开源/OS</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 900ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中国研究生企业管理创新大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#研究生</span>
+                  
+                    <span class="tag">#企业管理</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">中国研究生操作系统开源创新大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#综合</span>
-            
-            <span class="tag">#创业</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 960ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中国研究生操作系统开源创新大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#研究生</span>
+                  
+                    <span class="tag">#开源/OS</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">“挑战杯”中国大学生创业计划竞赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#编程</span>
-            
-            <span class="tag">#算法</span>
-            
-            <span class="tag">#电子设计</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 1020ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">“挑战杯”中国大学生创业计划竞赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#综合</span>
+                  
+                    <span class="tag">#创业</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">蓝桥杯全国软件和信息技术专业人才大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#机器人</span>
-            
-            <span class="tag">#竞技</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-12 h-lg" style="--delay: 1080ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">蓝桥杯全国软件和信息技术专业人才大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#编程</span>
+                  
+                    <span class="tag">#算法</span>
+                  
+                    <span class="tag">#电子设计</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">全国大学生机器人大赛 (RoboMaster)</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#智能制造</span>
-            
-            <span class="tag">#自动化</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 1140ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">全国大学生机器人大赛 (RoboMaster)</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#机器人</span>
+                  
+                    <span class="tag">#竞技</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">“西门子杯”中国智能制造挑战赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#通信</span>
-            
-            <span class="tag">#5G</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 1200ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">“西门子杯”中国智能制造挑战赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#智能制造</span>
+                  
+                    <span class="tag">#自动化</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">“大唐杯”全国大学生新一代信息通信技术大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#IT/IP</span>
-            
-            <span class="tag">#华为</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 1260ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">“大唐杯”全国大学生新一代信息通信技术大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#通信</span>
+                  
+                    <span class="tag">#5G</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">华为 ICT 大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#嵌入式</span>
-            
-            <span class="tag">#芯片</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 1320ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">华为 ICT 大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#IT/IP</span>
+                  
+                    <span class="tag">#华为</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">全国大学生嵌入式芯片与系统设计竞赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#信息技术</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 1380ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">全国大学生嵌入式芯片与系统设计竞赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#嵌入式</span>
+                  
+                    <span class="tag">#芯片</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">全国大学生信息技术应用大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#数学建模</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-6 h-md" style="--delay: 1440ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">全国大学生信息技术应用大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#信息技术</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">MathorCup 高校数学建模挑战赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#数学建模</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 1500ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">MathorCup 高校数学建模挑战赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#数学建模</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">“毕昇杯”全国大学生数学建模挑战赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#算法</span>
-            
-            <span class="tag">#顶级</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 1560ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">“毕昇杯”全国大学生数学建模挑战赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#数学建模</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">ACM-ICPC 国际大学生程序设计竞赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#数学建模</span>
-            
-            <span class="tag">#国赛</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-12 h-lg" style="--delay: 1620ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">ACM-ICPC 国际大学生程序设计竞赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#算法</span>
+                  
+                    <span class="tag">#顶级</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">全国大学生数学建模竞赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#电子设计</span>
-            
-            <span class="tag">#国赛</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 1680ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">全国大学生数学建模竞赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#数学建模</span>
+                  
+                    <span class="tag">#国赛</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">全国大学生电子设计竞赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#智能车</span>
-            
-            <span class="tag">#自动化</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 1740ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">全国大学生电子设计竞赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#电子设计</span>
+                  
+                    <span class="tag">#国赛</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">全国大学生智能汽车竞赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#工程实践</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-6 h-md" style="--delay: 1800ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">全国大学生智能汽车竞赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#智能车</span>
+                  
+                    <span class="tag">#自动化</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">中国大学生工程实践与创新能力大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#计算机</span>
-            
-            <span class="tag">#软件</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 1860ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中国大学生工程实践与创新能力大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#工程实践</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">中国大学生计算机设计大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#软件</span>
-            
-            <span class="tag">#算法</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 1920ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中国大学生计算机设计大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#计算机</span>
+                  
+                    <span class="tag">#软件</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">中国高校计算机大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#光电</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 1980ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中国高校计算机大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#软件</span>
+                  
+                    <span class="tag">#算法</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">全国大学生光电设计竞赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#芯片</span>
-            
-            <span class="tag">#集成电路</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 2040ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">全国大学生光电设计竞赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#光电</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">全国大学生集成电路创新创业大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#网络安全</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 2100ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">全国大学生集成电路创新创业大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#芯片</span>
+                  
+                    <span class="tag">#集成电路</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">全国大学生信息安全竞赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#软件设计</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-12 h-lg" style="--delay: 2160ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">全国大学生信息安全竞赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#网络安全</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">“中国软件杯”大学生软件设计大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#创客</span>
-            
-            <span class="tag">#综合</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 2220ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">“中国软件杯”大学生软件设计大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#软件设计</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">中美青年创客大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#机器人</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 2280ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中美青年创客大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#创客</span>
+                  
+                    <span class="tag">#综合</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">睿抗机器人开发者大赛 (RAICOM)</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#管理</span>
-            
-            <span class="tag">#创业</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 2340ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">睿抗机器人开发者大赛 (RAICOM)</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#机器人</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">“学创杯”全国大学生创业综合模拟大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#机器人</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 2400ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">“学创杯”全国大学生创业综合模拟大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#管理</span>
+                  
+                    <span class="tag">#创业</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">中国高校智能机器人创意大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#AI</span>
-            
-            <span class="tag">#机器人</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 2460ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中国高校智能机器人创意大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#机器人</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">中国机器人及人工智能大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#节能减排</span>
-            
-            <span class="tag">#环境</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-6 h-md" style="--delay: 2520ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">中国机器人及人工智能大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#AI</span>
+                  
+                    <span class="tag">#机器人</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">全国大学生节能减排社会实践与科技竞赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#计算机底层</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 2580ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">全国大学生节能减排社会实践与科技竞赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#节能减排</span>
+                  
+                    <span class="tag">#环境</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">全国大学生计算机系统能力大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#物联网</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 2640ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">全国大学生计算机系统能力大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#计算机底层</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">全国大学生物联网设计竞赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#安全</span>
-            
-            <span class="tag">#CTF</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-12 h-lg" style="--delay: 2700ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">全国大学生物联网设计竞赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#物联网</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                      
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">全国大学生信息安全与对抗技术竞赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#统计</span>
-            
-            <span class="tag">#数据</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 2760ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">全国大学生信息安全与对抗技术竞赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#安全</span>
+                  
+                    <span class="tag">#CTF</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">全国大学生统计建模大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#AI</span>
-            
-            <span class="tag">#算法</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 2820ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">全国大学生统计建模大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#统计</span>
+                  
+                    <span class="tag">#数据</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <div class="card-title">全球校园人工智能算法精英大赛</div>
-
-          <div class="card-desc">
-            点击官网查看最新信息…
-          </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
-      <div
-        class="card"
-        style="background-image: url('/static/images/default.jpg')"
-      >
-        <div class="card-overlay"></div>
+        
 
-        <div class="card-content">
-          <div class="tags">
-            
-            <span class="tag">#智慧农业</span>
-            
+        
+        
+          
+          
+        
+
+        
+        
+        
+
+        <article class="tile span-6 h-md" style="--delay: 2880ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">全球校园人工智能算法精英大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#AI</span>
+                  
+                    <span class="tag">#算法</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
+        </article>
+      
+        
 
-          <div class="card-title">国际大学生智能农业装备创新大赛</div>
+        
+        
+          
+          
+        
 
-          <div class="card-desc">
-            点击官网查看最新信息…
+        
+        
+        
+
+        <article class="tile span-4 h-sm" style="--delay: 2940ms;">
+          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: </div>
+                
+              </div>
+
+              <h2 class="tile-title">国际大学生智能农业装备创新大赛</h2>
+
+              <div class="tags">
+                
+                  
+                    <span class="tag">#智慧农业</span>
+                  
+                
+              </div>
+
+              <p class="tile-sub">
+                
+                
+                
+                  
+                    
+                  
+                    
+                  
+                
+                点击官网查看最新信息…
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
           </div>
-
-          <a class="card-link" href="/details/">
-            查看详情 →
-          </a>
-        </div>
-      </div>
+        </article>
       
     </div>
   </div>

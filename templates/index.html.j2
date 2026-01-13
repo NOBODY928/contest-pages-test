@@ -2,173 +2,368 @@
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <title>竞赛资讯聚合</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>竞赛资讯聚合</title>
 
   <style>
-    :root {
+    :root{
       --bg: #f5f5f7;
-      --text-main: #1d1d1f;
-      --text-sub: #86868b;
-      --blue: #0a84ff;
+      --text: #1d1d1f;
+      --sub: #6e6e73;
+      --card-radius: 28px;
+      --shadow: 0 18px 50px rgba(0,0,0,.10);
+      --shadow-hover: 0 26px 70px rgba(0,0,0,.16);
+      --blue: #0071e3;
     }
 
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
+    *{ box-sizing: border-box; }
+    body{
+      margin:0;
       background: var(--bg);
-      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
-                   "Helvetica Neue", Helvetica, Arial, sans-serif;
-      color: var(--text-main);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", Arial, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+      -webkit-font-smoothing: antialiased;
+      padding: 26px 18px 60px;
     }
 
-    .container {
-      max-width: 1280px;
-      margin: 0 auto;
-      padding: 48px 24px;
+    /* 顶部区域：尽量 Apple 风 */
+    .topbar{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:16px;
+      max-width: 1600px;
+      margin: 0 auto 18px;
+      padding: 0 6px;
     }
-
-    header {
-      text-align: center;
-      margin-bottom: 56px;
+    .title{
+      line-height:1.05;
     }
-
-    h1 {
-      font-size: 48px;
-      margin-bottom: 10px;
-      letter-spacing: -0.02em;
+    .title h1{
+      margin:0;
+      font-size: 44px;
+      letter-spacing:-0.03em;
+      font-weight:800;
     }
-
-    .update-time {
-      font-size: 14px;
-      color: var(--text-sub);
-      background: rgba(255,255,255,0.7);
-      display: inline-block;
-      padding: 6px 16px;
+    .title .hint{
+      margin-top:10px;
+      color:var(--sub);
+      font-size:13px;
+    }
+    .meta{
+      text-align:right;
+      color:var(--sub);
+      font-size:13px;
+      display:flex;
+      flex-direction:column;
+      gap:10px;
+      align-items:flex-end;
+    }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 8px 14px;
       border-radius: 999px;
+      background: rgba(255,255,255,.65);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(0,0,0,.06);
+    }
+    .pill b{ color:var(--text); font-weight:700; }
+
+    /* 拼贴式网格：12列，自动“挤密”排布 */
+    .wrap{
+      max-width: 1600px;
+      margin: 0 auto;
+    }
+    .masonry{
+      display:grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 22px;
+      grid-auto-flow: dense; /* 关键：像 Apple 那样尽量铺满 */
+      padding: 10px 6px 0;
     }
 
-    /* ===== 网格 ===== */
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
-      gap: 32px;
+    /* 响应式：小屏退化为 1列或2列 */
+    @media (max-width: 980px){
+      .title h1{ font-size:36px; }
+      .masonry{ grid-template-columns: repeat(6, 1fr); }
+    }
+    @media (max-width: 640px){
+      .topbar{ align-items:flex-start; flex-direction:column; }
+      .meta{ align-items:flex-start; text-align:left; }
+      .masonry{ grid-template-columns: repeat(1, 1fr); gap:16px; }
     }
 
-    /* ===== Apple 风格卡片 ===== */
-    .card {
-      position: relative;
-      height: 340px;
-      border-radius: 28px;
-      overflow: hidden;
+    /* 卡片：整张背景图铺满（cover） */
+    .tile{
+      position:relative;
+      border-radius: var(--card-radius);
+      overflow:hidden;
+      min-height: 360px;
+      box-shadow: var(--shadow);
+      transform: translateY(18px);
+      opacity: 0;
+      animation: enter .72s cubic-bezier(.2,.8,.2,1) forwards;
+      animation-delay: var(--delay, 0ms);
+      background: #e9e9ec;
+    }
 
+    @keyframes enter{
+      to{ transform: translateY(0); opacity:1; }
+    }
+
+    .tile:hover{
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      transition: transform .28s ease, box-shadow .28s ease;
+    }
+
+    /* 背景层：图片 + 叠加渐变（确保文字可读） */
+    .tile-bg{
+      position:absolute;
+      inset:0;
       background-size: cover;
       background-position: center;
-
-      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-      transition: transform .5s ease, box-shadow .5s ease;
+      background-repeat:no-repeat;
+      filter: saturate(1.05);
+      transform: scale(1.02);
+    }
+    .tile::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      /* Apple常用：上浅下深，文本区域可读 */
+      background:
+        linear-gradient(180deg,
+          rgba(0,0,0,.10) 0%,
+          rgba(0,0,0,.18) 35%,
+          rgba(0,0,0,.50) 78%,
+          rgba(0,0,0,.62) 100%);
+      pointer-events:none;
     }
 
-    .card:hover {
-      transform: translateY(-10px);
-      box-shadow: 0 40px 80px rgba(0,0,0,0.22);
+    /* 内容层 */
+    .tile-content{
+      position:absolute;
+      inset:0;
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+      padding: 22px 22px 18px;
+      z-index:2;
+      color:#fff;
     }
 
-    .card-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(
-        to top,
-        rgba(0,0,0,0.7),
-        rgba(0,0,0,0.2)
-      );
+    .tile-top{
+      display:flex;
+      justify-content:space-between;
+      gap:12px;
+      align-items:flex-start;
     }
 
-    .card-content {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 28px;
-      color: #fff;
-      z-index: 2;
-    }
-
-    .card-title {
-      font-size: 22px;
-      font-weight: 700;
-      margin: 0 0 12px;
-    }
-
-    .tags {
-      margin-bottom: 10px;
-    }
-
-    .tag {
-      display: inline-block;
-      font-size: 12px;
-      padding: 4px 10px;
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      padding: 10px 14px;
       border-radius: 999px;
-      background: rgba(255,255,255,0.2);
-      margin-right: 6px;
+      font-weight: 700;
+      font-size: 13px;
+      text-decoration:none;
+      color:#0b1b2b;
+      background: rgba(255,255,255,.78);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,.35);
+    }
+    .btn:hover{
+      background: rgba(255,255,255,.92);
     }
 
-    .card-desc {
+    .tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap:8px;
+      margin-top: 10px;
+    }
+    .tag{
+      font-size: 12px;
+      font-weight: 700;
+      padding: 6px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.22);
+      backdrop-filter: blur(10px);
+    }
+
+    .tile-title{
+      margin: 10px 0 8px;
+      font-size: 28px;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      line-height: 1.15;
+      text-shadow: 0 6px 18px rgba(0,0,0,.25);
+    }
+    .tile-sub{
+      margin:0;
+      opacity:.92;
       font-size: 14px;
-      opacity: .9;
-      line-height: 1.4;
-      margin-bottom: 14px;
+      line-height: 1.45;
+      max-width: 92%;
     }
 
-    .card-link {
-      color: var(--blue);
-      font-weight: 600;
-      text-decoration: none;
-      align-self: flex-start;
+    .tile-bottom{
+      display:flex;
+      justify-content:space-between;
+      align-items:flex-end;
+      gap:12px;
+      margin-top: 18px;
+    }
+    .more{
+      text-decoration:none;
+      color:#fff;
+      font-weight: 900;
+      letter-spacing:-.01em;
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding: 10px 2px;
+    }
+    .more span{
+      opacity:.95;
+    }
+    .more:hover span{
+      text-decoration: underline;
+    }
+
+    .ref{
+      font-size: 12px;
+      opacity: .65;
+      font-weight: 700;
+      letter-spacing: .06em;
+    }
+
+    /* —— 拼贴尺寸：三张一排(4列)，两张一排(6列)，一张一排(12列) —— */
+    .span-4{ grid-column: span 4; }
+    .span-6{ grid-column: span 6; }
+    .span-12{ grid-column: span 12; }
+
+    /* 视觉上更像 Apple：有的更高一点 */
+    .h-sm{ min-height: 330px; }
+    .h-md{ min-height: 380px; }
+    .h-lg{ min-height: 460px; }
+
+    @media (max-width: 980px){
+      .span-4{ grid-column: span 6; }   /* 平板：两张一排 */
+      .span-6{ grid-column: span 6; }
+      .span-12{ grid-column: span 6; }
+      .h-lg{ min-height: 360px; }
+    }
+    @media (max-width: 640px){
+      .span-4,.span-6,.span-12{ grid-column: span 1; } /* 手机：一列 */
+      .tile-title{ font-size:22px; }
+      .tile{ min-height: 320px; }
+    }
+
+    /* 没有图时的默认底图（也像 Apple 的灰色占位） */
+    .fallback-bg{
+      background:
+        radial-gradient(1200px 500px at 30% 20%, rgba(255,255,255,.55), rgba(255,255,255,0)),
+        linear-gradient(135deg, #cfcfd6, #9f9faa);
     }
   </style>
 </head>
 
 <body>
-  <div class="container">
-    <header>
+  <div class="topbar">
+    <div class="title">
       <h1>竞赛资讯聚合</h1>
-      <div class="update-time">
-        最后更新：{{ update_time }}
+      <div class="hint">数据源为公开页面抓取整理；若展示异常，优先以官网为准。</div>
+    </div>
+
+    <div class="meta">
+      <div class="pill">
+        <span>最后更新：</span>
+        <b>{{ updated_at or '' }}</b>
       </div>
-    </header>
-
-    <div class="grid">
-      {% for contest in contests %}
-      <div
-        class="card"
-        style="background-image: url('{{ contest.image | default("/static/images/default.jpg") }}')"
-      >
-        <div class="card-overlay"></div>
-
-        <div class="card-content">
-          <div class="tags">
-            {% for tag in contest.tags %}
-            <span class="tag">#{{ tag }}</span>
-            {% endfor %}
-          </div>
-
-          <div class="card-title">{{ contest.name }}</div>
-
-          <div class="card-desc">
-            {{ contest.latest | default("点击官网查看最新信息…") }}
-          </div>
-
-          <a class="card-link" href="/details/{{ contest.id }}">
-            查看详情 →
-          </a>
-        </div>
+      <div>
+        托管于 <a href="https://pages.cloudflare.com/" target="_blank" rel="noopener" style="color:var(--blue); text-decoration:none; font-weight:800;">Cloudflare Pages</a>
       </div>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="masonry">
+      {# 你想要“不固定：有的三张/两张/一张一排”——用循环索引做一个稳定的拼贴规则 #}
+      {% for item in contests %}
+        {% set i = loop.index0 %}
+
+        {# 规则（你可以之后再调）：每 9 张出现 1 个“整行(12列)”；每 6 张出现 1 个“两列(6列)”；其余“三列(4列)” #}
+        {% if i % 9 == 0 %}
+          {% set span = 'span-12' %}
+          {% set h = 'h-lg' %}
+        {% elif i % 6 == 0 %}
+          {% set span = 'span-6' %}
+          {% set h = 'h-md' %}
+        {% else %}
+          {% set span = 'span-4' %}
+          {% set h = 'h-sm' %}
+        {% endif %}
+
+        {# 背景图策略：
+           1) 如果 data.json 里已经给了 item.image，就用它
+           2) 否则默认按 /static/images/<id>.png 去找（你现在已有 smart_city.png，可在 data.json 里配 image 或直接把文件命名为 cpipc_smart_city.png）
+        #}
+        {% set img = item.image if item.image is defined and item.image else (item.id ~ '.png') %}
+        {% set bg_url = '/static/images/' ~ img %}
+
+        <article class="tile {{ span }} {{ h }}" style="--delay: {{ i * 60 }}ms;">
+          <div class="tile-bg {% if not img %}fallback-bg{% endif %}" style="background-image:url('{{ bg_url }}');"></div>
+
+          <div class="tile-content">
+            <div>
+              <div class="tile-top">
+                <div class="ref">REF: {{ item.id|upper }}</div>
+                {% if item.homepage %}
+                  <a class="btn" href="{{ item.homepage }}" target="_blank" rel="noopener">查看官网</a>
+                {% endif %}
+              </div>
+
+              <h2 class="tile-title">{{ item.name }}</h2>
+
+              <div class="tags">
+                {% if item.tags %}
+                  {% for t in item.tags %}
+                    <span class="tag">#{{ t }}</span>
+                  {% endfor %}
+                {% endif %}
+              </div>
+
+              <p class="tile-sub">
+                {# “最新动态”优先取 info_grid 里 label=最新动态 的 value；拿不到就用默认文案 #}
+                {% set latest = none %}
+                {% if item.info_grid %}
+                  {% for g in item.info_grid %}
+                    {% if g.label == '最新动态' %}
+                      {% set latest = g.value %}
+                    {% endif %}
+                  {% endfor %}
+                {% endif %}
+                {{ latest if latest else '点击官网查看最新信息…' }}
+              </p>
+            </div>
+
+            <div class="tile-bottom">
+              <a class="more" href="/details/{{ item.id }}">
+                <span>查看详情</span> →
+              </a>
+              <div></div>
+            </div>
+          </div>
+        </article>
       {% endfor %}
     </div>
   </div>
 </body>
 </html>
-
