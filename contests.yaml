@@ -1,8 +1,8 @@
 # 中国研究生创新实践系列大赛 (1-17项统一官网)
 - id: cpipc_smart_city
   name: 中国研究生智慧城市技术与创意设计大赛
-  homepage: https://cpipc.acge.org.cn/cw/hp/1	
-  logo:	static/images/smart_city.png
+  homepage: https://cpipc.acge.org.cn/cw/hp/1  
+  logo:  static/images/smart_city.png
   tags: [研究生, 智慧城市]
   parser: parsers.smart_city
 
