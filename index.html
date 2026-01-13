@@ -3,119 +3,2561 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>研究生竞赛资讯聚合 | zihguo.me</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>竞赛资讯聚合看板</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;700&display=swap');
-        body { font-family: 'Noto Sans SC', sans-serif; }
-        .card-hover:hover { transform: translateY(-4px); transition: all 0.3s ease; }
-    </style>
-</head>
-<body class="bg-slate-50 min-h-screen">
-    <div class="max-w-7xl mx-auto px-4 py-10">
-        <header class="mb-12 flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-200 pb-8">
-            <div>
-                <h1 class="text-3xl font-bold text-slate-900 tracking-tight">竞赛资讯聚合看板</h1>
-                <p id="update-time" class="text-slate-500 mt-2 flex items-center">
-                    <span class="inline-block w-2 h-2 rounded-full bg-green-500 mr-2 animate-pulse"></span>
-                    数据正在同步中...
-                </p>
-            </div>
-            <div class="text-sm text-slate-400">
-                托管于 <span class="font-mono text-blue-500">Cloudflare Pages</span>
-            </div>
-        </header>
-
-        <div id="contest-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            <div class="animate-pulse bg-white p-6 rounded-2xl shadow-sm border border-slate-100 h-64"></div>
-            <div class="animate-pulse bg-white p-6 rounded-2xl shadow-sm border border-slate-100 h-64"></div>
-            <div class="animate-pulse bg-white p-6 rounded-2xl shadow-sm border border-slate-100 h-64"></div>
-        </div>
-
-        <footer class="mt-20 py-8 border-t border-slate-200 text-center">
-            <p class="text-slate-400 text-sm">© 2025 <a href="https://zihguo.me" class="hover:text-blue-500">zihguo.me</a> · 自动抓取各赛事官网资讯</p>
-        </footer>
-    </div>
-
-    <script>
-        async function loadData() {
-            try {
-                // 获取最新的数据，加时间戳防止浏览器缓存
-                const response = await fetch('./data.json?t=' + Date.now());
-                const data = await response.json();
-                
-                document.getElementById('update-time').innerText = `最后更新: ${data.generated_at}`;
-                const grid = document.getElementById('contest-grid');
-                grid.innerHTML = ''; // 清空加载占位
-
-                data.items.forEach(item => {
-                    // 状态颜色逻辑定制
-                    let bgColor = 'bg-slate-400'; // 默认灰色
-                    const statusText = item.status.text;
-
-                    if (statusText.includes('待更新')) {
-                        bgColor = 'bg-yellow-500';
-                    } else if (statusText.includes('已结束')) {
-                        bgColor = 'bg-red-500';
-                    } else if (statusText.includes('进行中') || statusText.includes('报名中') || statusText.includes('已公布')) {
-                        bgColor = 'bg-green-500';
-                    } else if (statusText.includes('筹备')) {
-                        bgColor = 'bg-blue-500';
-                    }
-
-                    // 构建卡片 HTML
-                    // 使用 onclick 跳转到详情页，如果没有详情页则不跳转
-                    const card = `
-                        <div onclick="if('${item.link_detail}') window.location.href='${item.link_detail}'" 
-                             class="card-hover cursor-pointer bg-white rounded-2xl shadow-sm border border-slate-100 flex flex-col overflow-hidden hover:shadow-xl hover:border-blue-200 transition-all">
-                            
-                            <div class="p-6 flex-1">
-                                <div class="flex justify-between items-start gap-4 mb-4">
-                                    <h3 class="text-base font-bold text-slate-800 leading-snug line-clamp-2">${item.title}</h3>
-                                    <span class="${bgColor} text-white text-[11px] font-bold px-2 py-1 rounded-md whitespace-nowrap shadow-sm">
-                                        ${statusText}
-                                    </span>
-                                </div>
-
-                                <div class="flex flex-wrap gap-1.5 mb-6">
-                                    ${item.tags.map(tag => `
-                                        <span class="bg-blue-50 text-blue-600 text-[10px] px-2 py-0.5 rounded font-medium tracking-wide italic">#${tag}</span>
-                                    `).join('')}
-                                </div>
-
-                                <div class="space-y-3">
-                                    ${item.info_grid.map(info => `
-                                        <div class="flex flex-col">
-                                            <span class="text-[10px] text-slate-400 font-bold uppercase tracking-widest">${info.label}</span>
-                                            <span class="text-sm text-slate-600 font-medium truncate">${info.value || '暂无数据'}</span>
-                                        </div>
-                                    `).join('')}
-                                </div>
-                            </div>
-
-                            <div class="px-6 py-4 bg-slate-50 border-t border-slate-100 flex justify-between items-center group">
-                                <span class="text-[10px] text-slate-300 font-mono italic">REF: ${item.id.toUpperCase()}</span>
-                                <span class="text-blue-600 text-xs font-bold group-hover:translate-x-1 transition-transform flex items-center">
-                                    查看赛程详情
-                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
-                                </span>
-                            </div>
-                        </div>
-                    `;
-                    grid.innerHTML += card;
-                });
-            } catch (err) {
-                console.error('Data Load Error:', err);
-                document.getElementById('contest-grid').innerHTML = `
-                    <div class="col-span-full text-center py-20">
-                        <p class="text-red-400 font-bold text-lg">数据加载异常</p>
-                        <p class="text-slate-400 text-sm mt-2 font-mono">Check data.json for structure errors.</p>
-                    </div>
-                `;
-            }
+        /* --- 全局重置与基础设置 --- */
+        :root {
+            --bg-color: #f5f5f7; /* Apple 浅灰背景 */
+            --card-bg: rgba(255, 255, 255, 0.75); /* 毛玻璃背景 */
+            --text-main: #1d1d1f;
+            --text-sub: #86868b;
+            --accent-blue: #0071e3;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            --shadow-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
         }
 
-        loadData();
-    </script>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 40px 20px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            animation: fadeIn 1s ease-out;
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 10px;
+            letter-spacing: -0.02em;
+        }
+
+        .update-time {
+            color: var(--text-sub);
+            font-size: 14px;
+            background: rgba(255,255,255,0.5);
+            padding: 6px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+        }
+
+        /* --- 核心：卡片网格布局 --- */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 30px;
+        }
+
+        /* --- 核心：Apple 风格卡片 --- */
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 24px;
+            padding: 28px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            
+            /* 阴影与过渡 */
+            box-shadow: var(--shadow-sm);
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            
+            /* 入场动画初始状态 */
+            opacity: 0;
+            transform: translateY(30px);
+            animation: cardEntrance 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        /* 鼠标悬停动效 */
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: var(--shadow-hover);
+            background: rgba(255, 255, 255, 0.95);
+            z-index: 2;
+        }
+
+        /* --- 卡片内部元素 --- */
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .logo-box {
+            width: 64px;
+            height: 64px;
+            background: #fff;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .logo-box img {
+            width: 80%;
+            height: 80%;
+            object-fit: contain;
+        }
+
+        /* 状态胶囊 */
+        .status-pill {
+            font-size: 12px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 100px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+        .status-pill.green { background: #e6f7ed; color: #00c853; }
+        .status-pill.blue { background: #e3f2fd; color: #0071e3; }
+        .status-pill.yellow { background: #fff8e1; color: #ffab00; }
+        .status-pill.gray { background: #f5f5f7; color: #86868b; }
+
+        .card-title {
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1.3;
+            margin: 0 0 12px 0;
+            color: var(--text-main);
+            /* 限制标题最多2行 */
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .tags {
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tag {
+            font-size: 11px;
+            color: var(--accent-blue);
+            background: rgba(0, 113, 227, 0.1);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-weight: 600;
+        }
+
+        .info-row {
+            margin-bottom: 8px;
+            font-size: 13px;
+            color: var(--text-sub);
+            line-height: 1.5;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: var(--text-main);
+            display: block;
+            margin-bottom: 2px;
+        }
+
+        .card-footer {
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(0,0,0,0.05);
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .btn-link {
+            text-decoration: none;
+            color: var(--accent-blue);
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            transition: opacity 0.2s;
+        }
+        .btn-link:hover {
+            opacity: 0.7;
+        }
+        .btn-link::after {
+            content: "→";
+            margin-left: 6px;
+            font-family: monospace;
+        }
+
+        /* --- 动画定义 --- */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes cardEntrance {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* 响应式适配 */
+        @media (max-width: 768px) {
+            h1 { font-size: 32px; }
+            .grid { grid-template-columns: 1fr; }
+            .card { margin-bottom: 10px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>竞赛资讯聚合</h1>
+        <div class="update-time">最后更新: 2026-01-13 17:23:04</div>
+    </header>
+
+    <div class="grid">
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 0.0s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 显示对应的 logo -->
+                        <img src="static/images/smart_city.png" alt="Logo">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中国研究生智慧城市技术与创意设计大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">研究生</span>
+                    
+                    <span class="tag">智慧城市</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://cpipc.acge.org.cn/cw/hp/1" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 0.05s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 显示对应的 logo -->
+                        <img src="static/images/future_flight.png" alt="Logo">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中国研究生未来飞行器创新大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">研究生</span>
+                    
+                    <span class="tag">航空航天</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://cpipc.acge.org.cn/cw/hp/3" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 0.1s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 显示对应的 logo -->
+                        <img src="static/images/math_modeling.png" alt="Logo">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中国研究生数学建模竞赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">研究生</span>
+                    
+                    <span class="tag">数学建模</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://cpipc.acge.org.cn/cw/hp/4" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 0.15000000000000002s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 显示对应的 logo -->
+                        <img src="static/images/electronic_design.png" alt="Logo">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中国研究生电子设计竞赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">研究生</span>
+                    
+                    <span class="tag">电子设计</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://cpipc.acge.org.cn/cw/hp/6" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 0.2s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中国研究生创“芯”大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">研究生</span>
+                    
+                    <span class="tag">集成电路</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://cpipc.acge.org.cn/cw/hp/10" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 0.25s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中国研究生人工智能创新大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">研究生</span>
+                    
+                    <span class="tag">AI</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://cpipc.acge.org.cn/cw/hp/2c9088a5696cbf370169a3f8101510bd" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 0.30000000000000004s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中国研究生机器人创新设计大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">研究生</span>
+                    
+                    <span class="tag">机器人</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://cpipc.acge.org.cn/cw/hp/2c9088a5696cbf370169a3f8934810be" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 0.35000000000000003s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中国研究生能源装备创新设计大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">研究生</span>
+                    
+                    <span class="tag">能源装备</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://cpipc.acge.org.cn/cw/hp/7" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 0.4s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中国研究生公共管理案例大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">研究生</span>
+                    
+                    <span class="tag">公共管理</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://cpipc.acge.org.cn/cw/hp/8" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 0.45s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中国研究生乡村振兴科技强农+创新大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">研究生</span>
+                    
+                    <span class="tag">乡村振兴</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://cpipc.acge.org.cn/cw/hp/2c90800c7a132603017a1395f2c105f9" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 0.5s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中国研究生网络安全创新大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">研究生</span>
+                    
+                    <span class="tag">网络安全</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://cpipc.acge.org.cn/cw/hp/2c90800c8093eef401809d33b36f0652" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 0.55s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中国研究生“双碳”创新与创意大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">研究生</span>
+                    
+                    <span class="tag">双碳</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://cpipc.acge.org.cn/cw/hp/2c90800c8093eef401809d348f8b0653" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 0.6000000000000001s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中国研究生金融科技创新大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">研究生</span>
+                    
+                    <span class="tag">金融科技</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://cpipc.acge.org.cn/cw/hp/2c90800c8093eef401809d3501080654" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 0.65s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中国研究生“美丽中国”创新设计大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">研究生</span>
+                    
+                    <span class="tag">艺术设计</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://cpipc.acge.org.cn/cw/hp/2c908018876ef068018774a9501a03fe" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 0.7000000000000001s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中国研究生工程管理案例大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">研究生</span>
+                    
+                    <span class="tag">MBA</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://cpipc.acge.org.cn/cw/hp/2c908018876ef068018774a7a5bc03fd" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 0.75s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中国研究生企业管理创新大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">研究生</span>
+                    
+                    <span class="tag">企业管理</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://cpipc.acge.org.cn/cw/hp/2c90801786cfa2b60186de4143390279" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 0.8s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中国研究生操作系统开源创新大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">研究生</span>
+                    
+                    <span class="tag">开源/OS</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://cpipc.acge.org.cn/cw/hp/2c9080178c7c917b018d1b1a0af61cd6" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 0.8500000000000001s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">“挑战杯”中国大学生创业计划竞赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">综合</span>
+                    
+                    <span class="tag">创业</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://www.tiaozhanbei.net/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 0.9s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">蓝桥杯全国软件和信息技术专业人才大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">编程</span>
+                    
+                    <span class="tag">算法</span>
+                    
+                    <span class="tag">电子设计</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://dasai.lanqiao.cn/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 0.9500000000000001s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">全国大学生机器人大赛 (RoboMaster)</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">机器人</span>
+                    
+                    <span class="tag">竞技</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://www.robomaster.com/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 1.0s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill yellow">
+                    待更新
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">“西门子杯”中国智能制造挑战赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">智能制造</span>
+                    
+                    <span class="tag">自动化</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">状态</span>
+                    数据同步中
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://www.ineat.cn/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 1.05s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">“大唐杯”全国大学生新一代信息通信技术大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">通信</span>
+                    
+                    <span class="tag">5G</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://dtcup.dtxiaotangren.com/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 1.1s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">华为 ICT 大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">IT/IP</span>
+                    
+                    <span class="tag">华为</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://e.huawei.com/cn/talent/ict-academy/#/ict-contest/home" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 1.1500000000000001s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill yellow">
+                    待更新
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">全国大学生嵌入式芯片与系统设计竞赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">嵌入式</span>
+                    
+                    <span class="tag">芯片</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">状态</span>
+                    数据同步中
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://www.socchina.net/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 1.2000000000000002s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill yellow">
+                    待更新
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">全国大学生信息技术应用大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">信息技术</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">状态</span>
+                    数据同步中
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://www.it-at.org.cn/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 1.25s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">MathorCup 高校数学建模挑战赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">数学建模</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://www.mathorcup.org/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 1.3s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill yellow">
+                    待更新
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">“毕昇杯”全国大学生数学建模挑战赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">数学建模</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">状态</span>
+                    数据同步中
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://www.bishengcup.com/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 1.35s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    赛程已公布
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">ACM-ICPC 国际大学生程序设计竞赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">算法</span>
+                    
+                    <span class="tag">顶级</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    2025-09-20 开赛
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://icpc.global/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 1.4000000000000001s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">全国大学生数学建模竞赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">数学建模</span>
+                    
+                    <span class="tag">国赛</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://www.mcm.edu.cn/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 1.4500000000000002s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">全国大学生电子设计竞赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">电子设计</span>
+                    
+                    <span class="tag">国赛</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://nuedc.xjtu.edu.cn/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 1.5s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill yellow">
+                    待更新
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">全国大学生智能汽车竞赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">智能车</span>
+                    
+                    <span class="tag">自动化</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">状态</span>
+                    数据同步中
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://smartcar.cdhu.edu.cn/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 1.55s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中国大学生工程实践与创新能力大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">工程实践</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://www.gcxl.edu.cn/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 1.6s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中国大学生计算机设计大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">计算机</span>
+                    
+                    <span class="tag">软件</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://jsjds.blcu.edu.cn/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 1.6500000000000001s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill yellow">
+                    待更新
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中国高校计算机大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">软件</span>
+                    
+                    <span class="tag">算法</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">状态</span>
+                    数据同步中
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://www.chinasoftwarecup.org/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 1.7000000000000002s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">全国大学生光电设计竞赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">光电</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://gd.moocollege.com/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 1.75s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">全国大学生集成电路创新创业大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">芯片</span>
+                    
+                    <span class="tag">集成电路</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://univ.ciciec.com/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 1.8s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">全国大学生信息安全竞赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">网络安全</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://www.ciscn.cn/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 1.85s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">“中国软件杯”大学生软件设计大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">软件设计</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://www.cnsoftbei.com/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 1.9000000000000001s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill yellow">
+                    待更新
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中美青年创客大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">创客</span>
+                    
+                    <span class="tag">综合</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">状态</span>
+                    数据同步中
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://china-us-maker.org.cn/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 1.9500000000000002s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">睿抗机器人开发者大赛 (RAICOM)</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">机器人</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://www.raicom.com.cn/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 2.0s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill yellow">
+                    待更新
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">“学创杯”全国大学生创业综合模拟大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">管理</span>
+                    
+                    <span class="tag">创业</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">状态</span>
+                    数据同步中
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://www.xcbcompetition.com/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 2.0500000000000003s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中国高校智能机器人创意大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">机器人</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://www.robotcontest.cn/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 2.1s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">中国机器人及人工智能大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">AI</span>
+                    
+                    <span class="tag">机器人</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://www.caairobot.com/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 2.15s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">全国大学生节能减排社会实践与科技竞赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">节能减排</span>
+                    
+                    <span class="tag">环境</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://www.jienengjianpai.org/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 2.2s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">全国大学生计算机系统能力大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">计算机底层</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://compiler.educg.net/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 2.25s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill blue">
+                    查看官网
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">全国大学生物联网设计竞赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">物联网</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">最新动态</span>
+                    点击官网查看详情...
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://iot.sjtu.edu.cn/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 2.3000000000000003s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill yellow">
+                    待更新
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">全国大学生信息安全与对抗技术竞赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">安全</span>
+                    
+                    <span class="tag">CTF</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">状态</span>
+                    数据同步中
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://iscc.bit.edu.cn/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 2.35s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill yellow">
+                    待更新
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">全国大学生统计建模大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">统计</span>
+                    
+                    <span class="tag">数据</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">状态</span>
+                    数据同步中
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://tjjm.cos.edu.cn/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 2.4000000000000004s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill yellow">
+                    待更新
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">全球校园人工智能算法精英大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">AI</span>
+                    
+                    <span class="tag">算法</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">状态</span>
+                    数据同步中
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="https://www.saikr.com/vse/campusai" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
+        <div class="card" style="animation-delay: 2.45s">
+            
+            <div class="card-header">
+                <div class="logo-box">
+                    
+                        <!-- 如果没配 logo，显示默认图标 -->
+                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
+                    
+                </div>
+                
+                <div class="status-pill yellow">
+                    待更新
+                </div>
+            </div>
+
+            <div class="card-body">
+                <h3 class="card-title">国际大学生智能农业装备创新大赛</h3>
+
+                <div class="tags">
+                    
+                    <span class="tag">智慧农业</span>
+                    
+                </div>
+
+                <!-- 循环显示 info_grid 里的信息 -->
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                
+                <!-- 跳过赛事名称，因为标题已经显示了 -->
+                
+                <div class="info-row">
+                    <span class="info-label">状态</span>
+                    数据同步中
+                </div>
+                
+                
+            </div>
+
+            <div class="card-footer">
+                <a href="http://www.smartagrimach.com/" target="_blank" class="btn-link">查看详情</a>
+            </div>
+        </div>
+        
+    </div>
+</div>
+
 </body>
 </html>

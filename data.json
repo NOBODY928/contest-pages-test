@@ -1,1251 +1,1141 @@
-{
-  "generated_at": "2026-01-13 10:09:40",
-  "items": [
-    {
-      "id": "cpipc_smart_city",
-      "title": "中国研究生智慧城市技术与创意设计大赛",
-      "tags": [
-        "研究生",
-        "智慧城市"
-      ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/1",
-      "link_detail": "details/cpipc_smart_city.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
-      },
-      "info_grid": [
-        {
-          "label": "赛事名称",
-          "value": "中国研究生智慧城市设计大赛"
-        },
-        {
-          "label": "最新动态",
-          "value": "点击官网查看详情..."
-        }
-      ],
-      "last_updated": "10:09"
+[
+  {
+    "name": "中国研究生智慧城市技术与创意设计大赛",
+    "url": "https://cpipc.acge.org.cn/cw/hp/1",
+    "logo": "static/images/smart_city.png",
+    "tags": [
+      "研究生",
+      "智慧城市"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "cpipc_aircraft",
-      "title": "中国研究生未来飞行器创新大赛",
-      "tags": [
-        "研究生",
-        "航空航天"
-      ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/3",
-      "link_detail": "details/cpipc_aircraft.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中国研究生智慧城市技术与创意设计大赛"
       },
-      "info_grid": [
-        {
-          "label": "赛事名称",
-          "value": "中国研究生未来飞行器创新大赛"
-        },
-        {
-          "label": "最新动态",
-          "value": "点击官网查看详情..."
-        }
-      ],
-      "last_updated": "10:09"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "中国研究生未来飞行器创新大赛",
+    "url": "https://cpipc.acge.org.cn/cw/hp/3",
+    "logo": "static/images/future_flight.png",
+    "tags": [
+      "研究生",
+      "航空航天"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "cpipc_math_modeling",
-      "title": "中国研究生数学建模竞赛",
-      "tags": [
-        "研究生",
-        "数学建模"
-      ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/4",
-      "link_detail": "details/cpipc_math_modeling.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中国研究生未来飞行器创新大赛"
       },
-      "info_grid": [
-        {
-          "label": "赛事名称",
-          "value": "中国研究生数学建模竞赛"
-        },
-        {
-          "label": "最新动态",
-          "value": "点击官网查看详情..."
-        }
-      ],
-      "last_updated": "10:09"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "中国研究生数学建模竞赛",
+    "url": "https://cpipc.acge.org.cn/cw/hp/4",
+    "logo": "static/images/math_modeling.png",
+    "tags": [
+      "研究生",
+      "数学建模"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "cpipc_electronics",
-      "title": "中国研究生电子设计竞赛",
-      "tags": [
-        "研究生",
-        "电子设计"
-      ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/6",
-      "link_detail": "details/cpipc_electronics.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中国研究生数学建模竞赛"
       },
-      "info_grid": [
-        {
-          "label": "赛事名称",
-          "value": "中国研究生电子设计竞赛"
-        },
-        {
-          "label": "最新动态",
-          "value": "点击官网查看详情..."
-        }
-      ],
-      "last_updated": "10:10"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "中国研究生电子设计竞赛",
+    "url": "https://cpipc.acge.org.cn/cw/hp/6",
+    "logo": "static/images/electronic_design.png",
+    "tags": [
+      "研究生",
+      "电子设计"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "cpipc_chips",
-      "title": "中国研究生创“芯”大赛",
-      "tags": [
-        "研究生",
-        "集成电路"
-      ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/10",
-      "link_detail": "details/cpipc_chips.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中国研究生电子设计竞赛"
       },
-      "info_grid": [
-        {
-          "label": "赛事名称",
-          "value": "中国研究生创“芯”大赛"
-        },
-        {
-          "label": "最新动态",
-          "value": "点击官网查看详情..."
-        }
-      ],
-      "last_updated": "10:10"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "中国研究生创“芯”大赛",
+    "url": "https://cpipc.acge.org.cn/cw/hp/10",
+    "logo": "",
+    "tags": [
+      "研究生",
+      "集成电路"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "cpipc_ai",
-      "title": "中国研究生人工智能创新大赛",
-      "tags": [
-        "研究生",
-        "AI"
-      ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c9088a5696cbf370169a3f8101510bd",
-      "link_detail": "details/cpipc_ai.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中国研究生创“芯”大赛"
       },
-      "info_grid": [
-        {
-          "label": "赛事名称",
-          "value": "中国研究生人工智能创新大赛"
-        },
-        {
-          "label": "最新动态",
-          "value": "点击官网查看详情..."
-        }
-      ],
-      "last_updated": "10:10"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "中国研究生人工智能创新大赛",
+    "url": "https://cpipc.acge.org.cn/cw/hp/2c9088a5696cbf370169a3f8101510bd",
+    "logo": "",
+    "tags": [
+      "研究生",
+      "AI"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "cpipc_robot",
-      "title": "中国研究生机器人创新设计大赛",
-      "tags": [
-        "研究生",
-        "机器人"
-      ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c9088a5696cbf370169a3f8934810be",
-      "link_detail": "details/cpipc_robot.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中国研究生人工智能创新大赛"
       },
-      "info_grid": [
-        {
-          "label": "赛事名称",
-          "value": "中国研究生机器人创新设计大赛"
-        },
-        {
-          "label": "最新动态",
-          "value": "点击官网查看详情..."
-        }
-      ],
-      "last_updated": "10:10"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "中国研究生机器人创新设计大赛",
+    "url": "https://cpipc.acge.org.cn/cw/hp/2c9088a5696cbf370169a3f8934810be",
+    "logo": "",
+    "tags": [
+      "研究生",
+      "机器人"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "cpipc_energy",
-      "title": "中国研究生能源装备创新设计大赛",
-      "tags": [
-        "研究生",
-        "能源装备"
-      ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/7",
-      "link_detail": "details/cpipc_energy.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中国研究生机器人创新设计大赛"
       },
-      "info_grid": [
-        {
-          "label": "赛事名称",
-          "value": "中国研究生能源装备创新设计大赛"
-        },
-        {
-          "label": "最新动态",
-          "value": "点击官网查看详情..."
-        }
-      ],
-      "last_updated": "10:10"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "中国研究生能源装备创新设计大赛",
+    "url": "https://cpipc.acge.org.cn/cw/hp/7",
+    "logo": "",
+    "tags": [
+      "研究生",
+      "能源装备"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "cpipc_public_admin",
-      "title": "中国研究生公共管理案例大赛",
-      "tags": [
-        "研究生",
-        "公共管理"
-      ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/8",
-      "link_detail": "details/cpipc_public_admin.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中国研究生能源装备创新设计大赛"
       },
-      "info_grid": [
-        {
-          "label": "赛事名称",
-          "value": "中国研究生公共管理案例大赛"
-        },
-        {
-          "label": "最新动态",
-          "value": "点击官网查看详情..."
-        }
-      ],
-      "last_updated": "10:10"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "中国研究生公共管理案例大赛",
+    "url": "https://cpipc.acge.org.cn/cw/hp/8",
+    "logo": "",
+    "tags": [
+      "研究生",
+      "公共管理"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "cpipc_rural_revitalization",
-      "title": "中国研究生乡村振兴科技强农+创新大赛",
-      "tags": [
-        "研究生",
-        "乡村振兴"
-      ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90800c7a132603017a1395f2c105f9",
-      "link_detail": "details/cpipc_rural_revitalization.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中国研究生公共管理案例大赛"
       },
-      "info_grid": [
-        {
-          "label": "赛事名称",
-          "value": "中国研究生乡村振兴科技强农+创新大赛"
-        },
-        {
-          "label": "最新动态",
-          "value": "点击官网查看详情..."
-        }
-      ],
-      "last_updated": "10:10"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "中国研究生乡村振兴科技强农+创新大赛",
+    "url": "https://cpipc.acge.org.cn/cw/hp/2c90800c7a132603017a1395f2c105f9",
+    "logo": "",
+    "tags": [
+      "研究生",
+      "乡村振兴"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "cpipc_cyber_security",
-      "title": "中国研究生网络安全创新大赛",
-      "tags": [
-        "研究生",
-        "网络安全"
-      ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90800c8093eef401809d33b36f0652",
-      "link_detail": "details/cpipc_cyber_security.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中国研究生乡村振兴科技强农+创新大赛"
       },
-      "info_grid": [
-        {
-          "label": "赛事名称",
-          "value": "中国研究生网络安全创新大赛"
-        },
-        {
-          "label": "最新动态",
-          "value": "点击官网查看详情..."
-        }
-      ],
-      "last_updated": "10:10"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "中国研究生网络安全创新大赛",
+    "url": "https://cpipc.acge.org.cn/cw/hp/2c90800c8093eef401809d33b36f0652",
+    "logo": "",
+    "tags": [
+      "研究生",
+      "网络安全"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "cpipc_carbon_neutral",
-      "title": "中国研究生“双碳”创新与创意大赛",
-      "tags": [
-        "研究生",
-        "双碳"
-      ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90800c8093eef401809d348f8b0653",
-      "link_detail": "details/cpipc_carbon_neutral.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中国研究生网络安全创新大赛"
       },
-      "info_grid": [
-        {
-          "label": "赛事名称",
-          "value": "中国研究生“双碳”创新与创意大赛"
-        },
-        {
-          "label": "最新动态",
-          "value": "点击官网查看详情..."
-        }
-      ],
-      "last_updated": "10:10"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "中国研究生“双碳”创新与创意大赛",
+    "url": "https://cpipc.acge.org.cn/cw/hp/2c90800c8093eef401809d348f8b0653",
+    "logo": "",
+    "tags": [
+      "研究生",
+      "双碳"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "cpipc_fintech",
-      "title": "中国研究生金融科技创新大赛",
-      "tags": [
-        "研究生",
-        "金融科技"
-      ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90800c8093eef401809d3501080654",
-      "link_detail": "details/cpipc_fintech.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中国研究生“双碳”创新与创意大赛"
       },
-      "info_grid": [
-        {
-          "label": "赛事名称",
-          "value": "中国研究生金融科技创新大赛"
-        },
-        {
-          "label": "最新动态",
-          "value": "点击官网查看详情..."
-        }
-      ],
-      "last_updated": "10:10"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "中国研究生金融科技创新大赛",
+    "url": "https://cpipc.acge.org.cn/cw/hp/2c90800c8093eef401809d3501080654",
+    "logo": "",
+    "tags": [
+      "研究生",
+      "金融科技"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "cpipc_beautiful_china",
-      "title": "中国研究生“美丽中国”创新设计大赛",
-      "tags": [
-        "研究生",
-        "艺术设计"
-      ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c908018876ef068018774a9501a03fe",
-      "link_detail": "details/cpipc_beautiful_china.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中国研究生金融科技创新大赛"
       },
-      "info_grid": [
-        {
-          "label": "赛事名称",
-          "value": "中国研究生“美丽中国”创新设计大赛"
-        },
-        {
-          "label": "最新动态",
-          "value": "点击官网查看详情..."
-        }
-      ],
-      "last_updated": "10:10"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "中国研究生“美丽中国”创新设计大赛",
+    "url": "https://cpipc.acge.org.cn/cw/hp/2c908018876ef068018774a9501a03fe",
+    "logo": "",
+    "tags": [
+      "研究生",
+      "艺术设计"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "cpipc_enterprise_case",
-      "title": "中国研究生工程管理案例大赛",
-      "tags": [
-        "研究生",
-        "MBA"
-      ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c908018876ef068018774a7a5bc03fd",
-      "link_detail": "details/cpipc_enterprise_case.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中国研究生“美丽中国”创新设计大赛"
       },
-      "info_grid": [
-        {
-          "label": "赛事名称",
-          "value": "中国研究生工程管理案例大赛"
-        },
-        {
-          "label": "最新动态",
-          "value": "点击官网查看详情..."
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "中国研究生工程管理案例大赛",
+    "url": "https://cpipc.acge.org.cn/cw/hp/2c908018876ef068018774a7a5bc03fd",
+    "logo": "",
+    "tags": [
+      "研究生",
+      "MBA"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "cpipc_corporate_governance",
-      "title": "中国研究生企业管理创新大赛",
-      "tags": [
-        "研究生",
-        "企业管理"
-      ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c90801786cfa2b60186de4143390279",
-      "link_detail": "details/cpipc_corporate_governance.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中国研究生工程管理案例大赛"
       },
-      "info_grid": [
-        {
-          "label": "赛事名称",
-          "value": "中国研究生企业管理创新大赛"
-        },
-        {
-          "label": "最新动态",
-          "value": "点击官网查看详情..."
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "中国研究生企业管理创新大赛",
+    "url": "https://cpipc.acge.org.cn/cw/hp/2c90801786cfa2b60186de4143390279",
+    "logo": "",
+    "tags": [
+      "研究生",
+      "企业管理"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "cpipc_os_open_source",
-      "title": "中国研究生操作系统开源创新大赛",
-      "tags": [
-        "研究生",
-        "开源/OS"
-      ],
-      "link_homepage": "https://cpipc.acge.org.cn/cw/hp/2c9080178c7c917b018d1b1a0af61cd6",
-      "link_detail": "details/cpipc_os_open_source.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中国研究生企业管理创新大赛"
       },
-      "info_grid": [
-        {
-          "label": "赛事名称",
-          "value": "中国研究生操作系统开源创新大赛"
-        },
-        {
-          "label": "最新动态",
-          "value": "点击官网查看详情..."
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "中国研究生操作系统开源创新大赛",
+    "url": "https://cpipc.acge.org.cn/cw/hp/2c9080178c7c917b018d1b1a0af61cd6",
+    "logo": "",
+    "tags": [
+      "研究生",
+      "开源/OS"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "challenge_cup_startup",
-      "title": "“挑战杯”中国大学生创业计划竞赛",
-      "tags": [
-        "综合",
-        "创业"
-      ],
-      "link_homepage": "http://www.tiaozhanbei.net/",
-      "link_detail": "details/challenge_cup_startup.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中国研究生操作系统开源创新大赛"
       },
-      "info_grid": [
-        {
-          "label": "数据状态",
-          "value": "点击进入官网查看最新动态"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "“挑战杯”中国大学生创业计划竞赛",
+    "url": "http://www.tiaozhanbei.net/",
+    "logo": "",
+    "tags": [
+      "综合",
+      "创业"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "lanqiao_cup",
-      "title": "蓝桥杯全国软件和信息技术专业人才大赛",
-      "tags": [
-        "编程",
-        "算法",
-        "电子设计"
-      ],
-      "link_homepage": "https://dasai.lanqiao.cn/",
-      "link_detail": "details/lanqiao_cup.html",
-      "status": {
-        "text": "报名进行中",
-        "color": "green"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "“挑战杯”中国大学生创业计划竞赛"
       },
-      "info_grid": [
-        {
-          "label": "竞赛名称",
-          "value": "第十七届蓝桥杯全国软件大赛"
-        },
-        {
-          "label": "最新动态",
-          "value": "点击查看官网公告..."
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "蓝桥杯全国软件和信息技术专业人才大赛",
+    "url": "https://dasai.lanqiao.cn/",
+    "logo": "",
+    "tags": [
+      "编程",
+      "算法",
+      "电子设计"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "robomaster",
-      "title": "全国大学生机器人大赛 (RoboMaster)",
-      "tags": [
-        "机器人",
-        "竞技"
-      ],
-      "link_homepage": "https://www.robomaster.com/",
-      "link_detail": "details/robomaster.html",
-      "status": {
-        "text": "赛季准备中",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "蓝桥杯全国软件和信息技术专业人才大赛"
       },
-      "info_grid": [
-        {
-          "label": "竞赛名称",
-          "value": "全国大学生机器人大赛 RoboMaster"
-        },
-        {
-          "label": "最新动态",
-          "value": "点击查看 2026 赛季手册"
-        }
-      ],
-      "last_updated": "10:11",
-      "detailed_schedule": [
-        {
-          "day": "2026 赛季预估表",
-          "events": [
-            {
-              "time": "12-3月",
-              "desc": "技术方案评审",
-              "loc": "线上"
-            },
-            {
-              "time": "5-6月",
-              "desc": "分区赛阶段",
-              "loc": "各赛区"
-            },
-            {
-              "time": "8月",
-              "desc": "全国总决赛",
-              "loc": "深圳"
-            }
-          ]
-        }
-      ]
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "全国大学生机器人大赛 (RoboMaster)",
+    "url": "https://www.robomaster.com/",
+    "logo": "",
+    "tags": [
+      "机器人",
+      "竞技"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "xilinx_fpga",
-      "title": "“西门子杯”中国智能制造挑战赛",
-      "tags": [
-        "智能制造",
-        "自动化"
-      ],
-      "link_homepage": "http://www.ineat.cn/",
-      "link_detail": "details/xilinx_fpga.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "全国大学生机器人大赛 (RoboMaster)"
       },
-      "info_grid": [
-        {
-          "label": "主办单位",
-          "value": "教育部/西门子"
-        },
-        {
-          "label": "最新动态",
-          "value": "关注 2026 赛季报名通知"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "“西门子杯”中国智能制造挑战赛",
+    "url": "http://www.ineat.cn/",
+    "logo": "",
+    "tags": [
+      "智能制造",
+      "自动化"
+    ],
+    "status": {
+      "text": "待更新",
+      "color": "yellow"
     },
-    {
-      "id": "datang_ict",
-      "title": "“大唐杯”全国大学生新一代信息通信技术大赛",
-      "tags": [
-        "通信",
-        "5G"
-      ],
-      "link_homepage": "https://dtcup.dtxiaotangren.com/",
-      "link_detail": "details/datang_ict.html",
-      "status": {
-        "text": "报名进行中",
-        "color": "green"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "“西门子杯”中国智能制造挑战赛"
       },
-      "info_grid": [
-        {
-          "label": "当前届次",
-          "value": "第十三届大唐杯"
-        },
-        {
-          "label": "主办单位",
-          "value": "工信部人才交流中心"
-        },
-        {
-          "label": "最新动态",
-          "value": "请点击详情查看公告"
-        }
-      ],
-      "last_updated": "10:11",
-      "detailed_schedule": [
-        {
-          "day": "2026 赛季关键节点",
-          "events": [
-            {
-              "time": "1月 - 3月",
-              "desc": "在线报名与校内选拔",
-              "loc": "官网/各高校"
-            },
-            {
-              "time": "4月中下旬",
-              "desc": "省赛/区域赛",
-              "loc": "各省赛点"
-            },
-            {
-              "time": "5月 - 6月",
-              "desc": "全国总决赛",
-              "loc": "北京/北方工大"
-            }
-          ]
-        }
-      ]
+      {
+        "label": "状态",
+        "value": "数据同步中"
+      }
+    ]
+  },
+  {
+    "name": "“大唐杯”全国大学生新一代信息通信技术大赛",
+    "url": "https://dtcup.dtxiaotangren.com/",
+    "logo": "",
+    "tags": [
+      "通信",
+      "5G"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "huawei_ict",
-      "title": "华为 ICT 大赛",
-      "tags": [
-        "IT/IP",
-        "华为"
-      ],
-      "link_homepage": "https://e.huawei.com/cn/talent/ict-academy/#/ict-contest/home",
-      "link_detail": "details/huawei_ict.html",
-      "status": {
-        "text": "赛季进行中",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "“大唐杯”全国大学生新一代信息通信技术大赛"
       },
-      "info_grid": [
-        {
-          "label": "竞赛名称",
-          "value": "华为 ICT 大赛 2025-2026"
-        },
-        {
-          "label": "最新状态",
-          "value": "区域赛/国家赛阶段"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "华为 ICT 大赛",
+    "url": "https://e.huawei.com/cn/talent/ict-academy/#/ict-contest/home",
+    "logo": "",
+    "tags": [
+      "IT/IP",
+      "华为"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "embedded_chip",
-      "title": "全国大学生嵌入式芯片与系统设计竞赛",
-      "tags": [
-        "嵌入式",
-        "芯片"
-      ],
-      "link_homepage": "http://www.socchina.net/",
-      "link_detail": "details/embedded_chip.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "华为 ICT 大赛"
       },
-      "info_grid": [
-        {
-          "label": "主办单位",
-          "value": "中国电子学会"
-        },
-        {
-          "label": "最新动态",
-          "value": "等待 2026 届启动通知"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "全国大学生嵌入式芯片与系统设计竞赛",
+    "url": "http://www.socchina.net/",
+    "logo": "",
+    "tags": [
+      "嵌入式",
+      "芯片"
+    ],
+    "status": {
+      "text": "待更新",
+      "color": "yellow"
     },
-    {
-      "id": "information_tech_app",
-      "title": "全国大学生信息技术应用大赛",
-      "tags": [
-        "信息技术"
-      ],
-      "link_homepage": "http://www.it-at.org.cn/",
-      "link_detail": "details/information_tech_app.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "全国大学生嵌入式芯片与系统设计竞赛"
       },
-      "info_grid": [
-        {
-          "label": "竞赛全称",
-          "value": "全国大学生信息技术应用大赛"
-        },
-        {
-          "label": "状态",
-          "value": "同步官网公告中"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "状态",
+        "value": "数据同步中"
+      }
+    ]
+  },
+  {
+    "name": "全国大学生信息技术应用大赛",
+    "url": "http://www.it-at.org.cn/",
+    "logo": "",
+    "tags": [
+      "信息技术"
+    ],
+    "status": {
+      "text": "待更新",
+      "color": "yellow"
     },
-    {
-      "id": "mathorcup",
-      "title": "MathorCup 高校数学建模挑战赛",
-      "tags": [
-        "数学建模"
-      ],
-      "link_homepage": "http://www.mathorcup.org/",
-      "link_detail": "details/mathorcup.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "全国大学生信息技术应用大赛"
       },
-      "info_grid": [
-        {
-          "label": "数据状态",
-          "value": "点击进入官网查看最新动态"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "状态",
+        "value": "数据同步中"
+      }
+    ]
+  },
+  {
+    "name": "MathorCup 高校数学建模挑战赛",
+    "url": "http://www.mathorcup.org/",
+    "logo": "",
+    "tags": [
+      "数学建模"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "baimu_cup",
-      "title": "“毕昇杯”全国大学生数学建模挑战赛",
-      "tags": [
-        "数学建模"
-      ],
-      "link_homepage": "http://www.bishengcup.com/",
-      "link_detail": "details/baimu_cup.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "MathorCup 高校数学建模挑战赛"
       },
-      "info_grid": [
-        {
-          "label": "数据状态",
-          "value": "点击进入官网查看最新动态"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "“毕昇杯”全国大学生数学建模挑战赛",
+    "url": "http://www.bishengcup.com/",
+    "logo": "",
+    "tags": [
+      "数学建模"
+    ],
+    "status": {
+      "text": "待更新",
+      "color": "yellow"
     },
-    {
-      "id": "icpc",
-      "title": "ACM-ICPC 国际大学生程序设计竞赛",
-      "tags": [
-        "算法",
-        "顶级"
-      ],
-      "link_homepage": "https://icpc.global/",
-      "link_detail": "details/icpc.html",
-      "status": {
-        "text": "比赛已结束",
-        "color": "gray"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "“毕昇杯”全国大学生数学建模挑战赛"
       },
-      "info_grid": [
-        {
-          "label": "最新赛事",
-          "value": "ICPC World Finals 2025"
-        },
-        {
-          "label": "时间范围",
-          "value": "2025-09-20 - 2025-09-25"
-        },
-        {
-          "label": "地点",
-          "value": "待公示"
-        }
-      ],
-      "last_updated": "10:11",
-      "detailed_schedule": [
-        {
-          "day": "2025-09-20",
-          "events": [
-            {
-              "time": "全天",
-              "desc": "开幕式 & 签到",
-              "loc": "待定"
-            }
-          ]
-        },
-        {
-          "day": "2025-09-25",
-          "events": [
-            {
-              "time": "全天",
-              "desc": "闭幕式 & 颁奖",
-              "loc": "待定"
-            }
-          ]
-        }
-      ]
+      {
+        "label": "状态",
+        "value": "数据同步中"
+      }
+    ]
+  },
+  {
+    "name": "ACM-ICPC 国际大学生程序设计竞赛",
+    "url": "https://icpc.global/",
+    "logo": "",
+    "tags": [
+      "算法",
+      "顶级"
+    ],
+    "status": {
+      "text": "赛程已公布",
+      "color": "blue"
     },
-    {
-      "id": "cumcm",
-      "title": "全国大学生数学建模竞赛",
-      "tags": [
-        "数学建模",
-        "国赛"
-      ],
-      "link_homepage": "http://www.mcm.edu.cn/",
-      "link_detail": "details/cumcm.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "ICPC World Finals"
       },
-      "info_grid": [
-        {
-          "label": "赛事等级",
-          "value": "国家级 A 类"
-        },
-        {
-          "label": "举办周期",
-          "value": "每年 9 月中旬"
-        }
-      ],
-      "last_updated": "10:11",
-      "detailed_schedule": [
-        {
-          "day": "2026 赛季参考",
-          "events": [
-            {
-              "time": "4-8月",
-              "desc": "校内选拔与培训",
-              "loc": "各高校"
-            },
-            {
-              "time": "9月",
-              "desc": "全国正式比赛",
-              "loc": "线上/实验室"
-            }
-          ]
-        }
-      ]
+      {
+        "label": "最新动态",
+        "value": "2025-09-20 开赛"
+      }
+    ]
+  },
+  {
+    "name": "全国大学生数学建模竞赛",
+    "url": "http://www.mcm.edu.cn/",
+    "logo": "",
+    "tags": [
+      "数学建模",
+      "国赛"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "nuedc",
-      "title": "全国大学生电子设计竞赛",
-      "tags": [
-        "电子设计",
-        "国赛"
-      ],
-      "link_homepage": "http://nuedc.xjtu.edu.cn/",
-      "link_detail": "details/nuedc.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "全国大学生数学建模竞赛"
       },
-      "info_grid": [
-        {
-          "label": "竞赛性质",
-          "value": "教育部主办/电子设计"
-        },
-        {
-          "label": "重要日期",
-          "value": "关注 2026 各赛区通告"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "全国大学生电子设计竞赛",
+    "url": "http://nuedc.xjtu.edu.cn/",
+    "logo": "",
+    "tags": [
+      "电子设计",
+      "国赛"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "intelligent_car",
-      "title": "全国大学生智能汽车竞赛",
-      "tags": [
-        "智能车",
-        "自动化"
-      ],
-      "link_homepage": "https://smartcar.cdhu.edu.cn/",
-      "link_detail": "details/intelligent_car.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "全国大学生电子设计竞赛"
       },
-      "info_grid": [
-        {
-          "label": "核心技术",
-          "value": "自动驾驶/嵌入式/AI"
-        },
-        {
-          "label": "赛季状态",
-          "value": "2026 赛季筹备中"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "全国大学生智能汽车竞赛",
+    "url": "https://smartcar.cdhu.edu.cn/",
+    "logo": "",
+    "tags": [
+      "智能车",
+      "自动化"
+    ],
+    "status": {
+      "text": "待更新",
+      "color": "yellow"
     },
-    {
-      "id": "engineering_practice",
-      "title": "中国大学生工程实践与创新能力大赛",
-      "tags": [
-        "工程实践"
-      ],
-      "link_homepage": "http://www.gcxl.edu.cn/",
-      "link_detail": "details/engineering_practice.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "全国大学生智能汽车竞赛"
       },
-      "info_grid": [
-        {
-          "label": "竞赛全称",
-          "value": "工程实践与创新能力大赛"
-        },
-        {
-          "label": "重点方向",
-          "value": "智能制造/工训综合"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "状态",
+        "value": "数据同步中"
+      }
+    ]
+  },
+  {
+    "name": "中国大学生工程实践与创新能力大赛",
+    "url": "http://www.gcxl.edu.cn/",
+    "logo": "",
+    "tags": [
+      "工程实践"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "computer_design",
-      "title": "中国大学生计算机设计大赛",
-      "tags": [
-        "计算机",
-        "软件"
-      ],
-      "link_homepage": "http://jsjds.blcu.edu.cn/",
-      "link_detail": "details/computer_design.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中国大学生工程实践与创新能力大赛"
       },
-      "info_grid": [
-        {
-          "label": "数据状态",
-          "value": "点击进入官网查看最新动态"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "中国大学生计算机设计大赛",
+    "url": "http://jsjds.blcu.edu.cn/",
+    "logo": "",
+    "tags": [
+      "计算机",
+      "软件"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "software_cup",
-      "title": "中国高校计算机大赛",
-      "tags": [
-        "软件",
-        "算法"
-      ],
-      "link_homepage": "http://www.chinasoftwarecup.org/",
-      "link_detail": "details/software_cup.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中国大学生计算机设计大赛"
       },
-      "info_grid": [
-        {
-          "label": "数据状态",
-          "value": "点击进入官网查看最新动态"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "中国高校计算机大赛",
+    "url": "http://www.chinasoftwarecup.org/",
+    "logo": "",
+    "tags": [
+      "软件",
+      "算法"
+    ],
+    "status": {
+      "text": "待更新",
+      "color": "yellow"
     },
-    {
-      "id": "photo_design",
-      "title": "全国大学生光电设计竞赛",
-      "tags": [
-        "光电"
-      ],
-      "link_homepage": "http://gd.moocollege.com/",
-      "link_detail": "details/photo_design.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中国高校计算机大赛"
       },
-      "info_grid": [
-        {
-          "label": "数据状态",
-          "value": "点击进入官网查看最新动态"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "状态",
+        "value": "数据同步中"
+      }
+    ]
+  },
+  {
+    "name": "全国大学生光电设计竞赛",
+    "url": "http://gd.moocollege.com/",
+    "logo": "",
+    "tags": [
+      "光电"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "integrated_circuit",
-      "title": "全国大学生集成电路创新创业大赛",
-      "tags": [
-        "芯片",
-        "集成电路"
-      ],
-      "link_homepage": "http://univ.ciciec.com/",
-      "link_detail": "details/integrated_circuit.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "全国大学生光电设计竞赛"
       },
-      "info_grid": [
-        {
-          "label": "数据状态",
-          "value": "点击进入官网查看最新动态"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "全国大学生集成电路创新创业大赛",
+    "url": "http://univ.ciciec.com/",
+    "logo": "",
+    "tags": [
+      "芯片",
+      "集成电路"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "info_security",
-      "title": "全国大学生信息安全竞赛",
-      "tags": [
-        "网络安全"
-      ],
-      "link_homepage": "http://www.ciscn.cn/",
-      "link_detail": "details/info_security.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "全国大学生集成电路创新创业大赛"
       },
-      "info_grid": [
-        {
-          "label": "数据状态",
-          "value": "点击进入官网查看最新动态"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "全国大学生信息安全竞赛",
+    "url": "http://www.ciscn.cn/",
+    "logo": "",
+    "tags": [
+      "网络安全"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "software_design",
-      "title": "“中国软件杯”大学生软件设计大赛",
-      "tags": [
-        "软件设计"
-      ],
-      "link_homepage": "http://www.cnsoftbei.com/",
-      "link_detail": "details/software_design.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "全国大学生信息安全竞赛"
       },
-      "info_grid": [
-        {
-          "label": "数据状态",
-          "value": "点击进入官网查看最新动态"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "“中国软件杯”大学生软件设计大赛",
+    "url": "http://www.cnsoftbei.com/",
+    "logo": "",
+    "tags": [
+      "软件设计"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "sino_us_maker",
-      "title": "中美青年创客大赛",
-      "tags": [
-        "创客",
-        "综合"
-      ],
-      "link_homepage": "https://china-us-maker.org.cn/",
-      "link_detail": "details/sino_us_maker.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "“中国软件杯”大学生软件设计大赛"
       },
-      "info_grid": [
-        {
-          "label": "数据状态",
-          "value": "点击进入官网查看最新动态"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "中美青年创客大赛",
+    "url": "https://china-us-maker.org.cn/",
+    "logo": "",
+    "tags": [
+      "创客",
+      "综合"
+    ],
+    "status": {
+      "text": "待更新",
+      "color": "yellow"
     },
-    {
-      "id": "raicom",
-      "title": "睿抗机器人开发者大赛 (RAICOM)",
-      "tags": [
-        "机器人"
-      ],
-      "link_homepage": "http://www.raicom.com.cn/",
-      "link_detail": "details/raicom.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中美青年创客大赛"
       },
-      "info_grid": [
-        {
-          "label": "数据状态",
-          "value": "点击进入官网查看最新动态"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "状态",
+        "value": "数据同步中"
+      }
+    ]
+  },
+  {
+    "name": "睿抗机器人开发者大赛 (RAICOM)",
+    "url": "http://www.raicom.com.cn/",
+    "logo": "",
+    "tags": [
+      "机器人"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "xuechuang_cup",
-      "title": "“学创杯”全国大学生创业综合模拟大赛",
-      "tags": [
-        "管理",
-        "创业"
-      ],
-      "link_homepage": "http://www.xcbcompetition.com/",
-      "link_detail": "details/xuechuang_cup.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "睿抗机器人开发者大赛 (RAICOM)"
       },
-      "info_grid": [
-        {
-          "label": "数据状态",
-          "value": "点击进入官网查看最新动态"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "“学创杯”全国大学生创业综合模拟大赛",
+    "url": "http://www.xcbcompetition.com/",
+    "logo": "",
+    "tags": [
+      "管理",
+      "创业"
+    ],
+    "status": {
+      "text": "待更新",
+      "color": "yellow"
     },
-    {
-      "id": "intelligent_robot",
-      "title": "中国高校智能机器人创意大赛",
-      "tags": [
-        "机器人"
-      ],
-      "link_homepage": "http://www.robotcontest.cn/",
-      "link_detail": "details/intelligent_robot.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "“学创杯”全国大学生创业综合模拟大赛"
       },
-      "info_grid": [
-        {
-          "label": "数据状态",
-          "value": "点击进入官网查看最新动态"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "状态",
+        "value": "数据同步中"
+      }
+    ]
+  },
+  {
+    "name": "中国高校智能机器人创意大赛",
+    "url": "http://www.robotcontest.cn/",
+    "logo": "",
+    "tags": [
+      "机器人"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "robot_ai",
-      "title": "中国机器人及人工智能大赛",
-      "tags": [
-        "AI",
-        "机器人"
-      ],
-      "link_homepage": "http://www.caairobot.com/",
-      "link_detail": "details/robot_ai.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中国高校智能机器人创意大赛"
       },
-      "info_grid": [
-        {
-          "label": "数据状态",
-          "value": "点击进入官网查看最新动态"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "中国机器人及人工智能大赛",
+    "url": "http://www.caairobot.com/",
+    "logo": "",
+    "tags": [
+      "AI",
+      "机器人"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "energy_saving",
-      "title": "全国大学生节能减排社会实践与科技竞赛",
-      "tags": [
-        "节能减排",
-        "环境"
-      ],
-      "link_homepage": "http://www.jienengjianpai.org/",
-      "link_detail": "details/energy_saving.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "中国机器人及人工智能大赛"
       },
-      "info_grid": [
-        {
-          "label": "数据状态",
-          "value": "点击进入官网查看最新动态"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "全国大学生节能减排社会实践与科技竞赛",
+    "url": "http://www.jienengjianpai.org/",
+    "logo": "",
+    "tags": [
+      "节能减排",
+      "环境"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "computer_system",
-      "title": "全国大学生计算机系统能力大赛",
-      "tags": [
-        "计算机底层"
-      ],
-      "link_homepage": "https://compiler.educg.net/",
-      "link_detail": "details/computer_system.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "全国大学生节能减排社会实践与科技竞赛"
       },
-      "info_grid": [
-        {
-          "label": "数据状态",
-          "value": "点击进入官网查看最新动态"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "全国大学生计算机系统能力大赛",
+    "url": "https://compiler.educg.net/",
+    "logo": "",
+    "tags": [
+      "计算机底层"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "iot_design",
-      "title": "全国大学生物联网设计竞赛",
-      "tags": [
-        "物联网"
-      ],
-      "link_homepage": "http://iot.sjtu.edu.cn/",
-      "link_detail": "details/iot_design.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "全国大学生计算机系统能力大赛"
       },
-      "info_grid": [
-        {
-          "label": "数据状态",
-          "value": "点击进入官网查看最新动态"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "全国大学生物联网设计竞赛",
+    "url": "http://iot.sjtu.edu.cn/",
+    "logo": "",
+    "tags": [
+      "物联网"
+    ],
+    "status": {
+      "text": "查看官网",
+      "color": "blue"
     },
-    {
-      "id": "info_security_ctf",
-      "title": "全国大学生信息安全与对抗技术竞赛",
-      "tags": [
-        "安全",
-        "CTF"
-      ],
-      "link_homepage": "https://iscc.bit.edu.cn/",
-      "link_detail": "details/info_security_ctf.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "全国大学生物联网设计竞赛"
       },
-      "info_grid": [
-        {
-          "label": "数据状态",
-          "value": "点击进入官网查看最新动态"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
+      }
+    ]
+  },
+  {
+    "name": "全国大学生信息安全与对抗技术竞赛",
+    "url": "https://iscc.bit.edu.cn/",
+    "logo": "",
+    "tags": [
+      "安全",
+      "CTF"
+    ],
+    "status": {
+      "text": "待更新",
+      "color": "yellow"
     },
-    {
-      "id": "statistics_modeling",
-      "title": "全国大学生统计建模大赛",
-      "tags": [
-        "统计",
-        "数据"
-      ],
-      "link_homepage": "http://tjjm.cos.edu.cn/",
-      "link_detail": "details/statistics_modeling.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "全国大学生信息安全与对抗技术竞赛"
       },
-      "info_grid": [
-        {
-          "label": "数据状态",
-          "value": "点击进入官网查看最新动态"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "状态",
+        "value": "数据同步中"
+      }
+    ]
+  },
+  {
+    "name": "全国大学生统计建模大赛",
+    "url": "http://tjjm.cos.edu.cn/",
+    "logo": "",
+    "tags": [
+      "统计",
+      "数据"
+    ],
+    "status": {
+      "text": "待更新",
+      "color": "yellow"
     },
-    {
-      "id": "campus_ai",
-      "title": "全球校园人工智能算法精英大赛",
-      "tags": [
-        "AI",
-        "算法"
-      ],
-      "link_homepage": "https://www.saikr.com/vse/campusai",
-      "link_detail": "details/campus_ai.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "全国大学生统计建模大赛"
       },
-      "info_grid": [
-        {
-          "label": "数据状态",
-          "value": "点击进入官网查看最新动态"
-        }
-      ],
-      "last_updated": "10:11"
+      {
+        "label": "状态",
+        "value": "数据同步中"
+      }
+    ]
+  },
+  {
+    "name": "全球校园人工智能算法精英大赛",
+    "url": "https://www.saikr.com/vse/campusai",
+    "logo": "",
+    "tags": [
+      "AI",
+      "算法"
+    ],
+    "status": {
+      "text": "待更新",
+      "color": "yellow"
     },
-    {
-      "id": "smart_agriculture",
-      "title": "国际大学生智能农业装备创新大赛",
-      "tags": [
-        "智慧农业"
-      ],
-      "link_homepage": "http://www.smartagrimach.com/",
-      "link_detail": "details/smart_agriculture.html",
-      "status": {
-        "text": "查看官网",
-        "color": "blue"
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "全球校园人工智能算法精英大赛"
       },
-      "info_grid": [
-        {
-          "label": "数据状态",
-          "value": "点击进入官网查看最新动态"
-        }
-      ],
-      "last_updated": "10:11"
-    }
-  ]
-}
+      {
+        "label": "状态",
+        "value": "数据同步中"
+      }
+    ]
+  },
+  {
+    "name": "国际大学生智能农业装备创新大赛",
+    "url": "http://www.smartagrimach.com/",
+    "logo": "",
+    "tags": [
+      "智慧农业"
+    ],
+    "status": {
+      "text": "待更新",
+      "color": "yellow"
+    },
+    "info_grid": [
+      {
+        "label": "赛事名称",
+        "value": "国际大学生智能农业装备创新大赛"
+      },
+      {
+        "label": "状态",
+        "value": "数据同步中"
+      }
+    ]
+  }
+]
