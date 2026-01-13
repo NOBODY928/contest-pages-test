@@ -1,280 +1,384 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>竞赛资讯聚合看板</title>
-    <style>
-        /* --- 全局重置与基础设置 --- */
-        :root {
-            --bg-color: #f5f5f7; /* Apple 浅灰背景 */
-            --card-bg: rgba(255, 255, 255, 0.75); /* 毛玻璃背景 */
-            --text-main: #1d1d1f;
-            --text-sub: #86868b;
-            --accent-blue: #0071e3;
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-            --shadow-hover: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>竞赛资讯聚合</title>
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Helvetica Neue", sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            padding: 40px 20px;
-            -webkit-font-smoothing: antialiased;
-        }
+  <style>
+    :root{
+      --bg:#f5f5f7;
+      --text:#1d1d1f;
+      --muted:#6e6e73;
+      --card-radius:26px;
+      --shadow: 0 12px 30px rgba(0,0,0,.08);
+      --shadow-hover: 0 22px 60px rgba(0,0,0,.14);
+      --blue:#0a84ff;
+    }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
+    *{ box-sizing:border-box; }
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family: -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,"Noto Sans SC",sans-serif;
+      -webkit-font-smoothing: antialiased;
+      padding: 42px 18px 70px;
+    }
 
-        header {
-            text-align: center;
-            margin-bottom: 60px;
-            animation: fadeIn 1s ease-out;
-        }
+    .wrap{ max-width:1200px; margin:0 auto; }
 
-        h1 {
-            font-size: 48px;
-            font-weight: 700;
-            margin-bottom: 10px;
-            letter-spacing: -0.02em;
-        }
+    header{
+      text-align:center;
+      margin: 6px 0 42px;
+      animation: fadeIn .8s ease-out;
+    }
+    h1{
+      margin:0 0 10px;
+      font-size: 44px;
+      letter-spacing: -0.02em;
+      font-weight: 800;
+    }
+    .meta{
+      display:inline-block;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.55);
+      border: 1px solid rgba(255,255,255,.7);
+      color: var(--muted);
+      font-size: 14px;
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+    }
 
-        .update-time {
-            color: var(--text-sub);
-            font-size: 14px;
-            background: rgba(255,255,255,0.5);
-            padding: 6px 16px;
-            border-radius: 20px;
-            display: inline-block;
-            backdrop-filter: blur(10px);
-        }
+    .topbar{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 14px;
+      margin: 10px 0 20px;
+      padding: 0 6px;
+    }
+    .hint{
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .rightlink a{
+      font-size: 13px;
+      color: var(--blue);
+      text-decoration:none;
+    }
+    .rightlink a:hover{ text-decoration:underline; }
 
-        /* --- 核心：卡片网格布局 --- */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 30px;
-        }
+    .grid{
+      display:grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 28px;
+      margin-top: 24px;
+    }
 
-        /* --- 核心：Apple 风格卡片 --- */
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 24px;
-            padding: 28px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            
-            /* 阴影与过渡 */
-            box-shadow: var(--shadow-sm);
-            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
-            
-            /* 入场动画初始状态 */
-            opacity: 0;
-            transform: translateY(30px);
-            animation: cardEntrance 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-        }
+    /* ---------------- Apple-like card with background image ---------------- */
+    .card{
+      position:relative;
+      overflow:hidden;
+      border-radius: var(--card-radius);
+      background: rgba(255,255,255,.65);
+      border: 1px solid rgba(255,255,255,.7);
+      box-shadow: var(--shadow);
 
-        /* 鼠标悬停动效 */
-        .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: var(--shadow-hover);
-            background: rgba(255, 255, 255, 0.95);
-            z-index: 2;
-        }
+      padding: 22px 22px 18px;
+      min-height: 260px;
 
-        /* --- 卡片内部元素 --- */
-        .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
-        }
+      opacity: 0;
+      transform: translateY(28px);
+      animation: cardEntrance .85s cubic-bezier(.2,.8,.2,1) forwards;
+      transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s cubic-bezier(.2,.8,.2,1);
+    }
 
-        .logo-box {
-            width: 64px;
-            height: 64px;
-            background: #fff;
-            border-radius: 18px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
-            overflow: hidden;
-        }
+    .card:hover{
+      transform: translateY(-10px);
+      box-shadow: var(--shadow-hover);
+    }
 
-        .logo-box img {
-            width: 80%;
-            height: 80%;
-            object-fit: contain;
-        }
+    /* background layer */
+    .card::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image: var(--card-bg-img);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: scale(1.06);
+      filter: saturate(1.08) contrast(1.03);
+      z-index: 0;
+    }
 
-        /* 状态胶囊 */
-        .status-pill {
-            font-size: 12px;
-            font-weight: 600;
-            padding: 6px 12px;
-            border-radius: 100px;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-        .status-pill.green { background: #e6f7ed; color: #00c853; }
-        .status-pill.blue { background: #e3f2fd; color: #0071e3; }
-        .status-pill.yellow { background: #fff8e1; color: #ffab00; }
-        .status-pill.gray { background: #f5f5f7; color: #86868b; }
+    /* overlay layer for readability */
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: linear-gradient(
+        180deg,
+        rgba(255,255,255,.52) 0%,
+        rgba(255,255,255,.75) 46%,
+        rgba(255,255,255,.93) 100%
+      );
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 1;
+    }
 
-        .card-title {
-            font-size: 20px;
-            font-weight: 700;
-            line-height: 1.3;
-            margin: 0 0 12px 0;
-            color: var(--text-main);
-            /* 限制标题最多2行 */
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
+    /* content above overlays */
+    .card > *{
+      position:relative;
+      z-index:2;
+    }
 
-        .tags {
-            margin-bottom: 20px;
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
+    .card-top{
+      display:flex;
+      align-items:flex-start;
+      justify-content:space-between;
+      gap: 12px;
+      margin-bottom: 14px;
+    }
 
-        .tag {
-            font-size: 11px;
-            color: var(--accent-blue);
-            background: rgba(0, 113, 227, 0.1);
-            padding: 4px 10px;
-            border-radius: 8px;
-            font-weight: 600;
-        }
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      padding: 6px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing:.01em;
+      border: 1px solid rgba(255,255,255,.7);
+      background: rgba(255,255,255,.62);
+      color: #2b2b2f;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      white-space: nowrap;
+    }
 
-        .info-row {
-            margin-bottom: 8px;
-            font-size: 13px;
-            color: var(--text-sub);
-            line-height: 1.5;
-        }
-        
-        .info-label {
-            font-weight: 600;
-            color: var(--text-main);
-            display: block;
-            margin-bottom: 2px;
-        }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 8px 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      text-decoration:none;
+      border: 1px solid rgba(255,255,255,.75);
+      background: rgba(255,255,255,.62);
+      color: #1d1d1f;
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      transition: background .25s ease;
+      white-space: nowrap;
+    }
+    .btn:hover{ background: rgba(255,255,255,.78); }
 
-        .card-footer {
-            margin-top: 24px;
-            padding-top: 16px;
-            border-top: 1px solid rgba(0,0,0,0.05);
-            display: flex;
-            justify-content: flex-end;
-        }
+    .title{
+      margin: 0 0 10px;
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.01em;
+      line-height: 1.25;
+    }
 
-        .btn-link {
-            text-decoration: none;
-            color: var(--accent-blue);
-            font-size: 14px;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            transition: opacity 0.2s;
-        }
-        .btn-link:hover {
-            opacity: 0.7;
-        }
-        .btn-link::after {
-            content: "→";
-            margin-left: 6px;
-            font-family: monospace;
-        }
+    .tags{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 8px;
+      margin: 0 0 14px;
+    }
+    .tag{
+      display:inline-flex;
+      padding: 6px 10px;
+      border-radius: 10px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #0b57d0;
+      background: rgba(10,132,255,.12);
+      border: 1px solid rgba(10,132,255,.16);
+    }
 
-        /* --- 动画定义 --- */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+    .kv{
+      margin-top: 4px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(0,0,0,.06);
+      display:grid;
+      gap: 10px;
+    }
+    .row{
+      display:grid;
+      grid-template-columns: 70px 1fr;
+      gap: 10px;
+      align-items: baseline;
+      font-size: 13px;
+    }
+    .k{ color: var(--muted); font-weight: 700; }
+    .v{ color: #1d1d1f; font-weight: 650; }
 
-        @keyframes cardEntrance {
-            to { opacity: 1; transform: translateY(0); }
-        }
+    .footer{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 10px;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(0,0,0,.06);
+    }
 
-        /* 响应式适配 */
-        @media (max-width: 768px) {
-            h1 { font-size: 32px; }
-            .grid { grid-template-columns: 1fr; }
-            .card { margin-bottom: 10px; }
-        }
-    </style>
+    .ref{
+      font-size: 11px;
+      color: rgba(110,110,115,.65);
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      font-weight: 800;
+      user-select: none;
+    }
+
+    .more{
+      display:inline-flex;
+      align-items:center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--blue);
+      text-decoration:none;
+    }
+    .more:hover{ text-decoration:underline; }
+
+    .empty{
+      text-align:center;
+      color: var(--muted);
+      margin-top: 60px;
+      font-size: 14px;
+    }
+
+    @keyframes fadeIn{
+      from{ opacity:0; transform: translateY(8px); }
+      to{ opacity:1; transform: translateY(0); }
+    }
+    @keyframes cardEntrance{
+      to{ opacity:1; transform: translateY(0); }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      *{ animation:none !important; transition:none !important; }
+      .card{ opacity:1; transform:none; }
+    }
+  </style>
 </head>
-<body>
 
-<div class="container">
+<body>
+  <div class="wrap">
     <header>
-        <h1>竞赛资讯聚合</h1>
-        <div class="update-time">最后更新: {{ updated_at }}</div>
+      <h1>竞赛资讯聚合</h1>
+      <div class="meta">最后更新：{{ generated_at }}</div>
     </header>
 
-    <div class="grid">
-        {% for item in contests %}
-        <!-- loop.index0 用于计算动画延迟，形成瀑布流效果 -->
-        <div class="card" style="animation-delay: {{ loop.index0 * 0.05 }}s">
-            
-            <div class="card-header">
-                <div class="logo-box">
-                    {% if item.logo %}
-                        <!-- 显示对应的 logo -->
-                        <img src="{{ item.logo }}" alt="Logo">
-                    {% else %}
-                        <!-- 如果没配 logo，显示默认图标 -->
-                        <img src="https://img.icons8.com/ios-filled/50/cccccc/trophy.png" alt="Default">
-                    {% endif %}
-                </div>
-                
-                <div class="status-pill {{ item.status.color }}">
-                    {{ item.status.text }}
-                </div>
-            </div>
-
-            <div class="card-body">
-                <h3 class="card-title">{{ item.name }}</h3>
-
-                <div class="tags">
-                    {% for tag in item.tags %}
-                    <span class="tag">{{ tag }}</span>
-                    {% endfor %}
-                </div>
-
-                <!-- 循环显示 info_grid 里的信息 -->
-                {% for info in item.info_grid %}
-                <!-- 跳过赛事名称，因为标题已经显示了 -->
-                {% if info.label != "赛事名称" %}
-                <div class="info-row">
-                    <span class="info-label">{{ info.label }}</span>
-                    {{ info.value }}
-                </div>
-                {% endif %}
-                {% endfor %}
-            </div>
-
-            <div class="card-footer">
-                <a href="{{ item.url }}" target="_blank" class="btn-link">查看详情</a>
-            </div>
-        </div>
-        {% endfor %}
+    <div class="topbar">
+      <div class="hint">数据源为公开页面抓取整理；若展示异常，优先以官网为准。</div>
+      <div class="rightlink"><a href="https://pages.cloudflare.com/" target="_blank" rel="noopener">托管于 Cloudflare Pages</a></div>
     </div>
-</div>
 
+    {# 你可以按 id 映射背景图；没写的会走 default #}
+    {% set bg_map = {
+      "cpipc_smart_city": "/static/images/smart_city.png",
+      "cpipc_aircraft": "/static/images/aircraft.png",
+      "cpipc_math_modeling": "/static/images/math_modeling.png",
+      "cpipc_electronics": "/static/images/electronics.png",
+      "cpipc_chips": "/static/images/chips.png",
+      "cpipc_ai": "/static/images/ai.png"
+    } %}
+
+    {# 兼容不同变量名：items / contests / data / list #}
+    {% set _list =
+      (items if items is defined else
+      (contests if contests is defined else
+      (data if data is defined else
+      (contest_list if contest_list is defined else []))))
+    %}
+
+    {% if _list and _list|length > 0 %}
+      <div class="grid">
+        {% for it in _list %}
+          {# 背景图优先级：it.image > bg_map[id] > default #}
+          {% set bg = (it.image if it.image is defined and it.image else bg_map.get(it.id, "/static/images/default.png")) %}
+
+          <div class="card"
+               style="animation-delay: {{ loop.index0 * 0.05 }}s; --card-bg-img: url('{{ bg }}');">
+
+            <div class="card-top">
+              {# 状态徽标：优先用 it.status.text；否则兜底“查看官网” #}
+              <div class="pill">
+                {% if it.status is defined and it.status.text is defined %}
+                  {{ it.status.text }}
+                {% else %}
+                  查看官网
+                {% endif %}
+              </div>
+
+              {# 官网按钮：优先 it.homepage，其次 it.link #}
+              {% set home = (it.homepage if it.homepage is defined else (it.link if it.link is defined else "")) %}
+              {% if home %}
+                <a class="btn" href="{{ home }}" target="_blank" rel="noopener">查看官网</a>
+              {% else %}
+                <span class="btn" style="opacity:.6; cursor:not-allowed;">查看官网</span>
+              {% endif %}
+            </div>
+
+            <h3 class="title">
+              {{ it.name if it.name is defined else (it.title if it.title is defined else "未命名竞赛") }}
+            </h3>
+
+            <div class="tags">
+              {% if it.tags is defined and it.tags %}
+                {% for t in it.tags %}
+                  <span class="tag">#{{ t }}</span>
+                {% endfor %}
+              {% endif %}
+            </div>
+
+            <div class="kv">
+              {# 你之前的数据结构是 info_grid：[{label,value},...] #}
+              {% if it.info_grid is defined and it.info_grid %}
+                {% for kv in it.info_grid[:2] %}
+                  <div class="row">
+                    <div class="k">{{ kv.label }}</div>
+                    <div class="v">{{ kv.value }}</div>
+                  </div>
+                {% endfor %}
+              {% else %}
+                <div class="row">
+                  <div class="k">最新动态</div>
+                  <div class="v">点击官网查看详情...</div>
+                </div>
+              {% endif %}
+            </div>
+
+            <div class="footer">
+              <div class="ref">REF: {{ it.ref if it.ref is defined else (it.id|upper if it.id is defined else "N/A") }}</div>
+
+              {# 详情页路径：你项目里是 details/<id>.html #}
+              {% if it.id is defined %}
+                <a class="more" href="details/{{ it.id }}.html">查看详情 →</a>
+              {% else %}
+                <span class="more" style="opacity:.6;">查看详情 →</span>
+              {% endif %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <div class="empty">暂无竞赛数据可展示。</div>
+    {% endif %}
+
+    <!-- generated_at: {{ generated_at }} -->
+  </div>
 </body>
 </html>
+
