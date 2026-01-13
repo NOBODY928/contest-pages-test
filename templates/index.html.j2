@@ -1,383 +1,173 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>竞赛资讯聚合</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
-    :root{
-      --bg:#f5f5f7;
-      --text:#1d1d1f;
-      --muted:#6e6e73;
-      --card-radius:26px;
-      --shadow: 0 12px 30px rgba(0,0,0,.08);
-      --shadow-hover: 0 22px 60px rgba(0,0,0,.14);
-      --blue:#0a84ff;
+    :root {
+      --bg: #f5f5f7;
+      --text-main: #1d1d1f;
+      --text-sub: #86868b;
+      --blue: #0a84ff;
     }
 
-    *{ box-sizing:border-box; }
-    body{
-      margin:0;
-      background:var(--bg);
-      color:var(--text);
-      font-family: -apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,"Noto Sans SC",sans-serif;
-      -webkit-font-smoothing: antialiased;
-      padding: 42px 18px 70px;
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text",
+                   "Helvetica Neue", Helvetica, Arial, sans-serif;
+      color: var(--text-main);
     }
 
-    .wrap{ max-width:1200px; margin:0 auto; }
-
-    header{
-      text-align:center;
-      margin: 6px 0 42px;
-      animation: fadeIn .8s ease-out;
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 48px 24px;
     }
-    h1{
-      margin:0 0 10px;
-      font-size: 44px;
+
+    header {
+      text-align: center;
+      margin-bottom: 56px;
+    }
+
+    h1 {
+      font-size: 48px;
+      margin-bottom: 10px;
       letter-spacing: -0.02em;
-      font-weight: 800;
     }
-    .meta{
-      display:inline-block;
-      padding: 8px 16px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.55);
-      border: 1px solid rgba(255,255,255,.7);
-      color: var(--muted);
+
+    .update-time {
       font-size: 14px;
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
+      color: var(--text-sub);
+      background: rgba(255,255,255,0.7);
+      display: inline-block;
+      padding: 6px 16px;
+      border-radius: 999px;
     }
 
-    .topbar{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 14px;
-      margin: 10px 0 20px;
-      padding: 0 6px;
-    }
-    .hint{
-      font-size: 13px;
-      color: var(--muted);
-    }
-    .rightlink a{
-      font-size: 13px;
-      color: var(--blue);
-      text-decoration:none;
-    }
-    .rightlink a:hover{ text-decoration:underline; }
-
-    .grid{
-      display:grid;
-      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-      gap: 28px;
-      margin-top: 24px;
+    /* ===== 网格 ===== */
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+      gap: 32px;
     }
 
-    /* ---------------- Apple-like card with background image ---------------- */
-    .card{
-      position:relative;
-      overflow:hidden;
-      border-radius: var(--card-radius);
-      background: rgba(255,255,255,.65);
-      border: 1px solid rgba(255,255,255,.7);
-      box-shadow: var(--shadow);
+    /* ===== Apple 风格卡片 ===== */
+    .card {
+      position: relative;
+      height: 340px;
+      border-radius: 28px;
+      overflow: hidden;
 
-      padding: 22px 22px 18px;
-      min-height: 260px;
-
-      opacity: 0;
-      transform: translateY(28px);
-      animation: cardEntrance .85s cubic-bezier(.2,.8,.2,1) forwards;
-      transition: transform .35s cubic-bezier(.2,.8,.2,1), box-shadow .35s cubic-bezier(.2,.8,.2,1);
-    }
-
-    .card:hover{
-      transform: translateY(-10px);
-      box-shadow: var(--shadow-hover);
-    }
-
-    /* background layer */
-    .card::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background-image: var(--card-bg-img);
       background-size: cover;
       background-position: center;
-      background-repeat: no-repeat;
-      transform: scale(1.06);
-      filter: saturate(1.08) contrast(1.03);
-      z-index: 0;
+
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+      transition: transform .5s ease, box-shadow .5s ease;
     }
 
-    /* overlay layer for readability */
-    .card::after{
-      content:"";
-      position:absolute;
-      inset:0;
+    .card:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 40px 80px rgba(0,0,0,0.22);
+    }
+
+    .card-overlay {
+      position: absolute;
+      inset: 0;
       background: linear-gradient(
-        180deg,
-        rgba(255,255,255,.52) 0%,
-        rgba(255,255,255,.75) 46%,
-        rgba(255,255,255,.93) 100%
+        to top,
+        rgba(0,0,0,0.7),
+        rgba(0,0,0,0.2)
       );
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      z-index: 1;
     }
 
-    /* content above overlays */
-    .card > *{
-      position:relative;
-      z-index:2;
+    .card-content {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 28px;
+      color: #fff;
+      z-index: 2;
     }
 
-    .card-top{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap: 12px;
+    .card-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin: 0 0 12px;
+    }
+
+    .tags {
+      margin-bottom: 10px;
+    }
+
+    .tag {
+      display: inline-block;
+      font-size: 12px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.2);
+      margin-right: 6px;
+    }
+
+    .card-desc {
+      font-size: 14px;
+      opacity: .9;
+      line-height: 1.4;
       margin-bottom: 14px;
     }
 
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      padding: 6px 12px;
-      border-radius: 999px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing:.01em;
-      border: 1px solid rgba(255,255,255,.7);
-      background: rgba(255,255,255,.62);
-      color: #2b2b2f;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      white-space: nowrap;
-    }
-
-    .btn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      padding: 8px 14px;
-      border-radius: 999px;
-      font-size: 13px;
-      font-weight: 700;
-      text-decoration:none;
-      border: 1px solid rgba(255,255,255,.75);
-      background: rgba(255,255,255,.62);
-      color: #1d1d1f;
-      backdrop-filter: blur(10px);
-      -webkit-backdrop-filter: blur(10px);
-      transition: background .25s ease;
-      white-space: nowrap;
-    }
-    .btn:hover{ background: rgba(255,255,255,.78); }
-
-    .title{
-      margin: 0 0 10px;
-      font-size: 22px;
-      font-weight: 800;
-      letter-spacing: -0.01em;
-      line-height: 1.25;
-    }
-
-    .tags{
-      display:flex;
-      flex-wrap:wrap;
-      gap: 8px;
-      margin: 0 0 14px;
-    }
-    .tag{
-      display:inline-flex;
-      padding: 6px 10px;
-      border-radius: 10px;
-      font-size: 12px;
-      font-weight: 700;
-      color: #0b57d0;
-      background: rgba(10,132,255,.12);
-      border: 1px solid rgba(10,132,255,.16);
-    }
-
-    .kv{
-      margin-top: 4px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(0,0,0,.06);
-      display:grid;
-      gap: 10px;
-    }
-    .row{
-      display:grid;
-      grid-template-columns: 70px 1fr;
-      gap: 10px;
-      align-items: baseline;
-      font-size: 13px;
-    }
-    .k{ color: var(--muted); font-weight: 700; }
-    .v{ color: #1d1d1f; font-weight: 650; }
-
-    .footer{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap: 10px;
-      margin-top: 14px;
-      padding-top: 14px;
-      border-top: 1px solid rgba(0,0,0,.06);
-    }
-
-    .ref{
-      font-size: 11px;
-      color: rgba(110,110,115,.65);
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      font-weight: 800;
-      user-select: none;
-    }
-
-    .more{
-      display:inline-flex;
-      align-items:center;
-      gap: 8px;
-      font-size: 13px;
-      font-weight: 800;
+    .card-link {
       color: var(--blue);
-      text-decoration:none;
-    }
-    .more:hover{ text-decoration:underline; }
-
-    .empty{
-      text-align:center;
-      color: var(--muted);
-      margin-top: 60px;
-      font-size: 14px;
-    }
-
-    @keyframes fadeIn{
-      from{ opacity:0; transform: translateY(8px); }
-      to{ opacity:1; transform: translateY(0); }
-    }
-    @keyframes cardEntrance{
-      to{ opacity:1; transform: translateY(0); }
-    }
-
-    @media (prefers-reduced-motion: reduce){
-      *{ animation:none !important; transition:none !important; }
-      .card{ opacity:1; transform:none; }
+      font-weight: 600;
+      text-decoration: none;
+      align-self: flex-start;
     }
   </style>
 </head>
 
 <body>
-  <div class="wrap">
+  <div class="container">
     <header>
       <h1>竞赛资讯聚合</h1>
-      <div class="meta">最后更新：{{ generated_at }}</div>
+      <div class="update-time">
+        最后更新：{{ update_time }}
+      </div>
     </header>
 
-    <div class="topbar">
-      <div class="hint">数据源为公开页面抓取整理；若展示异常，优先以官网为准。</div>
-      <div class="rightlink"><a href="https://pages.cloudflare.com/" target="_blank" rel="noopener">托管于 Cloudflare Pages</a></div>
-    </div>
+    <div class="grid">
+      {% for contest in contests %}
+      <div
+        class="card"
+        style="background-image: url('{{ contest.image | default("/static/images/default.jpg") }}')"
+      >
+        <div class="card-overlay"></div>
 
-    {# 你可以按 id 映射背景图；没写的会走 default #}
-    {% set bg_map = {
-      "cpipc_smart_city": "/static/images/smart_city.png",
-      "cpipc_aircraft": "/static/images/aircraft.png",
-      "cpipc_math_modeling": "/static/images/math_modeling.png",
-      "cpipc_electronics": "/static/images/electronics.png",
-      "cpipc_chips": "/static/images/chips.png",
-      "cpipc_ai": "/static/images/ai.png"
-    } %}
-
-    {# 兼容不同变量名：items / contests / data / list #}
-    {% set _list =
-      (items if items is defined else
-      (contests if contests is defined else
-      (data if data is defined else
-      (contest_list if contest_list is defined else []))))
-    %}
-
-    {% if _list and _list|length > 0 %}
-      <div class="grid">
-        {% for it in _list %}
-          {# 背景图优先级：it.image > bg_map[id] > default #}
-          {% set bg = (it.image if it.image is defined and it.image else bg_map.get(it.id, "/static/images/default.png")) %}
-
-          <div class="card"
-               style="animation-delay: {{ loop.index0 * 0.05 }}s; --card-bg-img: url('{{ bg }}');">
-
-            <div class="card-top">
-              {# 状态徽标：优先用 it.status.text；否则兜底“查看官网” #}
-              <div class="pill">
-                {% if it.status is defined and it.status.text is defined %}
-                  {{ it.status.text }}
-                {% else %}
-                  查看官网
-                {% endif %}
-              </div>
-
-              {# 官网按钮：优先 it.homepage，其次 it.link #}
-              {% set home = (it.homepage if it.homepage is defined else (it.link if it.link is defined else "")) %}
-              {% if home %}
-                <a class="btn" href="{{ home }}" target="_blank" rel="noopener">查看官网</a>
-              {% else %}
-                <span class="btn" style="opacity:.6; cursor:not-allowed;">查看官网</span>
-              {% endif %}
-            </div>
-
-            <h3 class="title">
-              {{ it.name if it.name is defined else (it.title if it.title is defined else "未命名竞赛") }}
-            </h3>
-
-            <div class="tags">
-              {% if it.tags is defined and it.tags %}
-                {% for t in it.tags %}
-                  <span class="tag">#{{ t }}</span>
-                {% endfor %}
-              {% endif %}
-            </div>
-
-            <div class="kv">
-              {# 你之前的数据结构是 info_grid：[{label,value},...] #}
-              {% if it.info_grid is defined and it.info_grid %}
-                {% for kv in it.info_grid[:2] %}
-                  <div class="row">
-                    <div class="k">{{ kv.label }}</div>
-                    <div class="v">{{ kv.value }}</div>
-                  </div>
-                {% endfor %}
-              {% else %}
-                <div class="row">
-                  <div class="k">最新动态</div>
-                  <div class="v">点击官网查看详情...</div>
-                </div>
-              {% endif %}
-            </div>
-
-            <div class="footer">
-              <div class="ref">REF: {{ it.ref if it.ref is defined else (it.id|upper if it.id is defined else "N/A") }}</div>
-
-              {# 详情页路径：你项目里是 details/<id>.html #}
-              {% if it.id is defined %}
-                <a class="more" href="details/{{ it.id }}.html">查看详情 →</a>
-              {% else %}
-                <span class="more" style="opacity:.6;">查看详情 →</span>
-              {% endif %}
-            </div>
+        <div class="card-content">
+          <div class="tags">
+            {% for tag in contest.tags %}
+            <span class="tag">#{{ tag }}</span>
+            {% endfor %}
           </div>
-        {% endfor %}
-      </div>
-    {% else %}
-      <div class="empty">暂无竞赛数据可展示。</div>
-    {% endif %}
 
-    <!-- generated_at: {{ generated_at }} -->
+          <div class="card-title">{{ contest.name }}</div>
+
+          <div class="card-desc">
+            {{ contest.latest | default("点击官网查看最新信息…") }}
+          </div>
+
+          <a class="card-link" href="/details/{{ contest.id }}">
+            查看详情 →
+          </a>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
   </div>
 </body>
 </html>
