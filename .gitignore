@@ -4,3 +4,12 @@ __pycache__/
 cron.run.log
 *.log
 venv/
+# runtime logs
+cron.run.log
+
+# python cache
+__pycache__/
+*.pyc
+
+# venv
+venv/
