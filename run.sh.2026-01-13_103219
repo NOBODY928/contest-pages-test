@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+# 开启严格模式：任何命令报错立即退出，使用未定义变量报错
+set -euo pipefail
+
+ROOT="/root/contest-pages-test"
+LOG="$ROOT/cron.run.log"
+
+{
+  echo "===== $(date '+%F %T') START ====="
+  cd "$ROOT"
+
+  # 1. 执行 Python 构建
+  # 这一步会生成 index.html, data.json 和 details/ 目录
+  "$ROOT/venv/bin/python" build.py
+
+  # 2. 【关键修改】将所有需要发布的文件加入 Git 暂存区
+  # 原来的写法漏掉了 static (图片) 和 contests.yaml (配置文件)
+  # 这里我加上了 static, contests.yaml 和 build.py (防止你改了代码没同步)
+  git add index.html data.json details static contests.yaml build.py 2>/dev/null || true
+
+  # 3. 检查暂存区是否有变更
+  # (注意：我把检查移到了 git add 之后，这样即使只是加了新图片也能检测到)
+  if git diff --cached --quiet; then
+    echo "[INFO] no changes detected (content & assets are up-to-date)"
+    echo "===== $(date '+%F %T') END ====="
+    exit 0
+  fi
+
+  # 4. 配置 Git 身份 (保持原样，用于自动提交)
+  git config user.name "ECS-Contest-Bot"
+  git config user.email "ecs-contest-bot@users.noreply.github.com"
+
+  # 5. 提交并推送
+  git commit -m "auto: update content & assets $(date '+%F %T')"
+  
+  # 推送到 main 分支 (Cloudflare 会监听这个推送并自动部署)
+  git push origin main
+
+  echo "[OK] pushed successfully"
+  echo "===== $(date '+%F %T') END ====="
+} >> "$LOG" 2>&1

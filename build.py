@@ -1,183 +1,140 @@
-import yaml
+import requests
+from bs4 import BeautifulSoup
+import urllib3
+from requests.adapters import HTTPAdapter
+from urllib3.util.retry import Retry
 import json
-import importlib
-import datetime
 import os
-import sys
+import time
+import datetime
+import yaml
+from jinja2 import Environment, FileSystemLoader
 
-# 确保脚本能找到 parsers 目录
-sys.path.append(os.getcwd())
+# 1. 禁用 SSL 警告
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-def generate_detail_page(item, schedule):
-    """
-    生成二级详情页 - 静态渲染版
-    直接将数据注入 HTML，无需在前端 fetch data.json，解决路径错误问题
-    """
-    days_html = ""
-    if not schedule:
-        days_html = '<p class="text-slate-400 italic text-center py-10">暂无详细日程数据同步</p>'
-    else:
-        for day in schedule:
-            events_rows = ""
-            for e in day.get('events', []):
-                events_rows += f"""
-                <tr>
-                    <td class="py-3 font-mono font-bold text-slate-700">{e.get('time', '--')}</td>
-                    <td class="py-3 text-slate-800">{e.get('desc', '--')}</td>
-                    <td class="py-3 text-slate-500 italic">{e.get('loc', '--')}</td>
-                </tr>
-                """
+# 2. 定义请求头
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8",
+    "Connection": "keep-alive"
+}
 
-            days_html += f"""
-            <div class="mb-10">
-                <h3 class="text-lg font-bold text-blue-600 mb-4 pb-2 border-b-2 border-blue-50">  {day.get('day', '日期待定')}</h3>
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left text-sm">
-                        <thead class="text-slate-400 font-normal border-b border-slate-100">
-                            <tr>
-                                <th class="py-2 w-32">时间</th>
-                                <th class="py-2">事项</th>
-                                <th class="py-2">地点</th>
-                            </tr>
-                        </thead>
-                        <tbody class="divide-y divide-slate-50">
-                            {events_rows}
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            """
+# 3. 创建 Session
+def get_session():
+    session = requests.Session()
+    retry = Retry(total=3, backoff_factor=1, status_forcelist=[500, 502, 503, 504])
+    adapter = HTTPAdapter(max_retries=retry)
+    session.mount("https://", adapter)
+    session.mount("http://", adapter)
+    return session
 
-    # 组合成完整的静态 HTML
-    html_template = f"""
-    <!DOCTYPE html>
-    <html lang="zh-CN">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>{item['title']} - 详细赛程</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <style>
-            body {{ font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }}
-        </style>
-    </head>
-    <body class="bg-slate-50 min-h-screen p-4 md:p-10">
-        <div class="max-w-4xl mx-auto">
-            <a href="/" class="inline-flex items-center text-blue-600 font-bold mb-8 hover:translate-x-1 transition-transform">
-                ← 返回首页聚合
-            </a>
-
-            <div class="bg-white rounded-3xl shadow-xl overflow-hidden border border-slate-100">
-                <div class="bg-gradient-to-r from-blue-600 to-indigo-700 p-8 text-white">
-                    <div class="flex flex-wrap items-center gap-3 mb-4">
-                        {" ".join([f'<span class="px-3 py-1 bg-white/20 rounded-full text-xs">{t}</span>' for t in item.get('tags', [])])}
-                    </div>
-                    <h1 class="text-2xl md:text-4xl font-bold">{item['title']}</h1>
-                    <p class="mt-4 opacity-90">
-                        <a href="{item['link_homepage']}" target="_blank" class="inline-flex items-center underline decoration-2 underline-offset-4 hover:opacity-100">
-                            访问官方网站
-                            <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                        </a>
-                    </p>
-                </div>
-
-                <div class="p-6 md:p-10">
-                    <h2 class="text-xl font-bold text-slate-800 mb-8 flex items-center">
-                        <span class="w-2 h-6 bg-blue-600 rounded-full mr-3"></span>
-                        详细日程安排
-                    </h2>
-
-                    <div class="space-y-4">
-                        {days_html}
-                    </div>
-                </div>
-            </div>
-
-            <footer class="mt-12 text-center text-slate-400 text-sm">
-                © {datetime.datetime.now().year} zihguo.me · 数据自动抓取于官网
-            </footer>
-        </div>
-    </body>
-    </html>
-    """
-
-    with open(f"details/{item['id']}.html", "w", encoding="utf-8") as f:
-        f.write(html_template)
-
-def main():
-    print(">>> 启动构建程序...")
-
-    # 1. 初始化数据结构
-    final_data = {
-        "generated_at": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-        "items": []
-    }
-
-    # 2. 检查并创建详情页目录
-    if not os.path.exists("details"):
-        os.makedirs("details")
-        print("--- 已创建 details 目录")
-
-    # 3. 读取配置文件
-    try:
-        with open("contests.yaml", "r", encoding="utf-8") as f:
-            contest_list = yaml.safe_load(f)
-    except Exception as e:
-        print(f"!!! 错误：读取 contests.yaml 失败: {e}")
-        return
-
-    # 4. 遍历并处理每个竞赛
-    for contest in contest_list:
-        cid = contest.get("id", "unknown")
-        name = contest.get("name", "未命名竞赛")
-        print(f"正在处理 [{cid}] {name}...")
-
-        # --- 统一默认状态：设为蓝色“查看官网” ---
-        item = {
-            "id": cid,
-            "title": name,
-            "tags": contest.get("tags", []),
-            "link_homepage": contest.get("homepage", "#"),
-            "link_detail": f"details/{cid}.html",
-            "status": {"text": "查看官网", "color": "blue"},
-            "info_grid": [{"label": "数据状态", "value": "点击进入官网查看最新动态"}],
-            "last_updated": datetime.datetime.now().strftime("%H:%M")
+# 4. 爬取核心逻辑
+def get_data(comp_id, comp_name, homepage):
+    # 如果是 ICPC 这种不需要爬的，直接返回固定数据(示例)
+    if "icpc" in str(comp_id).lower():
+         return {
+            "status": {"text": "赛程已公布", "color": "blue"},
+            "info_grid": [
+                {"label": "赛事名称", "value": "ICPC World Finals"},
+                {"label": "最新动态", "value": "2025-09-20 开赛"},
+            ]
         }
 
-        # 执行动态爬虫
-        if contest.get("parser"):
-            try:
-                # 动态加载模块
-                module = importlib.import_module(contest["parser"])
-                importlib.reload(module)
-                dynamic_data = module.parse()
-
-                # 合并爬虫抓取到的数据
-                if dynamic_data:
-                    item.update(dynamic_data)
-                
-                # 提取日程并生成详情页
-                schedule = item.get("detailed_schedule", [])
-                generate_detail_page(item, schedule)
-                print(f"  -> 详情页生成成功")
-
-            except Exception as e:
-                print(f"  -> 解析失败: {e}，将使用默认状态显示")
-                generate_detail_page(item, [])
-        else:
-            generate_detail_page(item, [])
-
-        final_data["items"].append(item)
-
-    # 5. 写入 data.json 供主页使用
+    # 正常的研创网爬取
+    comp_id = str(comp_id).strip()
+    # 优先使用 yaml 里配置的 homepage，如果没有则拼接默认 id
+    url = homepage if homepage else f"https://cpipc.acge.org.cn/cw/hp/{comp_id}"
+    
     try:
-        with open("data.json", "w", encoding="utf-8") as f:
-            json.dump(final_data, f, ensure_ascii=False, indent=2)
-        print(">>> 首页数据 data.json 更新成功")
-    except Exception as e:
-        print(f"!!! 错误：写入 data.json 失败: {e}")
+        session = get_session()
+        r = session.get(url, headers=HEADERS, timeout=30, verify=False)
+        r.raise_for_status()
+        r.encoding = "utf-8"
+        
+        soup = BeautifulSoup(r.text, "html.parser")
+        
+        # 获取状态
+        status_tag = soup.select_one(".state") or soup.select_one(".status-tag")
+        if status_tag:
+            raw_text = status_tag.get_text(strip=True)
+            status_color = "green" if "报名" in raw_text or "进行" in raw_text else "blue"
+            status_text = raw_text
+        else:
+            status_text = "查看官网"
+            status_color = "blue"
 
-    print(f">>> 构建完成！总计处理 {len(final_data['items'])} 个竞赛项目。")
+        # 获取动态
+        notice_tag = soup.select_one(".news-list-item a") or soup.select_one(".notice-list a")
+        latest_notice = notice_tag.get_text(strip=True) if notice_tag else "点击官网查看详情..."
+
+        return {
+            "status": {"text": status_text, "color": status_color},
+            "info_grid": [
+                {"label": "赛事名称", "value": comp_name},
+                {"label": "最新动态", "value": latest_notice[:30] + "..." if len(latest_notice)>30 else latest_notice},
+            ]
+        }
+
+    except Exception as e:
+        print(f"Error fetching {comp_name}: {e}")
+        return {
+            "status": {"text": "待更新", "color": "yellow"},
+            "info_grid": [
+                {"label": "赛事名称", "value": comp_name},
+                {"label": "状态", "value": "数据同步中"},
+            ]
+        }
+
+# 5. 主程序
+def main():
+    print(">>> 读取配置文件 contests.yaml ...")
+    with open("contests.yaml", "r", encoding="utf-8") as f:
+        contests_config = yaml.safe_load(f)
+
+    final_data = []
+
+    for item in contests_config:
+        print(f"正在处理: {item['name']} ...")
+        
+        # 1. 爬取动态数据
+        crawled_data = get_data(item.get('id'), item['name'], item.get('homepage'))
+        
+        # 2. 合并数据：将 YAML 里的 logo, tags, url 和爬取到的 status, info 合并
+        merged_item = {
+            "name": item['name'],
+            "url": item.get('homepage', '#'),
+            "logo": item.get('logo', ''), # 这里读取 YAML 里的 logo 路径
+            "tags": item.get('tags', []),
+            "status": crawled_data['status'],
+            "info_grid": crawled_data['info_grid']
+        }
+        final_data.append(merged_item)
+
+    # 3. 保存 data.json (备份用)
+    with open("data.json", "w", encoding="utf-8") as f:
+        json.dump(final_data, f, ensure_ascii=False, indent=2)
+    print(">>> data.json 生成成功")
+
+    # 4. 【关键步骤】使用 Jinja2 渲染 HTML 模板
+    print(">>> 正在渲染 index.html 模板...")
+    
+    # 加载 templates 目录
+    env = Environment(loader=FileSystemLoader('templates'))
+    # 获取 index.html.j2 模板
+    template = env.get_template('index.html.j2')
+    
+    # 获取当前时间
+    current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    
+    # 渲染！把数据传给模板
+    html_output = template.render(contests=final_data, updated_at=current_time)
+    
+    # 写入根目录的 index.html
+    with open("index.html", "w", encoding="utf-8") as f:
+        f.write(html_output)
+        
+    print(">>> index.html 生成成功！(Apple 风格样式已应用)")
 
 if __name__ == "__main__":
     main()
