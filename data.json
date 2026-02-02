@@ -192,8 +192,8 @@
       "公共管理"
     ],
     "status": {
-      "text": "待更新",
-      "color": "yellow"
+      "text": "查看官网",
+      "color": "blue"
     },
     "info_grid": [
       {
@@ -201,8 +201,8 @@
         "value": "中国研究生公共管理案例大赛"
       },
       {
-        "label": "状态",
-        "value": "数据同步中"
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
       }
     ]
   },
@@ -330,8 +330,8 @@
       "MBA"
     ],
     "status": {
-      "text": "待更新",
-      "color": "yellow"
+      "text": "查看官网",
+      "color": "blue"
     },
     "info_grid": [
       {
@@ -339,8 +339,8 @@
         "value": "中国研究生工程管理案例大赛"
       },
       {
-        "label": "状态",
-        "value": "数据同步中"
+        "label": "最新动态",
+        "value": "点击官网查看详情..."
       }
     ]
   },
