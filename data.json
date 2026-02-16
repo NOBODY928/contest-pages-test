@@ -650,8 +650,8 @@
       "国赛"
     ],
     "status": {
-      "text": "查看官网",
-      "color": "blue"
+      "text": "待更新",
+      "color": "yellow"
     },
     "info_grid": [
       {
@@ -659,8 +659,8 @@
         "value": "全国大学生数学建模竞赛"
       },
       {
-        "label": "最新动态",
-        "value": "点击官网查看详情..."
+        "label": "状态",
+        "value": "数据同步中"
       }
     ]
   },
