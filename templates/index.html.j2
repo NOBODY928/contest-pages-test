@@ -71,28 +71,71 @@
     }
     .pill b{ color:var(--text); font-weight:700; }
 
-    /* 拼贴式网格：12列，自动“挤密”排布 */
+    .search-area{
+      max-width: 760px;
+      margin: 0 auto 20px;
+      padding: 0 6px;
+    }
+    .search-input{
+      width:100%;
+      height:52px;
+      border:1px solid rgba(0,0,0,.08);
+      border-radius: 999px;
+      padding: 0 22px;
+      background: rgba(255,255,255,.78);
+      box-shadow: 0 12px 34px rgba(0,0,0,.08);
+      color: var(--text);
+      font: inherit;
+      font-size: 16px;
+      outline: none;
+      backdrop-filter: blur(12px);
+    }
+    .search-input:focus{
+      border-color: rgba(0,113,227,.45);
+      box-shadow: 0 0 0 4px rgba(0,113,227,.12), 0 12px 34px rgba(0,0,0,.08);
+    }
+    .search-input::placeholder{
+      color: rgba(110,110,115,.78);
+    }
+
+    /* 统一尺寸的信息卡片墙 */
     .wrap{
       max-width: 1600px;
       margin: 0 auto;
     }
     .masonry{
       display:grid;
-      grid-template-columns: repeat(12, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 22px;
-      grid-auto-flow: dense; /* 关键：像 Apple 那样尽量铺满 */
       padding: 10px 6px 0;
     }
+    .no-results{
+      display:none;
+      grid-column: 1 / -1;
+      min-height: 180px;
+      align-items:center;
+      justify-content:center;
+      color: var(--sub);
+      font-size: 18px;
+      font-weight: 700;
+      background: rgba(255,255,255,.72);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow);
+    }
+    .no-results.is-visible{
+      display:flex;
+    }
 
-    /* 响应式：小屏退化为 1列或2列 */
+    /* 响应式：大屏3列，中屏2列，手机1列 */
     @media (max-width: 980px){
       .title h1{ font-size:36px; }
-      .masonry{ grid-template-columns: repeat(6, 1fr); }
+      .masonry{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 640px){
       .topbar{ align-items:flex-start; flex-direction:column; }
       .meta{ align-items:flex-start; text-align:left; }
-      .masonry{ grid-template-columns: repeat(1, 1fr); gap:16px; }
+      .masonry{ grid-template-columns: minmax(0, 1fr); gap:16px; }
     }
 
     /* 卡片：整张背景图铺满（cover） */
@@ -101,12 +144,16 @@
       border-radius: var(--card-radius);
       overflow:hidden;
       min-height: 360px;
+      height: 360px;
       box-shadow: var(--shadow);
       transform: translateY(18px);
       opacity: 0;
       animation: enter .72s cubic-bezier(.2,.8,.2,1) forwards;
       animation-delay: var(--delay, 0ms);
-      background: #e9e9ec;
+      background: #eef1f6;
+    }
+    .tile.is-hidden{
+      display:none;
     }
 
     @keyframes enter{
@@ -123,11 +170,12 @@
     .tile-bg{
       position:absolute;
       inset:0;
-      background-size: cover;
+      background-image: var(--card-image);
+      background-size: contain;
       background-position: center;
       background-repeat:no-repeat;
       filter: saturate(1.05);
-      transform: scale(1.02);
+      transform: scale(.86);
     }
     .tile::after{
       content:"";
@@ -162,6 +210,35 @@
       align-items:flex-start;
     }
 
+    .status-pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width: 82px;
+      height: 34px;
+      padding: 0 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 900;
+      line-height:1;
+      text-align:center;
+      box-shadow: 0 8px 18px rgba(0,0,0,.16);
+      border: 1px solid rgba(255,255,255,.5);
+      white-space: nowrap;
+    }
+    .status-pill.is-active{
+      background:#A8F0B2;
+      color:#0B5D1E;
+    }
+    .status-pill.is-ended{
+      background:#FF9B9B;
+      color:#7A1010;
+    }
+    .status-pill.is-upcoming{
+      background:#E5E7EB;
+      color:#374151;
+    }
+
     .btn{
       display:inline-flex;
       align-items:center;
@@ -179,6 +256,12 @@
     }
     .btn:hover{
       background: rgba(255,255,255,.92);
+    }
+    .tile-actions{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:12px;
     }
 
     .tags{
@@ -213,30 +296,6 @@
       max-width: 92%;
     }
 
-    .tile-bottom{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-end;
-      gap:12px;
-      margin-top: 18px;
-    }
-    .more{
-      text-decoration:none;
-      color:#fff;
-      font-weight: 900;
-      letter-spacing:-.01em;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 10px 2px;
-    }
-    .more span{
-      opacity:.95;
-    }
-    .more:hover span{
-      text-decoration: underline;
-    }
-
     .ref{
       font-size: 12px;
       opacity: .65;
@@ -244,26 +303,9 @@
       letter-spacing: .06em;
     }
 
-    /* —— 拼贴尺寸：三张一排(4列)，两张一排(6列)，一张一排(12列) —— */
-    .span-4{ grid-column: span 4; }
-    .span-6{ grid-column: span 6; }
-    .span-12{ grid-column: span 12; }
-
-    /* 视觉上更像 Apple：有的更高一点 */
-    .h-sm{ min-height: 330px; }
-    .h-md{ min-height: 380px; }
-    .h-lg{ min-height: 460px; }
-
-    @media (max-width: 980px){
-      .span-4{ grid-column: span 6; }   /* 平板：两张一排 */
-      .span-6{ grid-column: span 6; }
-      .span-12{ grid-column: span 6; }
-      .h-lg{ min-height: 360px; }
-    }
     @media (max-width: 640px){
-      .span-4,.span-6,.span-12{ grid-column: span 1; } /* 手机：一列 */
       .tile-title{ font-size:22px; }
-      .tile{ min-height: 320px; }
+      .tile{ min-height: 320px; height: 320px; }
     }
 
     /* 没有图时的默认底图（也像 Apple 的灰色占位） */
@@ -293,41 +335,199 @@
     </div>
   </div>
 
+  <div class="search-area">
+    <input id="contestSearch" class="search-input" type="search" placeholder="搜索竞赛名称、标签、关键词..." autocomplete="off" />
+  </div>
+
   <div class="wrap">
     <div class="masonry">
-      {# 你想要“不固定：有的三张/两张/一张一排”——用循环索引做一个稳定的拼贴规则 #}
+      {% set contest_id_by_name = {
+        '中国研究生数学建模竞赛': 'cpipc_math_modeling',
+        '中国研究生电子设计竞赛': 'cpipc_electronics',
+        '中国研究生创“芯”大赛': 'cpipc_chips',
+        '中国研究生乡村振兴科技强农+创新大赛': 'cpipc_rural_revitalization',
+        '中国研究生金融科技创新大赛': 'cpipc_fintech',
+        '中国研究生未来飞行器创新大赛': 'cpipc_aircraft',
+        '中国研究生人工智能创新大赛': 'cpipc_ai',
+        '中国研究生网络安全创新大赛': 'cpipc_cyber_security',
+        '“挑战杯”中国大学生创业计划竞赛': 'challenge_cup_startup',
+        '“中国软件杯”大学生软件设计大赛': 'software_design',
+        '全国大学生物联网设计竞赛': 'iot_design',
+        '“学创杯”全国大学生创业综合模拟大赛': 'xuechuang_cup',
+        '全国大学生统计建模大赛': 'statistics_modeling',
+        '中国高校计算机大赛': 'software_cup',
+        '中国研究生公共管理案例大赛': 'cpipc_public_admin',
+        'ACM-ICPC 国际大学生程序设计竞赛': 'icpc',
+        '全国大学生信息安全与对抗技术竞赛': 'info_security_ctf',
+        '中国研究生智慧城市技术与创意设计大赛': 'cpipc_smart_city',
+        '中国研究生机器人创新设计大赛': 'cpipc_robot',
+        '中国研究生能源装备创新设计大赛': 'cpipc_energy',
+        '中国研究生“双碳”创新与创意大赛': 'cpipc_carbon_neutral',
+        '中国研究生“美丽中国”创新设计大赛': 'cpipc_beautiful_china',
+        '中国研究生工程管理案例大赛': 'cpipc_enterprise_case',
+        '中国研究生企业管理创新大赛': 'cpipc_corporate_governance',
+        '蓝桥杯全国软件和信息技术专业人才大赛': 'lanqiao_cup',
+        '全国大学生机器人大赛 (RoboMaster)': 'robomaster',
+        '“西门子杯”中国智能制造挑战赛': 'xilinx_fpga',
+        '“大唐杯”全国大学生新一代信息通信技术大赛': 'datang_ict',
+        '华为 ICT 大赛': 'huawei_ict',
+        '全国大学生嵌入式芯片与系统设计竞赛': 'embedded_chip',
+        '全国大学生信息技术应用大赛': 'information_tech_app',
+        'MathorCup 高校数学建模挑战赛': 'mathorcup',
+        '“华数杯”全国大学生数学建模挑战赛': 'baimu_cup',
+        '全国大学生数学建模竞赛': 'cumcm',
+        '全国大学生电子设计竞赛': 'nuedc',
+        '全国大学生智能汽车竞赛': 'intelligent_car',
+        '中国大学生工程实践与创新能力大赛': 'engineering_practice',
+        '中国大学生计算机设计大赛': 'computer_design',
+        '全国大学生光电设计竞赛': 'photo_design',
+        '全国大学生集成电路创新创业大赛': 'integrated_circuit',
+        '全国大学生信息安全竞赛': 'info_security',
+        '中美青年创客大赛': 'sino_us_maker',
+        '睿抗机器人开发者大赛 (RAICOM)': 'raicom',
+        '中国高校智能机器人创意大赛': 'intelligent_robot',
+        '中国机器人及人工智能大赛': 'robot_ai',
+        '全国大学生节能减排社会实践与科技竞赛': 'energy_saving',
+        '全国大学生计算机系统能力大赛': 'computer_system',
+        '全球校园人工智能算法精英大赛': 'campus_ai',
+        '国际大学生智能农业装备创新大赛': 'smart_agriculture',
+        '中国国际大学生创新大赛': 'china_innovation_contest'
+      } %}
+      {% set officialUrlMap = {
+        'cpipc_smart_city': 'https://cpipc.acge.org.cn',
+        'cpipc_aircraft': 'https://cpipc.acge.org.cn',
+        'cpipc_math_modeling': 'https://cpipc.acge.org.cn',
+        'cpipc_electronics': 'https://cpipc.acge.org.cn',
+        'cpipc_chips': 'https://cpipc.acge.org.cn',
+        'cpipc_ai': 'https://cpipc.acge.org.cn',
+        'cpipc_robot': 'https://cpipc.acge.org.cn',
+        'cpipc_energy': 'https://cpipc.acge.org.cn',
+        'cpipc_public_admin': 'https://cpipc.acge.org.cn',
+        'cpipc_rural_revitalization': 'https://cpipc.acge.org.cn',
+        'cpipc_cyber_security': 'https://cpipc.acge.org.cn',
+        'cpipc_carbon_neutral': 'https://cpipc.acge.org.cn',
+        'cpipc_fintech': 'https://cpipc.acge.org.cn',
+        'cpipc_beautiful_china': 'https://cpipc.acge.org.cn',
+        'cpipc_enterprise_case': 'https://cpipc.acge.org.cn',
+        'cpipc_corporate_governance': 'https://cpipc.acge.org.cn',
+        'china_innovation_contest': 'https://cy.ncss.cn/',
+        'challenge_cup_startup': 'http://www.tiaozhanbei.net',
+        'lanqiao_cup': 'http://dasai.lanqiao.cn',
+        'robomaster': 'https://www.robomaster.com',
+        'xilinx_fpga': 'http://www.siemenscup-cimc.org.cn',
+        'datang_ict': 'https://dtcup.dtxiaotangren.com',
+        'huawei_ict': 'https://e.huawei.com/cn/talent/#/ict/contest',
+        'embedded_chip': 'https://www.socchina.net',
+        'information_tech_app': 'https://www.saikr.com',
+        'mathorcup': 'http://www.mathorcup.org',
+        'huashubei': 'https://www.saikr.com/vse/huashubei',
+        'baimu_cup': 'https://new.saikr.com/vse/chinamcm26',
+        'icpc': 'https://icpc.global',
+        'cumcm': 'https://dxs.moe.gov.cn/zx/hd/sxjm/',
+        'nuedc': 'https://www.nuedc-training.com.cn/',
+        'intelligent_car': 'https://www.caa.org.cn/Content/260.html',
+        'engineering_practice': 'http://www.gcxl.edu.cn/',
+        'computer_design': 'https://jsjds.blcu.edu.cn/',
+        'software_cup': 'http://www.c4best.cn/',
+        'photo_design': 'https://gd.moocollege.com/',
+        'integrated_circuit': 'https://univ.ciciec.com/',
+        'info_security': 'http://www.ciscn.cn/',
+        'software_design': 'https://www.cnsoftbei.com/',
+        'sino_us_maker': 'https://chinaus-maker.cscse.edu.cn/',
+        'raicom': 'https://www.robocom.com.cn/',
+        'xuechuang_cup': 'http://www.xcbds.com/',
+        'intelligent_robot': 'https://www.robotcontest.cn/',
+        'robot_ai': 'https://www.caairobot.com/',
+        'energy_saving': 'https://www.jienengjianpai.org',
+        'computer_system': 'https://compiler.educg.net',
+        'iot_design': 'https://iot.sjtu.edu.cn/',
+        'info_security_ctf': 'http://www.isclab.org.cn',
+        'statistics_modeling': 'http://tjjmds.ai-learning.net',
+        'campus_ai': 'https://www.saikr.com',
+        'smart_agriculture': 'https://uiaec.ujs.edu.cn/'
+      } %}
+      {% set officialUrlByName = {
+        '中国国际大学生创新大赛': 'https://cy.ncss.cn/',
+        '“华数杯”全国大学生数学建模挑战赛': 'https://new.saikr.com/vse/chinamcm26'
+      } %}
+      {% set pokemon_images = [
+        '0003 Venusaur Mega.png',
+        '0006 Charizard Mega X.png',
+        '0006 Charizard Mega Y.png',
+        '0009 Blastoise Mega.png',
+        '0015 Beedrill Mega.png',
+        '0018 Pidgeot Mega.png',
+        '0025 Pikachu BDSP.png',
+        '0065 Alakazam Mega.png',
+        '0080 Slowbro Mega.png',
+        '0094 Gengar Mega.png',
+        '0113 Chansey BDSP.png',
+        '0115 Kangaskhan Mega.png',
+        '0127 Pinsir Mega.png',
+        '0130 Gyarados Mega.png',
+        '0142 Aerodactyl Mega.png',
+        '0150 Mewtwo Mega X.png',
+        '0150 Mewtwo Mega Y.png',
+        '0181 Ampharos Mega.png',
+        '0208 Steelix Mega.png',
+        '0212 Scizor Mega.png',
+        '0214 Heracross Mega.png',
+        '0229 Houndoom Mega.png',
+        '0248 Tyranitar Mega.png',
+        '0254 Sceptile Mega.png',
+        '0257 Blaziken Mega.png',
+        '0260 Swampert Mega.png',
+        '0282 Gardevoir Mega.png',
+        '0302 Sableye Mega.png',
+        '0303 Mawile Mega.png',
+        '0306 Aggron Mega.png',
+        '0308 Medicham Mega.png',
+        '0310 Manectric Mega.png',
+        '0319 Sharpedo Mega.png',
+        '0323 Camerupt Mega.png',
+        '0334 Altaria Mega.png',
+        '0354 Banette Mega.png',
+        '0359 Absol Mega.png',
+        '0362 Glalie Mega.png',
+        '0373 Salamence Mega.png',
+        '0376 Metagross Mega.png',
+        '0380 Latias Mega.png',
+        '0381 Latios Mega.png',
+        '0384 Rayquaza Mega.png',
+        '0428 Lopunny Mega.png',
+        '0445 Garchomp Mega.png',
+        '0448 Lucario Mega.png',
+        '0460 Abomasnow Mega.png',
+        '0475 Gallade Mega.png',
+        '0531 Audino Mega.png',
+        '0719 Diancie Mega.png'
+      ] %}
       {% for item in contests %}
         {% set i = loop.index0 %}
+        {% set pokemon_img = pokemon_images[i % (pokemon_images|length)] %}
+        {% set contest_id = contest_id_by_name.get(item.name, item.id|default('')) %}
+        {% set official_url = officialUrlMap.get(contest_id) or officialUrlByName.get(item.name) or item.homepage|default(item.url|default('')) %}
+        {% set search_text = ([
+          item.name,
+          contest_id,
+          item.tags|default([])|join(' ')
+        ] + (item.info_grid|default([])|map(attribute='value')|list))|join(' ') %}
 
-        {# 规则（你可以之后再调）：每 9 张出现 1 个“整行(12列)”；每 6 张出现 1 个“两列(6列)”；其余“三列(4列)” #}
-        {% if i % 9 == 0 %}
-          {% set span = 'span-12' %}
-          {% set h = 'h-lg' %}
-        {% elif i % 6 == 0 %}
-          {% set span = 'span-6' %}
-          {% set h = 'h-md' %}
-        {% else %}
-          {% set span = 'span-4' %}
-          {% set h = 'h-sm' %}
-        {% endif %}
-
-        {# 背景图策略：
-           1) 如果 data.json 里已经给了 item.image，就用它
-           2) 否则默认按 /static/images/<id>.png 去找（你现在已有 smart_city.png，可在 data.json 里配 image 或直接把文件命名为 cpipc_smart_city.png）
-        #}
-        {% set img = item.image if item.image is defined and item.image else (item.id ~ '.png') %}
-        {% set bg_url = '/static/images/' ~ img %}
-
-        <article class="tile {{ span }} {{ h }}" style="--delay: {{ i * 60 }}ms;">
-          <div class="tile-bg {% if not img %}fallback-bg{% endif %}" style="background-image:url('{{ bg_url }}');"></div>
+        <article class="tile" data-id="{{ contest_id|e }}" data-key="{{ item.name|e }}" data-search="{{ search_text|lower|e }}" style="--delay: {{ i * 60 }}ms; --card-image: url('/static/images/{{ pokemon_img }}');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: {{ item.id|upper }}</div>
-                {% if item.homepage %}
-                  <a class="btn" href="{{ item.homepage }}" target="_blank" rel="noopener">查看官网</a>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
+                {% if official_url %}
+                  <a class="btn" href="{{ official_url }}" target="_blank" rel="noopener noreferrer">查看官网</a>
                 {% endif %}
+                  {% if contest_id == 'cumcm' %}
+                    <a class="btn" href="https://dxs.moe.gov.cn/zx/hd/sxjm/sxjmstjp/" target="_blank" rel="noopener noreferrer">赛题讲评</a>
+                  {% endif %}
+                </div>
               </div>
 
               <h2 class="tile-title">{{ item.name }}</h2>
@@ -353,17 +553,102 @@
                 {{ latest if latest else '点击官网查看最新信息…' }}
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/{{ item.id }}">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       {% endfor %}
+      <div id="noResults" class="no-results">未找到匹配的竞赛</div>
     </div>
   </div>
+  <script>
+    (() => {
+      const input = document.getElementById('contestSearch');
+      const cards = Array.from(document.querySelectorAll('.tile'));
+      const empty = document.getElementById('noResults');
+      const activeUntilMap = {
+        cpipc_math_modeling: '2026-08-16',
+        cpipc_electronics: '2026-08-16',
+        cpipc_chips: '2026-08-16',
+        cpipc_rural_revitalization: '2026-08-16',
+        cpipc_fintech: '2026-08-16',
+        cpipc_aircraft: '2026-08-16',
+        cpipc_ai: '2026-08-16',
+        cpipc_cyber_security: '2026-08-16',
+        challenge_cup_startup: '2026-08-16',
+        software_design: '2026-08-16',
+        iot_design: '2026-08-16',
+        xuechuang_cup: '2026-08-16',
+        statistics_modeling: '2026-08-16',
+        software_cup: '2026-08-16',
+        photo_design: '2026-08-16',
+        embedded_chip: '2026-08-16'
+      };
+      const endedUntilMap = {
+        cpipc_public_admin: '2026-08-16',
+        icpc: '2026-08-16',
+        info_security_ctf: '2026-08-16'
+      };
+      const statusLabels = {
+        active: '正在进行',
+        ended: '已结束',
+        upcoming: '未开始'
+      };
+      const statusClasses = ['is-active', 'is-ended', 'is-upcoming'];
+
+      const normalize = (value) => value.toLowerCase().trim();
+      const parseDate = (value) => {
+        const [year, month, day] = value.split('-').map(Number);
+        return new Date(year, month - 1, day, 23, 59, 59, 999);
+      };
+      const addMonths = (date, months) => {
+        const next = new Date(date);
+        next.setMonth(next.getMonth() + months);
+        return next;
+      };
+      const resolveStatus = (id, now) => {
+        if (activeUntilMap[id]) {
+          const activeUntil = parseDate(activeUntilMap[id]);
+          if (now <= activeUntil) return 'active';
+          if (now <= addMonths(activeUntil, 2)) return 'ended';
+          return 'upcoming';
+        }
+
+        if (endedUntilMap[id]) {
+          const endedUntil = parseDate(endedUntilMap[id]);
+          return now <= endedUntil ? 'ended' : 'upcoming';
+        }
+
+        return 'upcoming';
+      };
+      const applyStatuses = () => {
+        const now = new Date();
+        cards.forEach((card) => {
+          const pill = card.querySelector('[data-status-pill]');
+          if (!pill) return;
+
+          const status = resolveStatus(card.dataset.id || '', now);
+          pill.textContent = statusLabels[status];
+          pill.classList.remove(...statusClasses);
+          pill.classList.add(`is-${status}`);
+        });
+      };
+
+      const filterCards = () => {
+        const query = normalize(input.value);
+        let visibleCount = 0;
+
+        cards.forEach((card) => {
+          const haystack = card.dataset.search || '';
+          const matched = !query || haystack.includes(query);
+          card.classList.toggle('is-hidden', !matched);
+          if (matched) visibleCount += 1;
+        });
+
+        empty.classList.toggle('is-visible', visibleCount === 0);
+      };
+
+      applyStatuses();
+      input.addEventListener('input', filterCards);
+    })();
+  </script>
 </body>
 </html>

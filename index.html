@@ -71,28 +71,71 @@
     }
     .pill b{ color:var(--text); font-weight:700; }
 
-    /* 拼贴式网格：12列，自动“挤密”排布 */
+    .search-area{
+      max-width: 760px;
+      margin: 0 auto 20px;
+      padding: 0 6px;
+    }
+    .search-input{
+      width:100%;
+      height:52px;
+      border:1px solid rgba(0,0,0,.08);
+      border-radius: 999px;
+      padding: 0 22px;
+      background: rgba(255,255,255,.78);
+      box-shadow: 0 12px 34px rgba(0,0,0,.08);
+      color: var(--text);
+      font: inherit;
+      font-size: 16px;
+      outline: none;
+      backdrop-filter: blur(12px);
+    }
+    .search-input:focus{
+      border-color: rgba(0,113,227,.45);
+      box-shadow: 0 0 0 4px rgba(0,113,227,.12), 0 12px 34px rgba(0,0,0,.08);
+    }
+    .search-input::placeholder{
+      color: rgba(110,110,115,.78);
+    }
+
+    /* 统一尺寸的信息卡片墙 */
     .wrap{
       max-width: 1600px;
       margin: 0 auto;
     }
     .masonry{
       display:grid;
-      grid-template-columns: repeat(12, 1fr);
+      grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 22px;
-      grid-auto-flow: dense; /* 关键：像 Apple 那样尽量铺满 */
       padding: 10px 6px 0;
     }
+    .no-results{
+      display:none;
+      grid-column: 1 / -1;
+      min-height: 180px;
+      align-items:center;
+      justify-content:center;
+      color: var(--sub);
+      font-size: 18px;
+      font-weight: 700;
+      background: rgba(255,255,255,.72);
+      border:1px solid rgba(0,0,0,.06);
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow);
+    }
+    .no-results.is-visible{
+      display:flex;
+    }
 
-    /* 响应式：小屏退化为 1列或2列 */
+    /* 响应式：大屏3列，中屏2列，手机1列 */
     @media (max-width: 980px){
       .title h1{ font-size:36px; }
-      .masonry{ grid-template-columns: repeat(6, 1fr); }
+      .masonry{ grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 640px){
       .topbar{ align-items:flex-start; flex-direction:column; }
       .meta{ align-items:flex-start; text-align:left; }
-      .masonry{ grid-template-columns: repeat(1, 1fr); gap:16px; }
+      .masonry{ grid-template-columns: minmax(0, 1fr); gap:16px; }
     }
 
     /* 卡片：整张背景图铺满（cover） */
@@ -101,12 +144,16 @@
       border-radius: var(--card-radius);
       overflow:hidden;
       min-height: 360px;
+      height: 360px;
       box-shadow: var(--shadow);
       transform: translateY(18px);
       opacity: 0;
       animation: enter .72s cubic-bezier(.2,.8,.2,1) forwards;
       animation-delay: var(--delay, 0ms);
-      background: #e9e9ec;
+      background: #eef1f6;
+    }
+    .tile.is-hidden{
+      display:none;
     }
 
     @keyframes enter{
@@ -123,11 +170,12 @@
     .tile-bg{
       position:absolute;
       inset:0;
-      background-size: cover;
+      background-image: var(--card-image);
+      background-size: contain;
       background-position: center;
       background-repeat:no-repeat;
       filter: saturate(1.05);
-      transform: scale(1.02);
+      transform: scale(.86);
     }
     .tile::after{
       content:"";
@@ -162,6 +210,35 @@
       align-items:flex-start;
     }
 
+    .status-pill{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width: 82px;
+      height: 34px;
+      padding: 0 14px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 900;
+      line-height:1;
+      text-align:center;
+      box-shadow: 0 8px 18px rgba(0,0,0,.16);
+      border: 1px solid rgba(255,255,255,.5);
+      white-space: nowrap;
+    }
+    .status-pill.is-active{
+      background:#A8F0B2;
+      color:#0B5D1E;
+    }
+    .status-pill.is-ended{
+      background:#FF9B9B;
+      color:#7A1010;
+    }
+    .status-pill.is-upcoming{
+      background:#E5E7EB;
+      color:#374151;
+    }
+
     .btn{
       display:inline-flex;
       align-items:center;
@@ -179,6 +256,12 @@
     }
     .btn:hover{
       background: rgba(255,255,255,.92);
+    }
+    .tile-actions{
+      display:flex;
+      flex-direction:column;
+      align-items:flex-end;
+      gap:12px;
     }
 
     .tags{
@@ -213,30 +296,6 @@
       max-width: 92%;
     }
 
-    .tile-bottom{
-      display:flex;
-      justify-content:space-between;
-      align-items:flex-end;
-      gap:12px;
-      margin-top: 18px;
-    }
-    .more{
-      text-decoration:none;
-      color:#fff;
-      font-weight: 900;
-      letter-spacing:-.01em;
-      display:inline-flex;
-      align-items:center;
-      gap:8px;
-      padding: 10px 2px;
-    }
-    .more span{
-      opacity:.95;
-    }
-    .more:hover span{
-      text-decoration: underline;
-    }
-
     .ref{
       font-size: 12px;
       opacity: .65;
@@ -244,26 +303,9 @@
       letter-spacing: .06em;
     }
 
-    /* —— 拼贴尺寸：三张一排(4列)，两张一排(6列)，一张一排(12列) —— */
-    .span-4{ grid-column: span 4; }
-    .span-6{ grid-column: span 6; }
-    .span-12{ grid-column: span 12; }
-
-    /* 视觉上更像 Apple：有的更高一点 */
-    .h-sm{ min-height: 330px; }
-    .h-md{ min-height: 380px; }
-    .h-lg{ min-height: 460px; }
-
-    @media (max-width: 980px){
-      .span-4{ grid-column: span 6; }   /* 平板：两张一排 */
-      .span-6{ grid-column: span 6; }
-      .span-12{ grid-column: span 6; }
-      .h-lg{ min-height: 360px; }
-    }
     @media (max-width: 640px){
-      .span-4,.span-6,.span-12{ grid-column: span 1; } /* 手机：一列 */
       .tile-title{ font-size:22px; }
-      .tile{ min-height: 320px; }
+      .tile{ min-height: 320px; height: 320px; }
     }
 
     /* 没有图时的默认底图（也像 Apple 的灰色占位） */
@@ -285,7 +327,7 @@
     <div class="meta">
       <div class="pill">
         <span>最后更新：</span>
-        <b>2026-06-17 06:05:24</b>
+        <b>2026-06-17 08:59:28</b>
       </div>
       <div>
         托管于 <a href="https://pages.cloudflare.com/" target="_blank" rel="noopener" style="color:var(--blue); text-decoration:none; font-weight:800;">Cloudflare Pages</a>
@@ -293,30 +335,36 @@
     </div>
   </div>
 
+  <div class="search-area">
+    <input id="contestSearch" class="search-input" type="search" placeholder="搜索竞赛名称、标签、关键词..." autocomplete="off" />
+  </div>
+
   <div class="wrap">
     <div class="masonry">
       
       
+      
+      
+      
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-12 h-lg" style="--delay: 0ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="cpipc_smart_city" data-key="中国研究生智慧城市技术与创意设计大赛" data-search="中国研究生智慧城市技术与创意设计大赛 cpipc_smart_city 研究生 智慧城市 中国研究生智慧城市技术与创意设计大赛 数据同步中" style="--delay: 0ms; --card-image: url('/static/images/0003 Venusaur Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://cpipc.acge.org.cn" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">中国研究生智慧城市技术与创意设计大赛</h2>
@@ -339,43 +387,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 60ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="cpipc_aircraft" data-key="中国研究生未来飞行器创新大赛" data-search="中国研究生未来飞行器创新大赛 cpipc_aircraft 研究生 航空航天 中国研究生未来飞行器创新大赛 数据同步中" style="--delay: 60ms; --card-image: url('/static/images/0006 Charizard Mega X.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://cpipc.acge.org.cn" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">中国研究生未来飞行器创新大赛</h2>
@@ -398,43 +436,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 120ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="cpipc_math_modeling" data-key="中国研究生数学建模竞赛" data-search="中国研究生数学建模竞赛 cpipc_math_modeling 研究生 数学建模 中国研究生数学建模竞赛 数据同步中" style="--delay: 120ms; --card-image: url('/static/images/0006 Charizard Mega Y.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://cpipc.acge.org.cn" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">中国研究生数学建模竞赛</h2>
@@ -457,43 +485,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 180ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="cpipc_electronics" data-key="中国研究生电子设计竞赛" data-search="中国研究生电子设计竞赛 cpipc_electronics 研究生 电子设计 中国研究生电子设计竞赛 数据同步中" style="--delay: 180ms; --card-image: url('/static/images/0009 Blastoise Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://cpipc.acge.org.cn" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">中国研究生电子设计竞赛</h2>
@@ -516,43 +534,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 240ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="cpipc_chips" data-key="中国研究生创“芯”大赛" data-search="中国研究生创“芯”大赛 cpipc_chips 研究生 集成电路 中国研究生创“芯”大赛 数据同步中" style="--delay: 240ms; --card-image: url('/static/images/0015 Beedrill Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://cpipc.acge.org.cn" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">中国研究生创“芯”大赛</h2>
@@ -575,43 +583,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 300ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="cpipc_ai" data-key="中国研究生人工智能创新大赛" data-search="中国研究生人工智能创新大赛 cpipc_ai 研究生 ai 中国研究生人工智能创新大赛 数据同步中" style="--delay: 300ms; --card-image: url('/static/images/0018 Pidgeot Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://cpipc.acge.org.cn" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">中国研究生人工智能创新大赛</h2>
@@ -634,43 +632,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-6 h-md" style="--delay: 360ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="cpipc_robot" data-key="中国研究生机器人创新设计大赛" data-search="中国研究生机器人创新设计大赛 cpipc_robot 研究生 机器人 中国研究生机器人创新设计大赛 数据同步中" style="--delay: 360ms; --card-image: url('/static/images/0025 Pikachu BDSP.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://cpipc.acge.org.cn" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">中国研究生机器人创新设计大赛</h2>
@@ -693,43 +681,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 420ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="cpipc_energy" data-key="中国研究生能源装备创新设计大赛" data-search="中国研究生能源装备创新设计大赛 cpipc_energy 研究生 能源装备 中国研究生能源装备创新设计大赛 数据同步中" style="--delay: 420ms; --card-image: url('/static/images/0065 Alakazam Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://cpipc.acge.org.cn" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">中国研究生能源装备创新设计大赛</h2>
@@ -752,43 +730,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 480ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="cpipc_public_admin" data-key="中国研究生公共管理案例大赛" data-search="中国研究生公共管理案例大赛 cpipc_public_admin 研究生 公共管理 中国研究生公共管理案例大赛 数据同步中" style="--delay: 480ms; --card-image: url('/static/images/0080 Slowbro Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://cpipc.acge.org.cn" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">中国研究生公共管理案例大赛</h2>
@@ -811,43 +779,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-12 h-lg" style="--delay: 540ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="cpipc_rural_revitalization" data-key="中国研究生乡村振兴科技强农+创新大赛" data-search="中国研究生乡村振兴科技强农+创新大赛 cpipc_rural_revitalization 研究生 乡村振兴 中国研究生乡村振兴科技强农+创新大赛 数据同步中" style="--delay: 540ms; --card-image: url('/static/images/0094 Gengar Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://cpipc.acge.org.cn" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">中国研究生乡村振兴科技强农+创新大赛</h2>
@@ -870,43 +828,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 600ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="cpipc_cyber_security" data-key="中国研究生网络安全创新大赛" data-search="中国研究生网络安全创新大赛 cpipc_cyber_security 研究生 网络安全 中国研究生网络安全创新大赛 数据同步中" style="--delay: 600ms; --card-image: url('/static/images/0113 Chansey BDSP.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://cpipc.acge.org.cn" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">中国研究生网络安全创新大赛</h2>
@@ -929,43 +877,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 660ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="cpipc_carbon_neutral" data-key="中国研究生“双碳”创新与创意大赛" data-search="中国研究生“双碳”创新与创意大赛 cpipc_carbon_neutral 研究生 双碳 中国研究生“双碳”创新与创意大赛 数据同步中" style="--delay: 660ms; --card-image: url('/static/images/0115 Kangaskhan Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://cpipc.acge.org.cn" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">中国研究生“双碳”创新与创意大赛</h2>
@@ -988,43 +926,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-6 h-md" style="--delay: 720ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="cpipc_fintech" data-key="中国研究生金融科技创新大赛" data-search="中国研究生金融科技创新大赛 cpipc_fintech 研究生 金融科技 中国研究生金融科技创新大赛 数据同步中" style="--delay: 720ms; --card-image: url('/static/images/0127 Pinsir Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://cpipc.acge.org.cn" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">中国研究生金融科技创新大赛</h2>
@@ -1047,43 +975,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 780ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="cpipc_beautiful_china" data-key="中国研究生“美丽中国”创新设计大赛" data-search="中国研究生“美丽中国”创新设计大赛 cpipc_beautiful_china 研究生 艺术设计 中国研究生“美丽中国”创新设计大赛 数据同步中" style="--delay: 780ms; --card-image: url('/static/images/0130 Gyarados Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://cpipc.acge.org.cn" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">中国研究生“美丽中国”创新设计大赛</h2>
@@ -1106,43 +1024,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 840ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="cpipc_enterprise_case" data-key="中国研究生工程管理案例大赛" data-search="中国研究生工程管理案例大赛 cpipc_enterprise_case 研究生 mba 中国研究生工程管理案例大赛 数据同步中" style="--delay: 840ms; --card-image: url('/static/images/0142 Aerodactyl Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://cpipc.acge.org.cn" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">中国研究生工程管理案例大赛</h2>
@@ -1165,43 +1073,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 900ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="cpipc_corporate_governance" data-key="中国研究生企业管理创新大赛" data-search="中国研究生企业管理创新大赛 cpipc_corporate_governance 研究生 企业管理 中国研究生企业管理创新大赛 数据同步中" style="--delay: 900ms; --card-image: url('/static/images/0150 Mewtwo Mega X.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://cpipc.acge.org.cn" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">中国研究生企业管理创新大赛</h2>
@@ -1224,53 +1122,43 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 960ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="china_innovation_contest" data-key="中国国际大学生创新大赛" data-search="中国国际大学生创新大赛 china_innovation_contest 综合 创新创业 中国国际大学生创新大赛 数据同步中" style="--delay: 960ms; --card-image: url('/static/images/0150 Mewtwo Mega Y.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://cy.ncss.cn/" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
-              <h2 class="tile-title">中国研究生操作系统开源创新大赛</h2>
+              <h2 class="tile-title">中国国际大学生创新大赛</h2>
 
               <div class="tags">
                 
                   
-                    <span class="tag">#研究生</span>
+                    <span class="tag">#综合</span>
                   
-                    <span class="tag">#开源/OS</span>
+                    <span class="tag">#创新创业</span>
                   
                 
               </div>
@@ -1283,43 +1171,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 1020ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="challenge_cup_startup" data-key="“挑战杯”中国大学生创业计划竞赛" data-search="“挑战杯”中国大学生创业计划竞赛 challenge_cup_startup 综合 创业 “挑战杯”中国大学生创业计划竞赛 数据同步中" style="--delay: 1020ms; --card-image: url('/static/images/0181 Ampharos Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="http://www.tiaozhanbei.net" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">“挑战杯”中国大学生创业计划竞赛</h2>
@@ -1342,43 +1220,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-12 h-lg" style="--delay: 1080ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="lanqiao_cup" data-key="蓝桥杯全国软件和信息技术专业人才大赛" data-search="蓝桥杯全国软件和信息技术专业人才大赛 lanqiao_cup 编程 算法 电子设计 蓝桥杯全国软件和信息技术专业人才大赛 数据同步中" style="--delay: 1080ms; --card-image: url('/static/images/0208 Steelix Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="http://dasai.lanqiao.cn" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">蓝桥杯全国软件和信息技术专业人才大赛</h2>
@@ -1403,43 +1271,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 1140ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="robomaster" data-key="全国大学生机器人大赛 (RoboMaster)" data-search="全国大学生机器人大赛 (robomaster) robomaster 机器人 竞技 全国大学生机器人大赛 (robomaster) 点击官网查看详情..." style="--delay: 1140ms; --card-image: url('/static/images/0212 Scizor Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://www.robomaster.com" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">全国大学生机器人大赛 (RoboMaster)</h2>
@@ -1469,36 +1327,28 @@
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 1200ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="xilinx_fpga" data-key="“西门子杯”中国智能制造挑战赛" data-search="“西门子杯”中国智能制造挑战赛 xilinx_fpga 智能制造 自动化 “西门子杯”中国智能制造挑战赛 数据同步中" style="--delay: 1200ms; --card-image: url('/static/images/0214 Heracross Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="http://www.siemenscup-cimc.org.cn" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">“西门子杯”中国智能制造挑战赛</h2>
@@ -1526,36 +1376,28 @@
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 1260ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="datang_ict" data-key="“大唐杯”全国大学生新一代信息通信技术大赛" data-search="“大唐杯”全国大学生新一代信息通信技术大赛 datang_ict 通信 5g “大唐杯”全国大学生新一代信息通信技术大赛 数据同步中" style="--delay: 1260ms; --card-image: url('/static/images/0229 Houndoom Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://dtcup.dtxiaotangren.com" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">“大唐杯”全国大学生新一代信息通信技术大赛</h2>
@@ -1578,43 +1420,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 1320ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="huawei_ict" data-key="华为 ICT 大赛" data-search="华为 ict 大赛 huawei_ict it/ip 华为 华为 ict 大赛 点击官网查看详情..." style="--delay: 1320ms; --card-image: url('/static/images/0248 Tyranitar Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://e.huawei.com/cn/talent/#/ict/contest" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">华为 ICT 大赛</h2>
@@ -1644,36 +1476,28 @@
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 1380ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="embedded_chip" data-key="全国大学生嵌入式芯片与系统设计竞赛" data-search="全国大学生嵌入式芯片与系统设计竞赛 embedded_chip 嵌入式 芯片 全国大学生嵌入式芯片与系统设计竞赛 数据同步中" style="--delay: 1380ms; --card-image: url('/static/images/0254 Sceptile Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://www.socchina.net" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">全国大学生嵌入式芯片与系统设计竞赛</h2>
@@ -1696,43 +1520,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-6 h-md" style="--delay: 1440ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="information_tech_app" data-key="全国大学生信息技术应用大赛" data-search="全国大学生信息技术应用大赛 information_tech_app 信息技术 全国大学生信息技术应用大赛 数据同步中" style="--delay: 1440ms; --card-image: url('/static/images/0257 Blaziken Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://www.saikr.com" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">全国大学生信息技术应用大赛</h2>
@@ -1758,36 +1572,28 @@
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 1500ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="mathorcup" data-key="MathorCup 高校数学建模挑战赛" data-search="mathorcup 高校数学建模挑战赛 mathorcup 数学建模 mathorcup 高校数学建模挑战赛 数据同步中" style="--delay: 1500ms; --card-image: url('/static/images/0260 Swampert Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="http://www.mathorcup.org" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">MathorCup 高校数学建模挑战赛</h2>
@@ -1808,46 +1614,36 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 1560ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="baimu_cup" data-key="“华数杯”全国大学生数学建模挑战赛" data-search="“华数杯”全国大学生数学建模挑战赛 baimu_cup 数学建模 “华数杯”全国大学生数学建模挑战赛 数据同步中" style="--delay: 1560ms; --card-image: url('/static/images/0282 Gardevoir Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://new.saikr.com/vse/chinamcm26" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
-              <h2 class="tile-title">“毕昇杯”全国大学生数学建模挑战赛</h2>
+              <h2 class="tile-title">“华数杯”全国大学生数学建模挑战赛</h2>
 
               <div class="tags">
                 
@@ -1870,36 +1666,28 @@
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-12 h-lg" style="--delay: 1620ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="icpc" data-key="ACM-ICPC 国际大学生程序设计竞赛" data-search="acm-icpc 国际大学生程序设计竞赛 icpc 算法 顶级 icpc world finals 2025-09-20 开赛" style="--delay: 1620ms; --card-image: url('/static/images/0302 Sableye Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://icpc.global" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">ACM-ICPC 国际大学生程序设计竞赛</h2>
@@ -1929,36 +1717,30 @@
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 1680ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="cumcm" data-key="全国大学生数学建模竞赛" data-search="全国大学生数学建模竞赛 cumcm 数学建模 国赛 全国大学生数学建模竞赛 数据同步中" style="--delay: 1680ms; --card-image: url('/static/images/0303 Mawile Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://dxs.moe.gov.cn/zx/hd/sxjm/" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                    <a class="btn" href="https://dxs.moe.gov.cn/zx/hd/sxjm/sxjmstjp/" target="_blank" rel="noopener noreferrer">赛题讲评</a>
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">全国大学生数学建模竞赛</h2>
@@ -1986,36 +1768,28 @@
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 1740ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="nuedc" data-key="全国大学生电子设计竞赛" data-search="全国大学生电子设计竞赛 nuedc 电子设计 国赛 全国大学生电子设计竞赛 数据同步中" style="--delay: 1740ms; --card-image: url('/static/images/0306 Aggron Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://www.nuedc-training.com.cn/" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">全国大学生电子设计竞赛</h2>
@@ -2043,36 +1817,28 @@
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-6 h-md" style="--delay: 1800ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="intelligent_car" data-key="全国大学生智能汽车竞赛" data-search="全国大学生智能汽车竞赛 intelligent_car 智能车 自动化 全国大学生智能汽车竞赛 数据同步中" style="--delay: 1800ms; --card-image: url('/static/images/0308 Medicham Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://www.caa.org.cn/Content/260.html" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">全国大学生智能汽车竞赛</h2>
@@ -2100,36 +1866,28 @@
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 1860ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="engineering_practice" data-key="中国大学生工程实践与创新能力大赛" data-search="中国大学生工程实践与创新能力大赛 engineering_practice 工程实践 中国大学生工程实践与创新能力大赛 数据同步中" style="--delay: 1860ms; --card-image: url('/static/images/0310 Manectric Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="http://www.gcxl.edu.cn/" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">中国大学生工程实践与创新能力大赛</h2>
@@ -2150,43 +1908,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 1920ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="computer_design" data-key="中国大学生计算机设计大赛" data-search="中国大学生计算机设计大赛 computer_design 计算机 软件 中国大学生计算机设计大赛 数据同步中" style="--delay: 1920ms; --card-image: url('/static/images/0319 Sharpedo Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://jsjds.blcu.edu.cn/" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">中国大学生计算机设计大赛</h2>
@@ -2209,43 +1957,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 1980ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="software_cup" data-key="中国高校计算机大赛" data-search="中国高校计算机大赛 software_cup 软件 算法 中国高校计算机大赛 数据同步中" style="--delay: 1980ms; --card-image: url('/static/images/0323 Camerupt Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="http://www.c4best.cn/" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">中国高校计算机大赛</h2>
@@ -2273,36 +2011,28 @@
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 2040ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="photo_design" data-key="全国大学生光电设计竞赛" data-search="全国大学生光电设计竞赛 photo_design 光电 全国大学生光电设计竞赛 数据同步中" style="--delay: 2040ms; --card-image: url('/static/images/0334 Altaria Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://gd.moocollege.com/" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">全国大学生光电设计竞赛</h2>
@@ -2323,43 +2053,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 2100ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="integrated_circuit" data-key="全国大学生集成电路创新创业大赛" data-search="全国大学生集成电路创新创业大赛 integrated_circuit 芯片 集成电路 全国大学生集成电路创新创业大赛 点击官网查看详情..." style="--delay: 2100ms; --card-image: url('/static/images/0354 Banette Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://univ.ciciec.com/" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">全国大学生集成电路创新创业大赛</h2>
@@ -2389,36 +2109,28 @@
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-12 h-lg" style="--delay: 2160ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="info_security" data-key="全国大学生信息安全竞赛" data-search="全国大学生信息安全竞赛 info_security 网络安全 全国大学生信息安全竞赛 数据同步中" style="--delay: 2160ms; --card-image: url('/static/images/0359 Absol Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="http://www.ciscn.cn/" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">全国大学生信息安全竞赛</h2>
@@ -2439,43 +2151,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 2220ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="software_design" data-key="“中国软件杯”大学生软件设计大赛" data-search="“中国软件杯”大学生软件设计大赛 software_design 软件设计 “中国软件杯”大学生软件设计大赛 数据同步中" style="--delay: 2220ms; --card-image: url('/static/images/0362 Glalie Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://www.cnsoftbei.com/" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">“中国软件杯”大学生软件设计大赛</h2>
@@ -2496,43 +2198,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 2280ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="sino_us_maker" data-key="中美青年创客大赛" data-search="中美青年创客大赛 sino_us_maker 创客 综合 中美青年创客大赛 数据同步中" style="--delay: 2280ms; --card-image: url('/static/images/0373 Salamence Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://chinaus-maker.cscse.edu.cn/" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">中美青年创客大赛</h2>
@@ -2560,36 +2252,28 @@
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 2340ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="raicom" data-key="睿抗机器人开发者大赛 (RAICOM)" data-search="睿抗机器人开发者大赛 (raicom) raicom 机器人 睿抗机器人开发者大赛 (raicom) 数据同步中" style="--delay: 2340ms; --card-image: url('/static/images/0376 Metagross Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://www.robocom.com.cn/" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">睿抗机器人开发者大赛 (RAICOM)</h2>
@@ -2610,43 +2294,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 2400ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="xuechuang_cup" data-key="“学创杯”全国大学生创业综合模拟大赛" data-search="“学创杯”全国大学生创业综合模拟大赛 xuechuang_cup 管理 创业 “学创杯”全国大学生创业综合模拟大赛 数据同步中" style="--delay: 2400ms; --card-image: url('/static/images/0380 Latias Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="http://www.xcbds.com/" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">“学创杯”全国大学生创业综合模拟大赛</h2>
@@ -2674,36 +2348,28 @@
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 2460ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="intelligent_robot" data-key="中国高校智能机器人创意大赛" data-search="中国高校智能机器人创意大赛 intelligent_robot 机器人 中国高校智能机器人创意大赛 数据同步中" style="--delay: 2460ms; --card-image: url('/static/images/0381 Latios Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://www.robotcontest.cn/" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">中国高校智能机器人创意大赛</h2>
@@ -2724,43 +2390,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-6 h-md" style="--delay: 2520ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="robot_ai" data-key="中国机器人及人工智能大赛" data-search="中国机器人及人工智能大赛 robot_ai ai 机器人 中国机器人及人工智能大赛 点击官网查看详情..." style="--delay: 2520ms; --card-image: url('/static/images/0384 Rayquaza Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://www.caairobot.com/" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">中国机器人及人工智能大赛</h2>
@@ -2790,36 +2446,28 @@
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 2580ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="energy_saving" data-key="全国大学生节能减排社会实践与科技竞赛" data-search="全国大学生节能减排社会实践与科技竞赛 energy_saving 节能减排 环境 全国大学生节能减排社会实践与科技竞赛 点击官网查看详情..." style="--delay: 2580ms; --card-image: url('/static/images/0428 Lopunny Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://www.jienengjianpai.org" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">全国大学生节能减排社会实践与科技竞赛</h2>
@@ -2849,36 +2497,28 @@
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 2640ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="computer_system" data-key="全国大学生计算机系统能力大赛" data-search="全国大学生计算机系统能力大赛 computer_system 计算机底层 全国大学生计算机系统能力大赛 数据同步中" style="--delay: 2640ms; --card-image: url('/static/images/0445 Garchomp Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://compiler.educg.net" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">全国大学生计算机系统能力大赛</h2>
@@ -2899,43 +2539,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-12 h-lg" style="--delay: 2700ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="iot_design" data-key="全国大学生物联网设计竞赛" data-search="全国大学生物联网设计竞赛 iot_design 物联网 全国大学生物联网设计竞赛 数据同步中" style="--delay: 2700ms; --card-image: url('/static/images/0448 Lucario Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://iot.sjtu.edu.cn/" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">全国大学生物联网设计竞赛</h2>
@@ -2956,43 +2586,33 @@
                     
                   
                     
-                      
-                    
                   
                 
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 2760ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="info_security_ctf" data-key="全国大学生信息安全与对抗技术竞赛" data-search="全国大学生信息安全与对抗技术竞赛 info_security_ctf 安全 ctf 全国大学生信息安全与对抗技术竞赛 数据同步中" style="--delay: 2760ms; --card-image: url('/static/images/0460 Abomasnow Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="http://www.isclab.org.cn" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">全国大学生信息安全与对抗技术竞赛</h2>
@@ -3020,36 +2640,28 @@
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 2820ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="statistics_modeling" data-key="全国大学生统计建模大赛" data-search="全国大学生统计建模大赛 statistics_modeling 统计 数据 全国大学生统计建模大赛 数据同步中" style="--delay: 2820ms; --card-image: url('/static/images/0475 Gallade Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="http://tjjmds.ai-learning.net" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">全国大学生统计建模大赛</h2>
@@ -3077,36 +2689,28 @@
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-6 h-md" style="--delay: 2880ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="campus_ai" data-key="全球校园人工智能算法精英大赛" data-search="全球校园人工智能算法精英大赛 campus_ai ai 算法 全球校园人工智能算法精英大赛 数据同步中" style="--delay: 2880ms; --card-image: url('/static/images/0531 Audino Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://www.saikr.com" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">全球校园人工智能算法精英大赛</h2>
@@ -3134,36 +2738,28 @@
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
         
-
         
-        
-          
-          
-        
-
         
         
         
 
-        <article class="tile span-4 h-sm" style="--delay: 2940ms;">
-          <div class="tile-bg " style="background-image:url('/static/images/.png');"></div>
+        <article class="tile" data-id="smart_agriculture" data-key="国际大学生智能农业装备创新大赛" data-search="国际大学生智能农业装备创新大赛 smart_agriculture 智慧农业 国际大学生智能农业装备创新大赛 数据同步中" style="--delay: 2940ms; --card-image: url('/static/images/0719 Diancie Mega.png');">
+          <div class="tile-bg"></div>
 
           <div class="tile-content">
             <div>
               <div class="tile-top">
-                <div class="ref">REF: </div>
+                <div class="status-pill is-upcoming" data-status-pill>未开始</div>
+                <div class="tile-actions">
                 
+                  <a class="btn" href="https://uiaec.ujs.edu.cn/" target="_blank" rel="noopener noreferrer">查看官网</a>
+                
+                  
+                </div>
               </div>
 
               <h2 class="tile-title">国际大学生智能农业装备创新大赛</h2>
@@ -3189,17 +2785,102 @@
                 点击官网查看最新信息…
               </p>
             </div>
-
-            <div class="tile-bottom">
-              <a class="more" href="/details/">
-                <span>查看详情</span> →
-              </a>
-              <div></div>
-            </div>
           </div>
         </article>
       
+      <div id="noResults" class="no-results">未找到匹配的竞赛</div>
     </div>
   </div>
+  <script>
+    (() => {
+      const input = document.getElementById('contestSearch');
+      const cards = Array.from(document.querySelectorAll('.tile'));
+      const empty = document.getElementById('noResults');
+      const activeUntilMap = {
+        cpipc_math_modeling: '2026-08-16',
+        cpipc_electronics: '2026-08-16',
+        cpipc_chips: '2026-08-16',
+        cpipc_rural_revitalization: '2026-08-16',
+        cpipc_fintech: '2026-08-16',
+        cpipc_aircraft: '2026-08-16',
+        cpipc_ai: '2026-08-16',
+        cpipc_cyber_security: '2026-08-16',
+        challenge_cup_startup: '2026-08-16',
+        software_design: '2026-08-16',
+        iot_design: '2026-08-16',
+        xuechuang_cup: '2026-08-16',
+        statistics_modeling: '2026-08-16',
+        software_cup: '2026-08-16',
+        photo_design: '2026-08-16',
+        embedded_chip: '2026-08-16'
+      };
+      const endedUntilMap = {
+        cpipc_public_admin: '2026-08-16',
+        icpc: '2026-08-16',
+        info_security_ctf: '2026-08-16'
+      };
+      const statusLabels = {
+        active: '正在进行',
+        ended: '已结束',
+        upcoming: '未开始'
+      };
+      const statusClasses = ['is-active', 'is-ended', 'is-upcoming'];
+
+      const normalize = (value) => value.toLowerCase().trim();
+      const parseDate = (value) => {
+        const [year, month, day] = value.split('-').map(Number);
+        return new Date(year, month - 1, day, 23, 59, 59, 999);
+      };
+      const addMonths = (date, months) => {
+        const next = new Date(date);
+        next.setMonth(next.getMonth() + months);
+        return next;
+      };
+      const resolveStatus = (id, now) => {
+        if (activeUntilMap[id]) {
+          const activeUntil = parseDate(activeUntilMap[id]);
+          if (now <= activeUntil) return 'active';
+          if (now <= addMonths(activeUntil, 2)) return 'ended';
+          return 'upcoming';
+        }
+
+        if (endedUntilMap[id]) {
+          const endedUntil = parseDate(endedUntilMap[id]);
+          return now <= endedUntil ? 'ended' : 'upcoming';
+        }
+
+        return 'upcoming';
+      };
+      const applyStatuses = () => {
+        const now = new Date();
+        cards.forEach((card) => {
+          const pill = card.querySelector('[data-status-pill]');
+          if (!pill) return;
+
+          const status = resolveStatus(card.dataset.id || '', now);
+          pill.textContent = statusLabels[status];
+          pill.classList.remove(...statusClasses);
+          pill.classList.add(`is-${status}`);
+        });
+      };
+
+      const filterCards = () => {
+        const query = normalize(input.value);
+        let visibleCount = 0;
+
+        cards.forEach((card) => {
+          const haystack = card.dataset.search || '';
+          const matched = !query || haystack.includes(query);
+          card.classList.toggle('is-hidden', !matched);
+          if (matched) visibleCount += 1;
+        });
+
+        empty.classList.toggle('is-visible', visibleCount === 0);
+      };
+
+      applyStatuses();
+      input.addEventListener('input', filterCards);
+    })();
+  </script>
 </body>
 </html>
