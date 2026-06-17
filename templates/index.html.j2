@@ -72,11 +72,16 @@
     .pill b{ color:var(--text); font-weight:700; }
 
     .search-area{
-      max-width: 760px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      max-width: 980px;
       margin: 0 auto 20px;
       padding: 0 6px;
     }
     .search-input{
+      flex:1 1 auto;
+      min-width:0;
       width:100%;
       height:52px;
       border:1px solid rgba(0,0,0,.08);
@@ -96,6 +101,44 @@
     }
     .search-input::placeholder{
       color: rgba(110,110,115,.78);
+    }
+    .filter-actions{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      flex:0 0 auto;
+    }
+    .filter-btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      height:52px;
+      min-width:94px;
+      padding:0 18px;
+      border:1px solid rgba(0,0,0,.08);
+      border-radius:999px;
+      background:rgba(255,255,255,.78);
+      color:var(--sub);
+      box-shadow:0 12px 34px rgba(0,0,0,.08);
+      cursor:pointer;
+      font:inherit;
+      font-size:15px;
+      font-weight:800;
+      white-space:nowrap;
+      backdrop-filter:blur(12px);
+    }
+    .filter-btn:hover{
+      background:rgba(255,255,255,.92);
+    }
+    .filter-btn.is-active-filter{
+      background:#A8F0B2;
+      color:#0B5D1E;
+      border-color:rgba(11,93,30,.18);
+    }
+    .filter-btn.is-favorite-filter{
+      background:#FFD966;
+      color:#6B4F00;
+      border-color:rgba(107,79,0,.18);
     }
 
     /* 统一尺寸的信息卡片墙 */
@@ -135,6 +178,9 @@
     @media (max-width: 640px){
       .topbar{ align-items:flex-start; flex-direction:column; }
       .meta{ align-items:flex-start; text-align:left; }
+      .search-area{ align-items:stretch; flex-direction:column; }
+      .filter-actions{ width:100%; }
+      .filter-btn{ flex:1 1 0; min-width:0; }
       .masonry{ grid-template-columns: minmax(0, 1fr); gap:16px; }
     }
 
@@ -263,6 +309,36 @@
       align-items:flex-end;
       gap:12px;
     }
+    .favorite-btn{
+      position:absolute;
+      right:22px;
+      bottom:18px;
+      z-index:3;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-width:94px;
+      height:38px;
+      padding:0 14px;
+      border-radius:999px;
+      border:1px solid rgba(255,255,255,.35);
+      background:rgba(255,255,255,.78);
+      color:#0b1b2b;
+      backdrop-filter:blur(10px);
+      cursor:pointer;
+      font:inherit;
+      font-size:13px;
+      font-weight:800;
+      white-space:nowrap;
+    }
+    .favorite-btn:hover{
+      background:rgba(255,255,255,.92);
+    }
+    .favorite-btn.is-favorite{
+      background:#FFD966;
+      color:#6B4F00;
+      border-color:rgba(255,255,255,.45);
+    }
 
     .tags{
       display:flex;
@@ -337,6 +413,11 @@
 
   <div class="search-area">
     <input id="contestSearch" class="search-input" type="search" placeholder="搜索竞赛名称、标签、关键词..." autocomplete="off" />
+  </div>
+
+  <div id="filterActions" class="filter-actions">
+    <button id="activeFilterBtn" class="filter-btn" type="button" aria-pressed="false">&#36827;&#34892;&#20013;</button>
+    <button id="favoriteFilterBtn" class="filter-btn" type="button" aria-pressed="false">&#25910;&#34255;</button>
   </div>
 
   <div class="wrap">
@@ -553,6 +634,7 @@
                 {{ latest if latest else '点击官网查看最新信息…' }}
               </p>
             </div>
+            <button class="favorite-btn" type="button" data-favorite-btn aria-pressed="false">&#9734; &#25910;&#34255;</button>
           </div>
         </article>
       {% endfor %}
@@ -562,8 +644,16 @@
   <script>
     (() => {
       const input = document.getElementById('contestSearch');
+      const searchArea = document.querySelector('.search-area');
+      const filterActions = document.getElementById('filterActions');
+      const activeFilterBtn = document.getElementById('activeFilterBtn');
+      const favoriteFilterBtn = document.getElementById('favoriteFilterBtn');
       const cards = Array.from(document.querySelectorAll('.tile'));
       const empty = document.getElementById('noResults');
+      const favoriteStorageKey = 'favorite_contests';
+      let showActiveOnly = false;
+      let showFavoritesOnly = false;
+      let favoriteIds = [];
       const activeUntilMap = {
         cpipc_math_modeling: '2026-08-16',
         cpipc_electronics: '2026-08-16',
@@ -595,6 +685,18 @@
       const statusClasses = ['is-active', 'is-ended', 'is-upcoming'];
 
       const normalize = (value) => value.toLowerCase().trim();
+      const readFavorites = () => {
+        try {
+          const parsed = JSON.parse(localStorage.getItem(favoriteStorageKey) || '[]');
+          return Array.isArray(parsed) ? parsed.filter((id) => typeof id === 'string') : [];
+        } catch (error) {
+          return [];
+        }
+      };
+      const writeFavorites = () => {
+        localStorage.setItem(favoriteStorageKey, JSON.stringify(favoriteIds));
+      };
+      const isFavorite = (id) => favoriteIds.includes(id);
       const parseDate = (value) => {
         const [year, month, day] = value.split('-').map(Number);
         return new Date(year, month - 1, day, 23, 59, 59, 999);
@@ -626,10 +728,32 @@
           if (!pill) return;
 
           const status = resolveStatus(card.dataset.id || '', now);
+          card.dataset.status = status;
           pill.textContent = statusLabels[status];
           pill.classList.remove(...statusClasses);
           pill.classList.add(`is-${status}`);
         });
+      };
+      const updateFavoriteButton = (card) => {
+        const button = card.querySelector('[data-favorite-btn]');
+        if (!button) return;
+
+        const favorited = isFavorite(card.dataset.id || '');
+        button.textContent = favorited ? '\u2605 \u5df2\u6536\u85cf' : '\u2606 \u6536\u85cf';
+        button.classList.toggle('is-favorite', favorited);
+        button.setAttribute('aria-pressed', String(favorited));
+      };
+      const applyFavorites = () => {
+        cards.forEach(updateFavoriteButton);
+      };
+      const syncFilterButtons = () => {
+        activeFilterBtn.classList.toggle('is-active-filter', showActiveOnly);
+        activeFilterBtn.textContent = showActiveOnly ? '\u2713 \u8fdb\u884c\u4e2d' : '\u8fdb\u884c\u4e2d';
+        activeFilterBtn.setAttribute('aria-pressed', String(showActiveOnly));
+
+        favoriteFilterBtn.classList.toggle('is-favorite-filter', showFavoritesOnly);
+        favoriteFilterBtn.textContent = showFavoritesOnly ? '\u2605 \u6536\u85cf' : '\u6536\u85cf';
+        favoriteFilterBtn.setAttribute('aria-pressed', String(showFavoritesOnly));
       };
 
       const filterCards = () => {
@@ -638,7 +762,11 @@
 
         cards.forEach((card) => {
           const haystack = card.dataset.search || '';
-          const matched = !query || haystack.includes(query);
+          const id = card.dataset.id || '';
+          const matchedSearch = !query || haystack.includes(query);
+          const matchedActive = !showActiveOnly || card.dataset.status === 'active';
+          const matchedFavorite = !showFavoritesOnly || isFavorite(id);
+          const matched = matchedSearch && matchedActive && matchedFavorite;
           card.classList.toggle('is-hidden', !matched);
           if (matched) visibleCount += 1;
         });
@@ -646,8 +774,43 @@
         empty.classList.toggle('is-visible', visibleCount === 0);
       };
 
+      if (searchArea && filterActions) {
+        searchArea.appendChild(filterActions);
+      }
+
+      favoriteIds = readFavorites();
       applyStatuses();
+      applyFavorites();
+      syncFilterButtons();
+      filterCards();
+
       input.addEventListener('input', filterCards);
+      activeFilterBtn.addEventListener('click', () => {
+        showActiveOnly = !showActiveOnly;
+        syncFilterButtons();
+        filterCards();
+      });
+      favoriteFilterBtn.addEventListener('click', () => {
+        showFavoritesOnly = !showFavoritesOnly;
+        syncFilterButtons();
+        filterCards();
+      });
+      cards.forEach((card) => {
+        const button = card.querySelector('[data-favorite-btn]');
+        if (!button) return;
+
+        button.addEventListener('click', () => {
+          const id = card.dataset.id || '';
+          if (!id) return;
+
+          favoriteIds = isFavorite(id)
+            ? favoriteIds.filter((favoriteId) => favoriteId !== id)
+            : [...favoriteIds, id];
+          writeFavorites();
+          updateFavoriteButton(card);
+          filterCards();
+        });
+      });
     })();
   </script>
 </body>
