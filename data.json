@@ -54,8 +54,8 @@
       "数学建模"
     ],
     "status": {
-      "text": "查看官网",
-      "color": "blue"
+      "text": "待更新",
+      "color": "yellow"
     },
     "info_grid": [
       {
@@ -63,8 +63,8 @@
         "value": "中国研究生数学建模竞赛"
       },
       {
-        "label": "最新动态",
-        "value": "点击官网查看详情..."
+        "label": "状态",
+        "value": "数据同步中"
       }
     ]
   },
@@ -100,8 +100,8 @@
       "集成电路"
     ],
     "status": {
-      "text": "查看官网",
-      "color": "blue"
+      "text": "待更新",
+      "color": "yellow"
     },
     "info_grid": [
       {
@@ -109,8 +109,8 @@
         "value": "中国研究生创“芯”大赛"
       },
       {
-        "label": "最新动态",
-        "value": "点击官网查看详情..."
+        "label": "状态",
+        "value": "数据同步中"
       }
     ]
   },
@@ -123,8 +123,8 @@
       "AI"
     ],
     "status": {
-      "text": "查看官网",
-      "color": "blue"
+      "text": "待更新",
+      "color": "yellow"
     },
     "info_grid": [
       {
@@ -132,8 +132,8 @@
         "value": "中国研究生人工智能创新大赛"
       },
       {
-        "label": "最新动态",
-        "value": "点击官网查看详情..."
+        "label": "状态",
+        "value": "数据同步中"
       }
     ]
   },
@@ -146,8 +146,8 @@
       "机器人"
     ],
     "status": {
-      "text": "查看官网",
-      "color": "blue"
+      "text": "待更新",
+      "color": "yellow"
     },
     "info_grid": [
       {
@@ -155,8 +155,8 @@
         "value": "中国研究生机器人创新设计大赛"
       },
       {
-        "label": "最新动态",
-        "value": "点击官网查看详情..."
+        "label": "状态",
+        "value": "数据同步中"
       }
     ]
   },
@@ -192,8 +192,8 @@
       "公共管理"
     ],
     "status": {
-      "text": "查看官网",
-      "color": "blue"
+      "text": "待更新",
+      "color": "yellow"
     },
     "info_grid": [
       {
@@ -201,8 +201,8 @@
         "value": "中国研究生公共管理案例大赛"
       },
       {
-        "label": "最新动态",
-        "value": "点击官网查看详情..."
+        "label": "状态",
+        "value": "数据同步中"
       }
     ]
   },
@@ -307,8 +307,8 @@
       "艺术设计"
     ],
     "status": {
-      "text": "查看官网",
-      "color": "blue"
+      "text": "待更新",
+      "color": "yellow"
     },
     "info_grid": [
       {
@@ -316,8 +316,8 @@
         "value": "中国研究生“美丽中国”创新设计大赛"
       },
       {
-        "label": "最新动态",
-        "value": "点击官网查看详情..."
+        "label": "状态",
+        "value": "数据同步中"
       }
     ]
   },
